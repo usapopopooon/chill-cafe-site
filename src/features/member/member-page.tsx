@@ -401,7 +401,7 @@ function LevelCard({
       </div>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
         <div
-          className={`h-full ${highlight ? "level-bot-total-progress bg-amber-400" : "bg-white/50"}`}
+          className={`level-bot-progress h-full ${highlight ? "bg-amber-400" : "bg-white/50"}`}
           style={{ width: `${ratio * 100}%` }}
         />
       </div>

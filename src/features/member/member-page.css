@@ -24,7 +24,7 @@
   border-color: rgb(251 191 36 / 40%);
 }
 
-.level-bot-page .level-bot-total-progress {
+.level-bot-page .level-bot-progress {
   transform-origin: left center;
   animation: level-bot-progress-grow 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -61,7 +61,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .level-bot-page .level-bot-total-progress {
+  .level-bot-page .level-bot-progress {
     animation: none;
   }
 
