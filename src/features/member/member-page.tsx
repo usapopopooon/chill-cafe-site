@@ -83,6 +83,8 @@ function ProfileContent({
   isLevelsLoading: boolean
   days: number
 }) {
+  const topVoiceChannels = getTopVoiceChannels(profile)
+
   return (
     <div>
       <a href="/" className="text-sm text-white/50 hover:text-white/80">
@@ -99,12 +101,30 @@ function ProfileContent({
           <UserDailyChart points={profile.daily} />
         </section>
 
-        <section>
-          <TopChannelsList entries={profile.top_channels} title="主な発言チャンネル" />
+        <section className="space-y-4">
+          <TopChannelsList
+            entries={topVoiceChannels}
+            title="主なボイスチャンネル"
+            valueLabel="利用時間"
+            valueFormatter={(entry) => formatSeconds(entry.voice_seconds)}
+          />
+          <TopChannelsList
+            entries={profile.top_channels}
+            title="主な発言チャンネル"
+            valueLabel="メッセージ数"
+            valueFormatter={(entry) => formatNumber(entry.message_count)}
+          />
         </section>
       </div>
     </div>
   )
+}
+
+function getTopVoiceChannels(profile: UserProfile) {
+  return [...(profile.top_voice_channels ?? profile.top_channels)]
+    .filter((entry) => entry.voice_seconds > 0)
+    .sort((left, right) => right.voice_seconds - left.voice_seconds)
+    .slice(0, 5)
 }
 
 function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }) {
@@ -147,7 +167,8 @@ function LoadingProfile({ days, userId }: { days: number; userId: string }) {
           <Skeleton className="mb-2 h-6 w-40 rounded-md" />
           <ChartSkeleton />
         </section>
-        <section>
+        <section className="space-y-4">
+          <TopChannelsSkeleton />
           <TopChannelsSkeleton />
         </section>
       </div>
@@ -425,12 +446,22 @@ function UserDailyChart({ points }: { points: DailyPoint[] }) {
   )
 }
 
-function TopChannelsList({ entries, title }: { entries: TopChannel[]; title: string }) {
+function TopChannelsList({
+  entries,
+  title,
+  valueLabel,
+  valueFormatter
+}: {
+  entries: TopChannel[]
+  title: string
+  valueLabel: string
+  valueFormatter: (entry: TopChannel) => string
+}) {
   return (
     <div className="rounded-xl border bg-white/5 p-4">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-lg font-semibold">{title}</h2>
-        <span className="text-xs text-white/40">メッセージ数</span>
+        <span className="text-xs text-white/40">{valueLabel}</span>
       </div>
       {entries.length === 0 ? (
         <p className="text-sm text-white/50">データがありません。</p>
@@ -440,9 +471,7 @@ function TopChannelsList({ entries, title }: { entries: TopChannel[]; title: str
             <li key={entry.channel_id} className="flex items-center gap-3">
               <span className="w-6 text-right text-sm text-white/40">#{index + 1}</span>
               <span className="flex-1 truncate text-sm">#{entry.name}</span>
-              <span className="text-sm font-medium tabular-nums">
-                {formatNumber(entry.message_count)}
-              </span>
+              <span className="text-sm font-medium tabular-nums">{valueFormatter(entry)}</span>
             </li>
           ))}
         </ol>

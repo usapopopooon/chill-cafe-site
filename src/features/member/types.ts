@@ -29,6 +29,7 @@ export interface UserProfile {
   rank_reactions_given: number | null
   daily: DailyPoint[]
   top_channels: TopChannel[]
+  top_voice_channels?: TopChannel[]
 }
 
 export interface LevelBreakdown {
