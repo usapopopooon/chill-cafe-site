@@ -332,9 +332,6 @@ function LevelsSection({ levels }: { levels: UserLevels }) {
         <LevelCard label="リアクション (受)" emoji="💖" breakdown={levels.reactions_received} />
         <LevelCard label="リアクション (送)" emoji="👍" breakdown={levels.reactions_given} />
       </div>
-      <p className="text-[10px] text-white/40">
-        XP 重み: VC 1/分 · TC 2/件 · リアクション 0.5/個。累計 XP で算出 (期間減衰なし)。
-      </p>
     </section>
   )
 }
