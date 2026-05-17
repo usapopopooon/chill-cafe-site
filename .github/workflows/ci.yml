@@ -79,8 +79,6 @@ jobs:
 
       - name: Build app for GitHub Pages
         run: npm run build
-        env:
-          BASE_PATH: /chill-cafe-site/
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

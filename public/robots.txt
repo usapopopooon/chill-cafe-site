@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://usapopopooon.github.io/chill-cafe-site/sitemap.xml
+Sitemap: https://chill-cafe.site/sitemap.xml
