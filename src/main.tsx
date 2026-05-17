@@ -23,7 +23,9 @@ const indexRoute = createRoute({
 })
 
 const routeTree = rootRoute.addChildren([indexRoute])
-const router = createRouter({ routeTree })
+const routerBasepath =
+  import.meta.env.BASE_URL === "/" ? "/" : import.meta.env.BASE_URL.replace(/\/$/, "")
+const router = createRouter({ routeTree, basepath: routerBasepath })
 const queryClient = new QueryClient()
 
 declare module "@tanstack/react-router" {
