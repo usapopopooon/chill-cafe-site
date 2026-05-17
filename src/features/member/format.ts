@@ -1,9 +1,14 @@
 export function formatNumber(value: number): string {
-  return value.toLocaleString("ja-JP")
+  return value.toLocaleString()
 }
 
 export function formatSeconds(totalSeconds: number): string {
-  const total = Math.max(0, Math.round(totalSeconds))
+  let total = Math.round(totalSeconds)
+
+  if (total < 0) {
+    total = 0
+  }
+
   const hours = Math.floor(total / 3600)
   const minutes = Math.floor((total % 3600) / 60)
   const seconds = total % 60
@@ -19,16 +24,12 @@ export function formatSeconds(totalSeconds: number): string {
   return `${seconds}s`
 }
 
+export function formatHoursDecimal(totalSeconds: number): number {
+  return Math.round((totalSeconds / 3600) * 100) / 100
+}
+
 export function formatDateShort(dateString: string): string {
   const date = new Date(dateString)
 
-  if (Number.isNaN(date.getTime())) {
-    return dateString
-  }
-
   return `${date.getMonth() + 1}/${date.getDate()}`
-}
-
-export function formatRank(rank: number | null): string {
-  return rank ? `#${formatNumber(rank)}` : "-"
 }

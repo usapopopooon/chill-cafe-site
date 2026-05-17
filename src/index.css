@@ -35,7 +35,6 @@
   --border: #f4bfd5;
   --input: #f4bfd5;
   --ring: #d8669b;
-  --site-min-width: 390px;
 }
 
 @theme inline {
@@ -69,13 +68,8 @@
 
 body {
   margin: 0;
-  min-width: var(--site-min-width);
   min-height: 100vh;
   background: #fff3f8;
-}
-
-#root {
-  min-width: var(--site-min-width);
 }
 
 a {

@@ -10,7 +10,12 @@ import {
   YAxis
 } from "recharts"
 import { ApiError, CHILL_CAFE_GUILD_ID, getUserLevels, getUserProfile } from "@/features/member/api"
-import { formatDateShort, formatNumber, formatSeconds } from "@/features/member/format"
+import {
+  formatDateShort,
+  formatHoursDecimal,
+  formatNumber,
+  formatSeconds
+} from "@/features/member/format"
 import type {
   DailyPoint,
   LevelBreakdown,
@@ -23,6 +28,20 @@ interface MemberPageProps {
   userId: string
   days: number
 }
+
+const levelBotFontFamily = [
+  "ui-sans-serif",
+  "system-ui",
+  "-apple-system",
+  "Segoe UI",
+  "Roboto",
+  "Helvetica Neue",
+  "Arial",
+  "Hiragino Kaku Gothic ProN",
+  "Hiragino Sans",
+  "Meiryo",
+  "sans-serif"
+].join(", ")
 
 export function MemberPage({ userId, days }: MemberPageProps) {
   const profileQuery = useQuery({
@@ -38,21 +57,22 @@ export function MemberPage({ userId, days }: MemberPageProps) {
   })
 
   return (
-    <main className="min-h-screen bg-[#0b0d12] font-sans text-[#e6e8ee]">
+    <div
+      className="min-h-screen bg-[#0b0d12] text-[#e6e8ee]"
+      style={{ colorScheme: "dark", fontFamily: levelBotFontFamily }}
+    >
       <header className="border-b border-white/10 bg-black/20 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <a href="/" className="text-base font-semibold tracking-tight">
             📊 Level Bot
           </a>
-          <span className="text-xs text-white/40">CHILLカフェ</span>
+          <button type="button" className="text-xs text-white/40 hover:text-white/70">
+            ログアウト
+          </button>
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl space-y-6 px-4 py-6">
-        <a href="/" className="text-sm text-white/50 hover:text-white/80">
-          ← サーバーへ戻る
-        </a>
-
+      <main className="mx-auto max-w-6xl px-4 py-6">
         {profileQuery.isLoading ? (
           <LoadingProfile days={days} userId={userId} />
         ) : profileQuery.isError ? (
@@ -60,8 +80,8 @@ export function MemberPage({ userId, days }: MemberPageProps) {
         ) : profileQuery.data ? (
           <ProfileContent days={days} levels={levelsQuery.data} profile={profileQuery.data} />
         ) : null}
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }
 
@@ -75,7 +95,11 @@ function ProfileContent({
   days: number
 }) {
   return (
-    <>
+    <div className="space-y-6">
+      <a href="/" className="text-sm text-white/50 hover:text-white/80">
+        ← サーバーへ戻る
+      </a>
+
       <ProfileHeader profile={profile} days={days} />
       {levels ? <LevelsSection levels={levels} /> : null}
       <StatsGrid profile={profile} days={days} />
@@ -88,7 +112,7 @@ function ProfileContent({
       <section>
         <TopChannelsList entries={profile.top_channels} title="主な発言チャンネル" />
       </section>
-    </>
+    </div>
   )
 }
 
@@ -96,11 +120,7 @@ function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }
   return (
     <header className="flex items-center gap-4">
       {profile.avatar_url ? (
-        <img
-          src={profile.avatar_url}
-          alt=""
-          className="h-14 w-14 rounded-full bg-white/10 object-cover"
-        />
+        <img src={profile.avatar_url} alt="" className="h-14 w-14 rounded-full bg-white/10" />
       ) : (
         <div className="h-14 w-14 rounded-full bg-white/10" />
       )}
@@ -114,7 +134,11 @@ function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }
 
 function LoadingProfile({ days, userId }: { days: number; userId: string }) {
   return (
-    <>
+    <div className="space-y-6">
+      <a href="/" className="text-sm text-white/50 hover:text-white/80">
+        ← サーバーへ戻る
+      </a>
+
       <header className="flex items-center gap-4">
         <div className="h-14 w-14 rounded-full bg-white/10" />
         <div>
@@ -127,7 +151,7 @@ function LoadingProfile({ days, userId }: { days: number; userId: string }) {
           <div key={index} className="h-24 rounded-xl border border-white/10 bg-white/5" />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -272,7 +296,7 @@ function UserDailyChart({ points }: { points: DailyPoint[] }) {
   const data = points.map((point) => ({
     date: formatDateShort(point.date),
     messages: point.message_count,
-    voiceHours: Math.round((point.voice_seconds / 3600) * 100) / 100
+    voiceHours: formatHoursDecimal(point.voice_seconds)
   }))
 
   return (

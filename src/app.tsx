@@ -47,7 +47,7 @@ const categories = [
 
 export function App() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
+    <main className="min-h-screen min-w-[390px] overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
       <section className="relative isolate overflow-hidden bg-[#fff5fa]">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-[linear-gradient(180deg,#fff8fb_0%,#ffe9f3_100%)]">
           <img
