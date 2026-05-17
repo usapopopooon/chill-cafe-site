@@ -183,7 +183,6 @@ function LevelsSkeleton() {
           <LevelCardSkeleton key={index} />
         ))}
       </div>
-      <Skeleton className="h-3 w-full max-w-[460px] rounded-md" />
     </section>
   )
 }
