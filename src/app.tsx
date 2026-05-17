@@ -2,7 +2,7 @@ import { ExternalLink, Globe2, Hash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import "./app.css"
 
-const DISCORD_SERVER_URL = "https://discord.com/servers/chillkahue-1168847276291137586"
+const DISCORD_SERVER_URL = "https://discord.com/invite/chill-cafe"
 const DISCORD_WIDGET_URL = "https://discord.com/widget?id=1168847276291137586&theme=dark"
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`
 const SERVER_BANNER_URL = assetUrl("server-banner.png")

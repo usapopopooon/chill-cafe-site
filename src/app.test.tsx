@@ -29,7 +29,7 @@ describe("App", () => {
     ).toHaveLength(2)
     expect(screen.getAllByRole("link", { name: "Join Server" })[0]).toHaveAttribute(
       "href",
-      "https://discord.com/servers/chillkahue-1168847276291137586"
+      "https://discord.com/invite/chill-cafe"
     )
     expect(screen.getByTitle("Discord server widget")).toHaveAttribute(
       "src",
