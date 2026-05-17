@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+Rounded+1c:wght@500;700;800;900&display=swap");
+
+.top-page {
+  color-scheme: light;
+  background: #fff3f8;
+  color: #4a3342;
+  font-family:
+    "M PLUS Rounded 1c",
+    "Kiwi Maru",
+    ui-rounded,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    sans-serif;
+}
+
+.top-page * {
+  border-color: var(--border);
+}

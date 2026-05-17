@@ -1,5 +1,6 @@
 import { ExternalLink, Globe2, Hash } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import "./app.css"
 
 const DISCORD_SERVER_URL = "https://discord.com/servers/chillkahue-1168847276291137586"
 const DISCORD_WIDGET_URL = "https://discord.com/widget?id=1168847276291137586&theme=dark"
@@ -47,7 +48,7 @@ const categories = [
 
 export function App() {
   return (
-    <main className="min-h-screen min-w-[390px] overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
+    <main className="top-page min-h-screen min-w-[390px] overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
       <section className="relative isolate overflow-hidden bg-[#fff5fa]">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-[linear-gradient(180deg,#fff8fb_0%,#ffe9f3_100%)]">
           <img

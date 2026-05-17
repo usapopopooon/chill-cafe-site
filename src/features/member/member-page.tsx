@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import type { CSSProperties } from "react"
 import {
   Bar,
   BarChart,
@@ -23,25 +24,12 @@ import type {
   UserLevels,
   UserProfile
 } from "@/features/member/types"
+import "./member-page.css"
 
 interface MemberPageProps {
   userId: string
   days: number
 }
-
-const levelBotFontFamily = [
-  "ui-sans-serif",
-  "system-ui",
-  "-apple-system",
-  "Segoe UI",
-  "Roboto",
-  "Helvetica Neue",
-  "Arial",
-  "Hiragino Kaku Gothic ProN",
-  "Hiragino Sans",
-  "Meiryo",
-  "sans-serif"
-].join(", ")
 
 export function MemberPage({ userId, days }: MemberPageProps) {
   const profileQuery = useQuery({
@@ -57,18 +45,12 @@ export function MemberPage({ userId, days }: MemberPageProps) {
   })
 
   return (
-    <div
-      className="min-h-screen bg-[#0b0d12] text-[#e6e8ee]"
-      style={{ colorScheme: "dark", fontFamily: levelBotFontFamily }}
-    >
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <div className="level-bot-page min-h-screen">
+      <header className="border-b bg-black/20 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center px-4 py-3">
           <a href="/" className="text-base font-semibold tracking-tight">
             📊 Level Bot
           </a>
-          <button type="button" className="text-xs text-white/40 hover:text-white/70">
-            ログアウト
-          </button>
         </div>
       </header>
 
@@ -78,7 +60,12 @@ export function MemberPage({ userId, days }: MemberPageProps) {
         ) : profileQuery.isError ? (
           <ProfileError error={profileQuery.error} userId={userId} />
         ) : profileQuery.data ? (
-          <ProfileContent days={days} levels={levelsQuery.data} profile={profileQuery.data} />
+          <ProfileContent
+            days={days}
+            isLevelsLoading={levelsQuery.isLoading}
+            levels={levelsQuery.data}
+            profile={profileQuery.data}
+          />
         ) : null}
       </main>
     </div>
@@ -88,30 +75,34 @@ export function MemberPage({ userId, days }: MemberPageProps) {
 function ProfileContent({
   profile,
   levels,
+  isLevelsLoading,
   days
 }: {
   profile: UserProfile
   levels?: UserLevels
+  isLevelsLoading: boolean
   days: number
 }) {
   return (
-    <div className="space-y-6">
+    <div>
       <a href="/" className="text-sm text-white/50 hover:text-white/80">
         ← サーバーへ戻る
       </a>
 
-      <ProfileHeader profile={profile} days={days} />
-      {levels ? <LevelsSection levels={levels} /> : null}
-      <StatsGrid profile={profile} days={days} />
+      <div className="mt-8 space-y-6">
+        <ProfileHeader profile={profile} days={days} />
+        {levels ? <LevelsSection levels={levels} /> : isLevelsLoading ? <LevelsSkeleton /> : null}
+        <StatsGrid profile={profile} days={days} />
 
-      <section>
-        <h2 className="mb-2 text-lg font-semibold">日別アクティビティ</h2>
-        <UserDailyChart points={profile.daily} />
-      </section>
+        <section>
+          <h2 className="mb-2 text-lg font-semibold">日別アクティビティ</h2>
+          <UserDailyChart points={profile.daily} />
+        </section>
 
-      <section>
-        <TopChannelsList entries={profile.top_channels} title="主な発言チャンネル" />
-      </section>
+        <section>
+          <TopChannelsList entries={profile.top_channels} title="主な発言チャンネル" />
+        </section>
+      </div>
     </div>
   )
 }
@@ -134,23 +125,125 @@ function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }
 
 function LoadingProfile({ days, userId }: { days: number; userId: string }) {
   return (
-    <div className="space-y-6">
+    <div>
       <a href="/" className="text-sm text-white/50 hover:text-white/80">
         ← サーバーへ戻る
       </a>
 
-      <header className="flex items-center gap-4">
-        <div className="h-14 w-14 rounded-full bg-white/10" />
-        <div>
-          <h1 className="text-2xl font-bold">{userId}</h1>
-          <p className="text-sm text-white/50">直近 {days} 日</p>
+      <div className="mt-8 space-y-6">
+        <header className="flex items-center gap-4" aria-busy="true" aria-label="読み込み中">
+          <Skeleton className="h-14 w-14 rounded-full" />
+          <div>
+            <Skeleton className="h-7 w-56 max-w-[54vw] rounded-md" />
+            <Skeleton className="mt-2 h-4 w-20 rounded-md" />
+            <span className="sr-only">
+              {userId} の直近 {days} 日を読み込み中
+            </span>
+          </div>
+        </header>
+        <LevelsSkeleton />
+        <StatsSkeleton />
+        <section>
+          <Skeleton className="mb-2 h-6 w-40 rounded-md" />
+          <ChartSkeleton />
+        </section>
+        <section>
+          <TopChannelsSkeleton />
+        </section>
+      </div>
+    </div>
+  )
+}
+
+function Skeleton({ className = "", style }: { className?: string; style?: CSSProperties }) {
+  return <div className={`level-bot-skeleton ${className}`} style={style} />
+}
+
+function StatsSkeleton() {
+  return (
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div key={index} className="rounded-xl border bg-white/5 p-4">
+          <Skeleton className="h-3 w-20 rounded-md" />
+          <Skeleton className="mt-3 h-8 w-24 rounded-md" />
+          {index < 4 ? <Skeleton className="mt-2 h-3 w-16 rounded-md" /> : null}
         </div>
-      </header>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div key={index} className="h-24 rounded-xl border border-white/10 bg-white/5" />
+      ))}
+    </div>
+  )
+}
+
+function LevelsSkeleton() {
+  return (
+    <section className="space-y-3" aria-busy="true" aria-label="レベルを読み込み中">
+      <Skeleton className="h-6 w-16 rounded-md" />
+      <LevelCardSkeleton highlight />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <LevelCardSkeleton key={index} />
         ))}
       </div>
+      <Skeleton className="h-3 w-full max-w-[460px] rounded-md" />
+    </section>
+  )
+}
+
+function LevelCardSkeleton({ highlight = false }: { highlight?: boolean }) {
+  return (
+    <div
+      className={`rounded-xl border p-4 ${
+        highlight ? "level-bot-border-amber bg-amber-400/5" : "bg-white/5"
+      }`}
+    >
+      <div className="flex items-baseline justify-between gap-2">
+        <Skeleton className="h-3 w-20 rounded-md" />
+        <Skeleton className={highlight ? "h-8 w-16 rounded-md" : "h-6 w-14 rounded-md"} />
+      </div>
+      <Skeleton className="mt-2 h-1.5 w-full rounded-full" />
+      <div className="mt-2 flex justify-between">
+        <Skeleton className="h-3 w-16 rounded-md" />
+        <Skeleton className="h-3 w-20 rounded-md" />
+      </div>
+    </div>
+  )
+}
+
+function ChartSkeleton() {
+  return (
+    <div className="h-72 w-full rounded-xl border bg-white/5 p-4">
+      <div className="flex h-full items-end gap-2">
+        {Array.from({ length: 24 }).map((_, index) => (
+          <Skeleton
+            key={index}
+            className="min-w-0 flex-1 rounded-t-md"
+            style={{ height: `${24 + ((index * 17) % 58)}%` }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function TopChannelsSkeleton() {
+  return (
+    <div
+      className="rounded-xl border bg-white/5 p-4"
+      aria-busy="true"
+      aria-label="チャンネルを読み込み中"
+    >
+      <div className="mb-3 flex items-center justify-between gap-4">
+        <Skeleton className="h-6 w-40 rounded-md" />
+        <Skeleton className="h-3 w-16 rounded-md" />
+      </div>
+      <ol className="space-y-2">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <li key={index} className="flex items-center gap-3">
+            <Skeleton className="h-4 w-6 rounded-md" />
+            <Skeleton className="h-4 flex-1 rounded-md" />
+            <Skeleton className="h-4 w-14 rounded-md" />
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }
@@ -165,7 +258,7 @@ function ProfileError({ error, userId }: { error: Error; userId: string }) {
         : "プロフィールを読み込めませんでした。"
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+    <div className="rounded-xl border bg-white/5 p-5">
       <div className="text-xs uppercase tracking-wide text-white/50">Error</div>
       <h1 className="mt-2 text-2xl font-bold">{message}</h1>
       <p className="mt-2 text-sm text-white/50">user_id: {userId}</p>
@@ -220,7 +313,7 @@ function StatCard({
   hint?: string
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-xl border bg-white/5 p-4">
       <div className="text-xs uppercase tracking-wide text-white/50">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
       {hint ? <div className="mt-1 text-xs text-white/40">{hint}</div> : null}
@@ -264,7 +357,7 @@ function LevelCard({
   return (
     <div
       className={`rounded-xl border p-4 ${
-        highlight ? "border-amber-400/40 bg-amber-400/5" : "border-white/10 bg-white/5"
+        highlight ? "level-bot-border-amber bg-amber-400/5" : "bg-white/5"
       }`}
     >
       <div className="flex items-baseline justify-between gap-2">
@@ -300,7 +393,7 @@ function UserDailyChart({ points }: { points: DailyPoint[] }) {
   }))
 
   return (
-    <div className="h-72 w-full rounded-xl border border-white/10 bg-white/5 p-4">
+    <div className="h-72 w-full rounded-xl border bg-white/5 p-4">
       <ResponsiveContainer>
         <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff15" />
@@ -338,7 +431,7 @@ function UserDailyChart({ points }: { points: DailyPoint[] }) {
 
 function TopChannelsList({ entries, title }: { entries: TopChannel[]; title: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-xl border bg-white/5 p-4">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-lg font-semibold">{title}</h2>
         <span className="text-xs text-white/40">メッセージ数</span>
