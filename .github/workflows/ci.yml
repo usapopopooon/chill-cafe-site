@@ -49,6 +49,9 @@ jobs:
         env:
           VITE_LEVEL_BOT_API_TOKEN: ${{ secrets.LEVEL_BOT_API_TOKEN }}
 
+      - name: Verify GitHub Pages artifact
+        run: node scripts/verify-pages-artifact.mjs
+
       - name: Build Storybook
         run: npm run build-storybook
 
@@ -83,6 +86,9 @@ jobs:
         run: npm run build
         env:
           VITE_LEVEL_BOT_API_TOKEN: ${{ secrets.LEVEL_BOT_API_TOKEN }}
+
+      - name: Verify GitHub Pages artifact
+        run: node scripts/verify-pages-artifact.mjs
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
