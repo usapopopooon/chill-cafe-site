@@ -187,7 +187,6 @@ function StatsSkeleton() {
         <div key={index} className="rounded-xl border bg-white/5 p-4">
           <Skeleton className="h-3 w-20 rounded-md" />
           <Skeleton className="mt-3 h-8 w-24 rounded-md" />
-          {index < 4 ? <Skeleton className="mt-2 h-3 w-16 rounded-md" /> : null}
         </div>
       ))}
     </div>
@@ -289,28 +288,10 @@ function ProfileError({ error, userId }: { error: Error; userId: string }) {
 function StatsGrid({ profile, days }: { profile: UserProfile; days: number }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-      <StatCard
-        label="Messages"
-        value={formatNumber(profile.total_messages)}
-        hint={profile.rank_messages ? `rank #${profile.rank_messages}` : undefined}
-      />
-      <StatCard
-        label="Voice"
-        value={formatSeconds(profile.total_voice_seconds)}
-        hint={profile.rank_voice ? `rank #${profile.rank_voice}` : undefined}
-      />
-      <StatCard
-        label="リアクション (受)"
-        value={formatNumber(profile.total_reactions_received)}
-        hint={
-          profile.rank_reactions_received ? `rank #${profile.rank_reactions_received}` : undefined
-        }
-      />
-      <StatCard
-        label="リアクション (送)"
-        value={formatNumber(profile.total_reactions_given)}
-        hint={profile.rank_reactions_given ? `rank #${profile.rank_reactions_given}` : undefined}
-      />
+      <StatCard label="Messages" value={formatNumber(profile.total_messages)} />
+      <StatCard label="Voice" value={formatSeconds(profile.total_voice_seconds)} />
+      <StatCard label="リアクション (受)" value={formatNumber(profile.total_reactions_received)} />
+      <StatCard label="リアクション (送)" value={formatNumber(profile.total_reactions_given)} />
       <StatCard
         label="Daily avg msg"
         value={formatNumber(Math.round(profile.total_messages / days))}
