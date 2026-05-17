@@ -86,7 +86,7 @@ function ProfileContent({
   return (
     <div>
       <a href="/" className="text-sm text-white/50 hover:text-white/80">
-        ← サーバーへ戻る
+        ← トップへ戻る
       </a>
 
       <div className="mt-8 space-y-6">
@@ -127,7 +127,7 @@ function LoadingProfile({ days, userId }: { days: number; userId: string }) {
   return (
     <div>
       <a href="/" className="text-sm text-white/50 hover:text-white/80">
-        ← サーバーへ戻る
+        ← トップへ戻る
       </a>
 
       <div className="mt-8 space-y-6">
