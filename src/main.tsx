@@ -35,7 +35,7 @@ const indexRoute = createRoute({
 
 const memberRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/members/$userId",
+  path: "/u/$userId",
   validateSearch: (search) => ({
     days: normalizeDays(search.days)
   }),
@@ -47,21 +47,7 @@ const memberRoute = createRoute({
   }
 })
 
-const memberAliasRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/u/$userId",
-  validateSearch: (search) => ({
-    days: normalizeDays(search.days)
-  }),
-  component: () => {
-    const { userId } = memberAliasRoute.useParams()
-    const { days } = memberAliasRoute.useSearch()
-
-    return <MemberPage userId={userId} days={days} />
-  }
-})
-
-const routeTree = rootRoute.addChildren([indexRoute, memberRoute, memberAliasRoute])
+const routeTree = rootRoute.addChildren([indexRoute, memberRoute])
 const routerBasepath =
   import.meta.env.BASE_URL === "/" ? "/" : import.meta.env.BASE_URL.replace(/\/$/, "")
 const router = createRouter({ routeTree, basepath: routerBasepath })

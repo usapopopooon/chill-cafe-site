@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import { useEffect } from "react"
 import type { CSSProperties } from "react"
 import {
   Bar,
@@ -26,12 +27,17 @@ import type {
 } from "@/features/member/types"
 import "./member-page.css"
 
+const DEFAULT_ROBOTS_CONTENT = "index, follow, max-image-preview:large"
+const MEMBER_PAGE_ROBOTS_CONTENT = "noindex, nofollow"
+
 interface MemberPageProps {
   userId: string
   days: number
 }
 
 export function MemberPage({ userId, days }: MemberPageProps) {
+  useMemberPageRobots()
+
   const profileQuery = useQuery({
     queryKey: ["member-profile", CHILL_CAFE_GUILD_ID, userId, days],
     queryFn: () => getUserProfile(userId, days),
@@ -70,6 +76,30 @@ export function MemberPage({ userId, days }: MemberPageProps) {
       </main>
     </div>
   )
+}
+
+function useMemberPageRobots() {
+  useEffect(() => {
+    setMetaContent("robots", MEMBER_PAGE_ROBOTS_CONTENT)
+    setMetaContent("googlebot", MEMBER_PAGE_ROBOTS_CONTENT)
+
+    return () => {
+      setMetaContent("robots", DEFAULT_ROBOTS_CONTENT)
+      setMetaContent("googlebot", DEFAULT_ROBOTS_CONTENT)
+    }
+  }, [])
+}
+
+function setMetaContent(name: string, content: string) {
+  let meta = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)
+
+  if (!meta) {
+    meta = document.createElement("meta")
+    meta.name = name
+    document.head.append(meta)
+  }
+
+  meta.content = content
 }
 
 function ProfileContent({
