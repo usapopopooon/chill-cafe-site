@@ -62,16 +62,19 @@ export function App() {
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,245,250,0)_0%,rgba(255,245,250,0.05)_68%,#fff5fa_100%),linear-gradient(90deg,rgba(255,245,250,0.24)_0%,rgba(255,245,250,0.08)_45%,rgba(255,245,250,0)_100%)]" />
 
           <a
-            href="#about"
-            aria-label="Aboutへスクロール"
-            title="Aboutへスクロール"
+            href="#server-summary"
+            aria-label="サーバー概要へスクロール"
+            title="サーバー概要へスクロール"
             className="scroll-cue absolute bottom-[18%] left-1/2 z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent md:bottom-[16%]"
           >
             <ChevronDown className="size-10" aria-hidden="true" strokeWidth={2.25} />
           </a>
         </div>
 
-        <div className="relative z-10 -mt-10 bg-[linear-gradient(180deg,rgba(255,245,250,0)_0%,rgba(255,245,250,0.92)_26%,#fff5fa_100%)] pt-12 shadow-[0_-18px_48px_rgba(190,112,150,0.08)] md:-mt-16 md:bg-[linear-gradient(90deg,rgba(255,245,250,0.9)_0%,rgba(255,245,250,0.64)_48%,rgba(255,245,250,0)_100%),linear-gradient(180deg,rgba(255,245,250,0)_0%,#fff5fa_72%)] md:pt-16">
+        <div
+          id="server-summary"
+          className="relative z-10 -mt-10 bg-[linear-gradient(180deg,rgba(255,245,250,0)_0%,rgba(255,245,250,0.92)_26%,#fff5fa_100%)] pt-12 shadow-[0_-18px_48px_rgba(190,112,150,0.08)] md:-mt-16 md:bg-[linear-gradient(90deg,rgba(255,245,250,0.9)_0%,rgba(255,245,250,0.64)_48%,rgba(255,245,250,0)_100%),linear-gradient(180deg,rgba(255,245,250,0)_0%,#fff5fa_72%)] md:pt-16"
+        >
           <div className="mx-auto w-full max-w-6xl px-5 pb-5 md:px-8 md:py-7">
             <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
               <div className="flex min-w-0 gap-4 md:items-center">
