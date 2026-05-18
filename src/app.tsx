@@ -60,6 +60,15 @@ export function App() {
             className="size-full object-cover object-center"
           />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,245,250,0)_0%,rgba(255,245,250,0.05)_68%,#fff5fa_100%),linear-gradient(90deg,rgba(255,245,250,0.24)_0%,rgba(255,245,250,0.08)_45%,rgba(255,245,250,0)_100%)]" />
+
+          <a
+            href="#about"
+            aria-label="Aboutへスクロール"
+            title="Aboutへスクロール"
+            className="scroll-cue absolute bottom-6 left-1/2 z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent md:bottom-8"
+          >
+            <ChevronDown className="size-10" aria-hidden="true" strokeWidth={2.25} />
+          </a>
         </div>
 
         <div className="relative z-10 -mt-10 bg-[linear-gradient(180deg,rgba(255,245,250,0)_0%,rgba(255,245,250,0.92)_26%,#fff5fa_100%)] pt-12 shadow-[0_-18px_48px_rgba(190,112,150,0.08)] md:-mt-16 md:bg-[linear-gradient(90deg,rgba(255,245,250,0.9)_0%,rgba(255,245,250,0.64)_48%,rgba(255,245,250,0)_100%),linear-gradient(180deg,rgba(255,245,250,0)_0%,#fff5fa_72%)] md:pt-16">
@@ -106,18 +115,6 @@ export function App() {
           </div>
         </div>
 
-        <a
-          href="#about"
-          aria-label="Aboutへスクロール"
-          title="Aboutへスクロール"
-          className="scroll-cue absolute left-1/2 top-[calc(100svh-5.25rem)] z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
-        >
-          <ChevronDown
-            className="size-10"
-            aria-hidden="true"
-            strokeWidth={2.25}
-          />
-        </a>
       </section>
 
       <section id="about" className="bg-[#fff5fa]">
