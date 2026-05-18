@@ -1,4 +1,4 @@
-import { ExternalLink, Globe2, Hash } from "lucide-react"
+import { ChevronDown, ExternalLink, Globe2, Hash } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import "./app.css"
 
@@ -49,7 +49,7 @@ const categories = [
 export function App() {
   return (
     <main className="top-page min-h-screen min-w-[390px] overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
-      <section className="relative isolate overflow-hidden bg-[#fff5fa]">
+      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#fff5fa]">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-[linear-gradient(180deg,#fff8fb_0%,#ffe9f3_100%)]">
           <img
             src={SERVER_BANNER_URL}
@@ -105,6 +105,20 @@ export function App() {
             </div>
           </div>
         </div>
+
+        <a
+          href="#about"
+          aria-label="Aboutへスクロール"
+          title="Aboutへスクロール"
+          className="scroll-cue absolute left-1/2 top-[calc(100svh-5.25rem)] z-20 grid size-14 place-items-center text-white drop-shadow-[0_2px_6px_rgba(106,60,84,0.28)] transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
+        >
+          <ChevronDown
+            className="size-10 stroke-white"
+            aria-hidden="true"
+            color="#ffffff"
+            strokeWidth={2.25}
+          />
+        </a>
       </section>
 
       <section id="about" className="bg-[#fff5fa]">

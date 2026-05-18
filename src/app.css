@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+Rounded+1c:wght@500;700;800;900&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 .top-page {
   color-scheme: light;
   background: #fff3f8;
@@ -18,4 +22,29 @@
 
 .top-page * {
   border-color: var(--border);
+}
+
+.top-page .scroll-cue {
+  animation: scroll-cue-bounce 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-bounce {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, 10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .top-page .scroll-cue {
+    animation: none;
+  }
 }
