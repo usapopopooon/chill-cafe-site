@@ -65,7 +65,7 @@ export function App() {
             href="#about"
             aria-label="Aboutへスクロール"
             title="Aboutへスクロール"
-            className="scroll-cue absolute bottom-6 left-1/2 z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent md:bottom-8"
+            className="scroll-cue absolute bottom-[18%] left-1/2 z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent md:bottom-[16%]"
           >
             <ChevronDown className="size-10" aria-hidden="true" strokeWidth={2.25} />
           </a>
