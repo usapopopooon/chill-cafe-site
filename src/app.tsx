@@ -110,12 +110,11 @@ export function App() {
           href="#about"
           aria-label="Aboutへスクロール"
           title="Aboutへスクロール"
-          className="scroll-cue absolute left-1/2 top-[calc(100svh-5.25rem)] z-20 grid size-14 place-items-center text-white drop-shadow-[0_2px_6px_rgba(106,60,84,0.28)] transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
+          className="scroll-cue absolute left-1/2 top-[calc(100svh-5.25rem)] z-20 grid size-14 place-items-center text-[#6b4a3f] transition hover:text-[#8a6254] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8a6254]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
         >
           <ChevronDown
-            className="size-10 stroke-white"
+            className="size-10"
             aria-hidden="true"
-            color="#ffffff"
             strokeWidth={2.25}
           />
         </a>
