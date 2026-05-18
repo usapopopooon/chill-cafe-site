@@ -114,7 +114,6 @@ export function App() {
             </div>
           </div>
         </div>
-
       </section>
 
       <section id="about" className="bg-[#fff5fa]">
