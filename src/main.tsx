@@ -35,7 +35,7 @@ const indexRoute = createRoute({
 
 const memberRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/u/$userId",
+  path: "/u/$userId/level",
   validateSearch: (search) => ({
     days: normalizeDays(search.days)
   }),
