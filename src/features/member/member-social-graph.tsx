@@ -186,6 +186,9 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
     const drawEdges = graph.edges.filter(
       (edge) => nodeById.has(edge.source_user_id) && nodeById.has(edge.target_user_id)
     )
+    const nodesByDepth = [...drawNodes].sort(
+      (left, right) => right.distance - left.distance || left.radius - right.radius
+    )
     const maxEdgeWeight = Math.max(1, ...drawEdges.map((edge) => edge.weight))
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
 
@@ -263,7 +266,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         ctx.stroke()
       }
 
-      for (const node of drawNodes) {
+      for (const node of nodesByDepth) {
         ensureImage(node)
         const position = screenPosition(node)
         const image = imageCache.current.get(node.user_id)
