@@ -390,7 +390,10 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         )}
       </div>
       {hasConnections ? (
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45" aria-label="交流マップの凡例">
+        <div
+          className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45"
+          aria-label="交流マップの凡例"
+        >
           <span>中心に近いほど関係が近く、線が太いほど交流が多いです。</span>
           {Object.entries(NODE_TONES).map(([key, tone]) => (
             <span key={key} className="inline-flex items-center gap-1.5">
