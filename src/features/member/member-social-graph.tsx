@@ -353,14 +353,14 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
     <section className="space-y-3">
       <div>
         <h2 className="text-lg font-semibold">つながりのかたち</h2>
-        <p className="text-sm text-white/45">直近 {graph.days} 日・匿名表示</p>
+        <p className="text-sm text-white/45">直近 {graph.days} 日</p>
       </div>
       <div className="h-[360px] overflow-hidden rounded-lg border bg-[#0b0d12] sm:h-[460px]">
         {hasConnections ? (
           <canvas
             ref={canvasRef}
             className="block h-full w-full"
-            aria-label="ユーザー中心の交流マップ"
+            aria-label="つながりのかたち"
           />
         ) : (
           <div className="grid h-full place-items-center px-6 text-center">
@@ -368,24 +368,6 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
           </div>
         )}
       </div>
-      {hasConnections ? (
-        <div
-          className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45"
-          aria-label="交流マップの凡例"
-        >
-          <span>中心に近いほど関係が近く、線が太いほど交流が多いです。</span>
-          {Object.entries(NODE_TONES).map(([key, tone]) => (
-            <span key={key} className="inline-flex items-center gap-1.5">
-              <span
-                className="h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: tone.color }}
-                aria-hidden="true"
-              />
-              {tone.label}
-            </span>
-          ))}
-        </div>
-      ) : null}
     </section>
   )
 }
