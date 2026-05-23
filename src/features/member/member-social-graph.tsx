@@ -22,26 +22,22 @@ interface DrawNode extends SocialGraphNode {
 
 type NodeTone = "voice" | "text" | "received" | "given"
 
-const NODE_TONES: Record<NodeTone, { label: string; color: string; glow: string }> = {
+const NODE_TONES: Record<NodeTone, { label: string; color: string }> = {
   voice: {
     label: "通話",
-    color: "#5eead4",
-    glow: "rgba(94,234,212,0.28)"
+    color: "#5eead4"
   },
   text: {
     label: "発言",
-    color: "#93c5fd",
-    glow: "rgba(147,197,253,0.26)"
+    color: "#93c5fd"
   },
   received: {
     label: "反応される",
-    color: "#f9a8d4",
-    glow: "rgba(249,168,212,0.25)"
+    color: "#f9a8d4"
   },
   given: {
     label: "反応する",
-    color: "#fde68a",
-    glow: "rgba(253,230,138,0.24)"
+    color: "#fde68a"
   }
 }
 
@@ -241,18 +237,18 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       if (node.distance === 0) {
         return { x: width * 0.5, y: height * 0.5 }
       }
-      const drift = Math.sin(frame * 0.012 + node.seed) * 2.2
-      const float = Math.cos(frame * 0.01 + node.seed) * 1.8
+      const drift = Math.sin(frame * 0.012 + node.seed) * 0.8
+      const float = Math.cos(frame * 0.01 + node.seed) * 0.6
       return { x: node.x * width + drift, y: node.y * height + float }
     }
 
     function drawBackground() {
-      ctx.fillStyle = "#080808"
+      ctx.fillStyle = "#0b0d12"
       ctx.fillRect(0, 0, width, height)
 
       ctx.save()
       ctx.translate(width * 0.5, height * 0.5)
-      ctx.strokeStyle = "rgba(255,255,255,0.06)"
+      ctx.strokeStyle = "rgba(255,255,255,0.075)"
       ctx.lineWidth = 1
       for (const radius of [0.24, 0.36, 0.44]) {
         ctx.beginPath()
@@ -262,60 +258,43 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       ctx.restore()
 
       ctx.save()
-      ctx.globalAlpha = 0.12
-      for (let index = 0; index < 28; index += 1) {
-        const seed = index * 101
-        const x = seededUnit(seed) * width
-        const y = seededUnit(seed + 1) * height
-        const radius = 0.6 + seededUnit(seed + 2) * 1.4
-        ctx.beginPath()
-        ctx.arc(x, y, radius, 0, Math.PI * 2)
-        ctx.fillStyle = "#ffffff"
-        ctx.fill()
-      }
+      ctx.strokeStyle = "rgba(255,255,255,0.035)"
+      ctx.lineWidth = 1
+      ctx.beginPath()
+      ctx.moveTo(width * 0.08, height * 0.5)
+      ctx.lineTo(width * 0.92, height * 0.5)
+      ctx.moveTo(width * 0.5, height * 0.12)
+      ctx.lineTo(width * 0.5, height * 0.88)
+      ctx.stroke()
       ctx.restore()
     }
 
     function drawNode(node: DrawNode) {
       const position = screenPosition(node)
-      const pulse = node.distance === 0 ? 0 : Math.sin(frame * 0.028 + node.seed) * 0.8
+      const pulse = node.distance === 0 ? 0 : Math.sin(frame * 0.028 + node.seed) * 0.35
       const radius = node.radius + pulse
       const tone = NODE_TONES[node.tone]
-      const gradient = ctx.createRadialGradient(
-        position.x - radius * 0.28,
-        position.y - radius * 0.32,
-        radius * 0.12,
-        position.x,
-        position.y,
-        radius
-      )
-      gradient.addColorStop(0, "rgba(255,255,255,0.92)")
-      gradient.addColorStop(0.34, tone.color)
-      gradient.addColorStop(1, "rgba(20,20,20,0.92)")
 
       ctx.save()
       ctx.globalAlpha = nodeAlpha(node.distance)
       ctx.beginPath()
-      ctx.arc(position.x, position.y, radius + 8, 0, Math.PI * 2)
-      ctx.fillStyle = tone.glow
-      ctx.fill()
-
-      ctx.beginPath()
-      ctx.arc(position.x, position.y, radius + 2, 0, Math.PI * 2)
-      ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.38)"
-      ctx.lineWidth = node.distance === 0 ? 2.2 : 1.1
-      ctx.stroke()
-
-      ctx.beginPath()
       ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
-      ctx.fillStyle = gradient
+      ctx.fillStyle = tone.color
       ctx.fill()
 
       ctx.beginPath()
-      ctx.arc(position.x, position.y, radius * 0.42, 0, Math.PI * 2)
-      ctx.strokeStyle = node.distance === 0 ? "rgba(8,8,8,0.42)" : "rgba(8,8,8,0.3)"
-      ctx.lineWidth = Math.max(1, radius * 0.14)
+      ctx.arc(position.x, position.y, radius + 1.5, 0, Math.PI * 2)
+      ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0.32)"
+      ctx.lineWidth = node.distance === 0 ? 2 : 1
       ctx.stroke()
+
+      if (node.distance === 0) {
+        ctx.beginPath()
+        ctx.arc(position.x, position.y, radius * 0.54, 0, Math.PI * 2)
+        ctx.strokeStyle = "rgba(11,13,18,0.72)"
+        ctx.lineWidth = Math.max(2, radius * 0.16)
+        ctx.stroke()
+      }
       ctx.restore()
     }
 
@@ -331,8 +310,8 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         const centerSide = edgeOtherUserId(edge, profile.user_id)
         const distance = centerSide ? 0 : Math.min(source.distance, target.distance)
         const strength = Math.min(edge.weight / maxEdgeWeight, 1)
-        const alpha = Math.min(0.8, edgeAlpha(distance) + strength * 0.16)
-        const bend = Math.sin(frame * 0.008 + source.seed + target.seed) * 7
+        const alpha = Math.min(0.56, edgeAlpha(distance) + strength * 0.12)
+        const bend = Math.sin(frame * 0.008 + source.seed + target.seed) * 3
         const midX = (sourcePosition.x + targetPosition.x) / 2
         const midY = (sourcePosition.y + targetPosition.y) / 2
 
@@ -340,7 +319,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         ctx.moveTo(sourcePosition.x, sourcePosition.y)
         ctx.quadraticCurveTo(midX, midY + bend, targetPosition.x, targetPosition.y)
         ctx.strokeStyle = `rgba(255,255,255,${alpha})`
-        ctx.lineWidth = 0.7 + strength * 3
+        ctx.lineWidth = 0.8 + strength * 2.2
         ctx.lineCap = "round"
         ctx.stroke()
       }
@@ -376,7 +355,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         <h2 className="text-lg font-semibold">つながりのかたち</h2>
         <p className="text-sm text-white/45">直近 {graph.days} 日・匿名表示</p>
       </div>
-      <div className="h-[360px] overflow-hidden rounded-xl border bg-black sm:h-[460px]">
+      <div className="h-[360px] overflow-hidden rounded-lg border bg-[#0b0d12] sm:h-[460px]">
         {hasConnections ? (
           <canvas
             ref={canvasRef}
