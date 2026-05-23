@@ -17,6 +17,32 @@ interface DrawNode extends SocialGraphNode {
   radius: number
   distance: number
   seed: number
+  tone: NodeTone
+}
+
+type NodeTone = "voice" | "text" | "received" | "given"
+
+const NODE_TONES: Record<NodeTone, { label: string; color: string; glow: string }> = {
+  voice: {
+    label: "通話",
+    color: "#5eead4",
+    glow: "rgba(94,234,212,0.28)"
+  },
+  text: {
+    label: "発言",
+    color: "#93c5fd",
+    glow: "rgba(147,197,253,0.26)"
+  },
+  received: {
+    label: "反応される",
+    color: "#f9a8d4",
+    glow: "rgba(249,168,212,0.25)"
+  },
+  given: {
+    label: "反応する",
+    color: "#fde68a",
+    glow: "rgba(253,230,138,0.24)"
+  }
 }
 
 function hashString(value: string): number {
@@ -31,12 +57,6 @@ function hashString(value: string): number {
 function seededUnit(seed: number): number {
   const next = Math.sin(seed * 12.9898) * 43758.5453
   return next - Math.floor(next)
-}
-
-function initials(name: string): string {
-  const compact = name.trim()
-  if (!compact) return "?"
-  return Array.from(compact).slice(0, 2).join("").toUpperCase()
 }
 
 function pairKey(userA: string, userB: string) {
@@ -84,6 +104,17 @@ function edgeAlpha(distance: number) {
   if (distance === 1) return 0.26
   if (distance === 2) return 0.12
   return 0.06
+}
+
+function nodeTone(node: SocialGraphNode): NodeTone {
+  const voiceScore = node.voice_seconds / 120
+  const scores: Array<[NodeTone, number]> = [
+    ["voice", voiceScore],
+    ["text", node.message_count],
+    ["received", node.reactions_received],
+    ["given", node.reactions_given]
+  ]
+  return scores.sort((left, right) => right[1] - left[1])[0][0]
 }
 
 function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
@@ -142,7 +173,8 @@ function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
         y: 0.5,
         radius: 34,
         distance: 0,
-        seed: hashString(`${node.user_id}:center`)
+        seed: hashString(`${node.user_id}:center`),
+        tone: nodeTone(node)
       }
     }
 
@@ -160,14 +192,14 @@ function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
       y: 0.5 + Math.sin(angle) * ring * verticalSquash,
       radius: 16 + Math.sqrt(node.weight / maxWeight) * 13,
       distance,
-      seed
+      seed,
+      tone: nodeTone(node)
     }
   })
 }
 
 export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
-  const imageCache = useRef<Map<string, HTMLImageElement>>(new Map())
   const drawNodes = useMemo(() => buildDrawNodes(graph, profile), [graph, profile])
   const hasConnections = drawNodes.some((node) => node.user_id !== profile.user_id)
 
@@ -205,14 +237,6 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       }
     }
 
-    function ensureImage(node: DrawNode) {
-      if (!node.avatar_url || imageCache.current.has(node.user_id)) return
-      const image = new Image()
-      image.crossOrigin = "anonymous"
-      image.src = node.avatar_url
-      imageCache.current.set(node.user_id, image)
-    }
-
     function screenPosition(node: DrawNode) {
       if (node.distance === 0) {
         return { x: width * 0.5, y: height * 0.5 }
@@ -225,6 +249,18 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
     function drawBackground() {
       ctx.fillStyle = "#080808"
       ctx.fillRect(0, 0, width, height)
+
+      ctx.save()
+      ctx.translate(width * 0.5, height * 0.5)
+      ctx.strokeStyle = "rgba(255,255,255,0.06)"
+      ctx.lineWidth = 1
+      for (const radius of [0.24, 0.36, 0.44]) {
+        ctx.beginPath()
+        ctx.ellipse(0, 0, width * radius, height * radius * 0.68, 0, 0, Math.PI * 2)
+        ctx.stroke()
+      }
+      ctx.restore()
+
       ctx.save()
       ctx.globalAlpha = 0.12
       for (let index = 0; index < 28; index += 1) {
@@ -237,6 +273,49 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         ctx.fillStyle = "#ffffff"
         ctx.fill()
       }
+      ctx.restore()
+    }
+
+    function drawNode(node: DrawNode) {
+      const position = screenPosition(node)
+      const pulse = node.distance === 0 ? 0 : Math.sin(frame * 0.028 + node.seed) * 0.8
+      const radius = node.radius + pulse
+      const tone = NODE_TONES[node.tone]
+      const gradient = ctx.createRadialGradient(
+        position.x - radius * 0.28,
+        position.y - radius * 0.32,
+        radius * 0.12,
+        position.x,
+        position.y,
+        radius
+      )
+      gradient.addColorStop(0, "rgba(255,255,255,0.92)")
+      gradient.addColorStop(0.34, tone.color)
+      gradient.addColorStop(1, "rgba(20,20,20,0.92)")
+
+      ctx.save()
+      ctx.globalAlpha = nodeAlpha(node.distance)
+      ctx.beginPath()
+      ctx.arc(position.x, position.y, radius + 8, 0, Math.PI * 2)
+      ctx.fillStyle = tone.glow
+      ctx.fill()
+
+      ctx.beginPath()
+      ctx.arc(position.x, position.y, radius + 2, 0, Math.PI * 2)
+      ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.38)"
+      ctx.lineWidth = node.distance === 0 ? 2.2 : 1.1
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
+      ctx.fillStyle = gradient
+      ctx.fill()
+
+      ctx.beginPath()
+      ctx.arc(position.x, position.y, radius * 0.42, 0, Math.PI * 2)
+      ctx.strokeStyle = node.distance === 0 ? "rgba(8,8,8,0.42)" : "rgba(8,8,8,0.3)"
+      ctx.lineWidth = Math.max(1, radius * 0.14)
+      ctx.stroke()
       ctx.restore()
     }
 
@@ -267,39 +346,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       }
 
       for (const node of nodesByDepth) {
-        ensureImage(node)
-        const position = screenPosition(node)
-        const image = imageCache.current.get(node.user_id)
-        const pulse = node.distance === 0 ? 0 : Math.sin(frame * 0.028 + node.seed) * 0.8
-        const radius = node.radius + pulse
-
-        ctx.save()
-        ctx.globalAlpha = nodeAlpha(node.distance)
-        ctx.beginPath()
-        ctx.arc(position.x, position.y, radius + 4, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(255,255,255,0.08)"
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc(position.x, position.y, radius + 1.4, 0, Math.PI * 2)
-        ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.52)"
-        ctx.lineWidth = node.distance === 0 ? 2 : 1.2
-        ctx.stroke()
-
-        ctx.beginPath()
-        ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
-        ctx.clip()
-        if (image?.complete && image.naturalWidth > 0) {
-          ctx.drawImage(image, position.x - radius, position.y - radius, radius * 2, radius * 2)
-        } else {
-          ctx.fillStyle = "#1b1b1b"
-          ctx.fillRect(position.x - radius, position.y - radius, radius * 2, radius * 2)
-          ctx.fillStyle = "rgba(255,255,255,0.82)"
-          ctx.font = `${Math.max(12, radius * 0.52)}px system-ui, sans-serif`
-          ctx.textAlign = "center"
-          ctx.textBaseline = "middle"
-          ctx.fillText(initials(node.display_name), position.x, position.y)
-        }
-        ctx.restore()
+        drawNode(node)
       }
     }
 
@@ -326,8 +373,8 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
   return (
     <section className="space-y-3">
       <div>
-        <h2 className="text-lg font-semibold">交流マップ</h2>
-        <p className="text-sm text-white/45">直近 {graph.days} 日</p>
+        <h2 className="text-lg font-semibold">つながりのかたち</h2>
+        <p className="text-sm text-white/45">直近 {graph.days} 日・匿名表示</p>
       </div>
       <div className="h-[360px] overflow-hidden rounded-xl border bg-black sm:h-[460px]">
         {hasConnections ? (
@@ -342,6 +389,21 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
           </div>
         )}
       </div>
+      {hasConnections ? (
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/45" aria-label="交流マップの凡例">
+          <span>中心に近いほど関係が近く、線が太いほど交流が多いです。</span>
+          {Object.entries(NODE_TONES).map(([key, tone]) => (
+            <span key={key} className="inline-flex items-center gap-1.5">
+              <span
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: tone.color }}
+                aria-hidden="true"
+              />
+              {tone.label}
+            </span>
+          ))}
+        </div>
+      ) : null}
     </section>
   )
 }
