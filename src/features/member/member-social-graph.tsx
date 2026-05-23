@@ -17,29 +17,10 @@ interface DrawNode extends SocialGraphNode {
   radius: number
   distance: number
   seed: number
-  tone: NodeTone
 }
 
-type NodeTone = "voice" | "text" | "received" | "given"
-
-const NODE_TONES: Record<NodeTone, { label: string; color: string }> = {
-  voice: {
-    label: "通話",
-    color: "#5eead4"
-  },
-  text: {
-    label: "発言",
-    color: "#93c5fd"
-  },
-  received: {
-    label: "反応される",
-    color: "#f9a8d4"
-  },
-  given: {
-    label: "反応する",
-    color: "#fde68a"
-  }
-}
+const SELF_NODE_COLOR = "#e6e8ee"
+const PEER_NODE_COLOR = "#5eead4"
 
 function hashString(value: string): number {
   let hash = 2166136261
@@ -102,17 +83,6 @@ function edgeAlpha(distance: number) {
   return 0.06
 }
 
-function nodeTone(node: SocialGraphNode): NodeTone {
-  const voiceScore = node.voice_seconds / 120
-  const scores: Array<[NodeTone, number]> = [
-    ["voice", voiceScore],
-    ["text", node.message_count],
-    ["received", node.reactions_received],
-    ["given", node.reactions_given]
-  ]
-  return scores.sort((left, right) => right[1] - left[1])[0][0]
-}
-
 function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
   const nodesById = new Map(graph.nodes.map((node) => [node.user_id, node]))
   const centerNode: SocialGraphNode = nodesById.get(profile.user_id) ?? {
@@ -169,8 +139,7 @@ function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
         y: 0.5,
         radius: 34,
         distance: 0,
-        seed: hashString(`${node.user_id}:center`),
-        tone: nodeTone(node)
+        seed: hashString(`${node.user_id}:center`)
       }
     }
 
@@ -188,8 +157,7 @@ function buildDrawNodes(graph: SocialGraph, profile: UserProfile) {
       y: 0.5 + Math.sin(angle) * ring * verticalSquash,
       radius: 16 + Math.sqrt(node.weight / maxWeight) * 13,
       distance,
-      seed,
-      tone: nodeTone(node)
+      seed
     }
   })
 }
@@ -273,13 +241,13 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       const position = screenPosition(node)
       const pulse = node.distance === 0 ? 0 : Math.sin(frame * 0.028 + node.seed) * 0.35
       const radius = node.radius + pulse
-      const tone = NODE_TONES[node.tone]
+      const color = node.distance === 0 ? SELF_NODE_COLOR : PEER_NODE_COLOR
 
       ctx.save()
       ctx.globalAlpha = nodeAlpha(node.distance)
       ctx.beginPath()
       ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
-      ctx.fillStyle = tone.color
+      ctx.fillStyle = color
       ctx.fill()
 
       ctx.beginPath()
@@ -287,14 +255,6 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0.32)"
       ctx.lineWidth = node.distance === 0 ? 2 : 1
       ctx.stroke()
-
-      if (node.distance === 0) {
-        ctx.beginPath()
-        ctx.arc(position.x, position.y, radius * 0.54, 0, Math.PI * 2)
-        ctx.strokeStyle = "rgba(11,13,18,0.72)"
-        ctx.lineWidth = Math.max(2, radius * 0.16)
-        ctx.stroke()
-      }
       ctx.restore()
     }
 
@@ -357,11 +317,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       </div>
       <div className="h-[360px] overflow-hidden rounded-lg border bg-[#0b0d12] sm:h-[460px]">
         {hasConnections ? (
-          <canvas
-            ref={canvasRef}
-            className="block h-full w-full"
-            aria-label="つながりのかたち"
-          />
+          <canvas ref={canvasRef} className="block h-full w-full" aria-label="つながりのかたち" />
         ) : (
           <div className="grid h-full place-items-center px-6 text-center">
             <p className="text-sm text-white/45">この期間の交流データがありません。</p>
