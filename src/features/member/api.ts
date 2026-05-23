@@ -1,4 +1,4 @@
-import type { UserLevels, UserProfile } from "@/features/member/types"
+import type { SocialGraph, UserLevels, UserProfile } from "@/features/member/types"
 
 export const CHILL_CAFE_GUILD_ID = "1168847276291137586"
 
@@ -61,4 +61,10 @@ export function getUserLevels(userId: string) {
   return fetchApi<UserLevels>(
     `/api/v1/guilds/${CHILL_CAFE_GUILD_ID}/users/${encodeURIComponent(userId)}/levels`
   )
+}
+
+export function getSocialGraph(days: number, limit = 80) {
+  const params = new URLSearchParams({ days: String(days), limit: String(limit) })
+
+  return fetchApi<SocialGraph>(`/api/v1/guilds/${CHILL_CAFE_GUILD_ID}/social-graph?${params}`)
 }

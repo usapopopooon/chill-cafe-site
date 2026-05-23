@@ -11,16 +11,24 @@ import {
   XAxis,
   YAxis
 } from "recharts"
-import { ApiError, CHILL_CAFE_GUILD_ID, getUserLevels, getUserProfile } from "@/features/member/api"
+import {
+  ApiError,
+  CHILL_CAFE_GUILD_ID,
+  getSocialGraph,
+  getUserLevels,
+  getUserProfile
+} from "@/features/member/api"
 import {
   formatDateShort,
   formatHoursDecimal,
   formatNumber,
   formatSeconds
 } from "@/features/member/format"
+import { MemberSocialGraph } from "@/features/member/member-social-graph"
 import type {
   DailyPoint,
   LevelBreakdown,
+  SocialGraph,
   TopChannel,
   UserLevels,
   UserProfile
@@ -50,6 +58,12 @@ export function MemberPage({ userId, days }: MemberPageProps) {
     staleTime: 30_000
   })
 
+  const socialGraphQuery = useQuery({
+    queryKey: ["member-social-graph", CHILL_CAFE_GUILD_ID, days],
+    queryFn: () => getSocialGraph(days),
+    staleTime: 30_000
+  })
+
   return (
     <div className="level-bot-page min-h-screen">
       <header className="border-b bg-black/20 backdrop-blur">
@@ -71,6 +85,8 @@ export function MemberPage({ userId, days }: MemberPageProps) {
             isLevelsLoading={levelsQuery.isLoading}
             levels={levelsQuery.data}
             profile={profileQuery.data}
+            socialGraph={socialGraphQuery.data}
+            isSocialGraphLoading={socialGraphQuery.isLoading}
           />
         ) : null}
       </main>
@@ -106,11 +122,15 @@ function ProfileContent({
   profile,
   levels,
   isLevelsLoading,
+  socialGraph,
+  isSocialGraphLoading,
   days
 }: {
   profile: UserProfile
   levels?: UserLevels
   isLevelsLoading: boolean
+  socialGraph?: SocialGraph
+  isSocialGraphLoading: boolean
   days: number
 }) {
   const topVoiceChannels = getTopVoiceChannels(profile)
@@ -145,6 +165,12 @@ function ProfileContent({
             valueFormatter={(entry) => formatNumber(entry.message_count)}
           />
         </section>
+
+        {socialGraph ? (
+          <MemberSocialGraph graph={socialGraph} profile={profile} />
+        ) : isSocialGraphLoading ? (
+          <SocialGraphSkeleton />
+        ) : null}
       </div>
     </div>
   )
@@ -270,6 +296,26 @@ function ChartSkeleton() {
         ))}
       </div>
     </div>
+  )
+}
+
+function SocialGraphSkeleton() {
+  return (
+    <section className="space-y-3" aria-busy="true" aria-label="交流マップを読み込み中">
+      <div>
+        <Skeleton className="h-6 w-24 rounded-md" />
+        <Skeleton className="mt-2 h-4 w-20 rounded-md" />
+      </div>
+      <div className="h-[360px] overflow-hidden rounded-xl border bg-black p-4 sm:h-[460px]">
+        <div className="relative h-full">
+          <Skeleton className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+          <Skeleton className="absolute left-[18%] top-[28%] h-11 w-11 rounded-full opacity-50" />
+          <Skeleton className="absolute right-[20%] top-[24%] h-12 w-12 rounded-full opacity-50" />
+          <Skeleton className="absolute bottom-[22%] left-[26%] h-10 w-10 rounded-full opacity-40" />
+          <Skeleton className="absolute bottom-[25%] right-[28%] h-10 w-10 rounded-full opacity-40" />
+        </div>
+      </div>
+    </section>
   )
 }
 

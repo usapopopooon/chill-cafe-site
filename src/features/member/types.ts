@@ -47,3 +47,32 @@ export interface UserLevels {
   reactions_received: LevelBreakdown
   reactions_given: LevelBreakdown
 }
+
+export interface SocialGraphNode {
+  user_id: string
+  display_name: string
+  avatar_url: string | null
+  weight: number
+  message_count: number
+  voice_seconds: number
+  reactions_received: number
+  reactions_given: number
+}
+
+export interface SocialGraphEdge {
+  source_user_id: string
+  target_user_id: string
+  weight: number
+  voice_seconds: number
+  voice_sessions: number
+  replies: number
+  reactions: number
+  co_activity: number
+}
+
+export interface SocialGraph {
+  guild_id: string
+  days: number
+  nodes: SocialGraphNode[]
+  edges: SocialGraphEdge[]
+}
