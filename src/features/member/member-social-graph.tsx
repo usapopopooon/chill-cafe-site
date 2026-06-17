@@ -19,8 +19,8 @@ interface DrawNode extends SocialGraphNode {
   seed: number
 }
 
-const SELF_NODE_COLOR = "#e6e8ee"
-const PEER_NODE_COLOR = "#5eead4"
+const SELF_NODE_COLOR = "#f25f55"
+const PEER_NODE_COLOR = "#65a9e3"
 
 function hashString(value: string): number {
   let hash = 2166136261
@@ -211,12 +211,12 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
     }
 
     function drawBackground() {
-      ctx.fillStyle = "#0b0d12"
+      ctx.fillStyle = "#fffdf8"
       ctx.fillRect(0, 0, width, height)
 
       ctx.save()
       ctx.translate(width * 0.5, height * 0.5)
-      ctx.strokeStyle = "rgba(255,255,255,0.075)"
+      ctx.strokeStyle = "rgba(122,96,78,0.14)"
       ctx.lineWidth = 1
       for (const radius of [0.24, 0.36, 0.44]) {
         ctx.beginPath()
@@ -226,7 +226,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
       ctx.restore()
 
       ctx.save()
-      ctx.strokeStyle = "rgba(255,255,255,0.035)"
+      ctx.strokeStyle = "rgba(122,96,78,0.08)"
       ctx.lineWidth = 1
       ctx.beginPath()
       ctx.moveTo(width * 0.08, height * 0.5)
@@ -252,7 +252,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
 
       ctx.beginPath()
       ctx.arc(position.x, position.y, radius + 1.5, 0, Math.PI * 2)
-      ctx.strokeStyle = node.distance === 0 ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0.32)"
+      ctx.strokeStyle = node.distance === 0 ? "rgba(122,96,78,0.5)" : "rgba(122,96,78,0.26)"
       ctx.lineWidth = node.distance === 0 ? 2 : 1
       ctx.stroke()
       ctx.restore()
@@ -278,7 +278,7 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
         ctx.beginPath()
         ctx.moveTo(sourcePosition.x, sourcePosition.y)
         ctx.quadraticCurveTo(midX, midY + bend, targetPosition.x, targetPosition.y)
-        ctx.strokeStyle = `rgba(255,255,255,${alpha})`
+        ctx.strokeStyle = `rgba(122,96,78,${alpha})`
         ctx.lineWidth = 0.8 + strength * 2.2
         ctx.lineCap = "round"
         ctx.stroke()
@@ -312,15 +312,15 @@ export function MemberSocialGraph({ graph, profile }: MemberSocialGraphProps) {
   return (
     <section className="space-y-3">
       <div>
-        <h2 className="text-lg font-semibold">つながりのかたち</h2>
-        <p className="text-sm text-white/45">直近 {graph.days} 日</p>
+        <h2 className="text-lg font-black text-[#4e4038]">つながりのかたち</h2>
+        <p className="text-sm font-medium text-[#8f7162]">直近 {graph.days} 日</p>
       </div>
-      <div className="h-[360px] overflow-hidden rounded-lg border bg-[#0b0d12] sm:h-[460px]">
+      <div className="level-bot-panel h-[360px] overflow-hidden sm:h-[460px]">
         {hasConnections ? (
           <canvas ref={canvasRef} className="block h-full w-full" aria-label="つながりのかたち" />
         ) : (
           <div className="grid h-full place-items-center px-6 text-center">
-            <p className="text-sm text-white/45">この期間の交流データがありません。</p>
+            <p className="text-sm text-[#8f7162]">この期間の交流データがありません。</p>
           </div>
         )}
       </div>

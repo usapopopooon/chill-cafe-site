@@ -35,6 +35,7 @@ import type {
 } from "@/features/member/types"
 import "./member-page.css"
 
+const LEVEL_KUN_ICON_URL = `${import.meta.env.BASE_URL}level-kun.png`
 const DEFAULT_ROBOTS_CONTENT = "index, follow, max-image-preview:large"
 const MEMBER_PAGE_ROBOTS_CONTENT = "noindex, nofollow"
 
@@ -66,15 +67,23 @@ export function MemberPage({ userId, days }: MemberPageProps) {
 
   return (
     <div className="level-bot-page min-h-screen">
-      <header className="border-b bg-black/20 backdrop-blur">
+      <header className="level-bot-header border-b backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center px-4 py-3">
-          <a href="/" className="text-base font-semibold tracking-tight">
-            📊 Level Bot
+          <a href="/" className="flex items-center gap-3 text-base font-bold tracking-normal">
+            <img
+              src={LEVEL_KUN_ICON_URL}
+              alt=""
+              width="1254"
+              height="1254"
+              className="size-10 rounded-2xl border-2 border-white bg-white object-cover shadow-sm"
+              aria-hidden="true"
+            />
+            レベルくん
           </a>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 py-6">
+      <main className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
         {profileQuery.isLoading ? (
           <LoadingProfile days={days} userId={userId} />
         ) : profileQuery.isError ? (
@@ -137,7 +146,7 @@ function ProfileContent({
 
   return (
     <div>
-      <a href="/" className="text-sm text-white/50 hover:text-white/80">
+      <a href="/" className="text-sm font-medium text-[#8f7162] hover:text-[#5e493f]">
         ← トップへ戻る
       </a>
 
@@ -147,7 +156,7 @@ function ProfileContent({
         <StatsGrid profile={profile} days={days} />
 
         <section>
-          <h2 className="mb-2 text-lg font-semibold">日別アクティビティ</h2>
+          <h2 className="mb-2 text-lg font-black text-[#4e4038]">日別アクティビティ</h2>
           <UserDailyChart points={profile.daily} />
         </section>
 
@@ -185,15 +194,19 @@ function getTopVoiceChannels(profile: UserProfile) {
 
 function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }) {
   return (
-    <header className="flex items-center gap-4">
+    <header className="level-bot-panel flex items-center gap-4 p-4 sm:p-5">
       {profile.avatar_url ? (
-        <img src={profile.avatar_url} alt="" className="h-14 w-14 rounded-full bg-white/10" />
+        <img
+          src={profile.avatar_url}
+          alt=""
+          className="size-16 rounded-[24px] border-4 border-white bg-white object-cover shadow-sm"
+        />
       ) : (
-        <div className="h-14 w-14 rounded-full bg-white/10" />
+        <div className="size-16 rounded-[24px] border-4 border-white bg-[#f1e7de] shadow-sm" />
       )}
       <div>
-        <h1 className="text-2xl font-bold">{profile.display_name}</h1>
-        <p className="text-sm text-white/50">直近 {days} 日</p>
+        <h1 className="text-2xl font-black text-[#4e4038]">{profile.display_name}</h1>
+        <p className="mt-1 text-sm font-medium text-[#8f7162]">直近 {days} 日のきろく</p>
       </div>
     </header>
   )
@@ -202,7 +215,7 @@ function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }
 function LoadingProfile({ days, userId }: { days: number; userId: string }) {
   return (
     <div>
-      <a href="/" className="text-sm text-white/50 hover:text-white/80">
+      <a href="/" className="text-sm font-medium text-[#8f7162] hover:text-[#5e493f]">
         ← トップへ戻る
       </a>
 
@@ -238,9 +251,9 @@ function Skeleton({ className = "", style }: { className?: string; style?: CSSPr
 
 function StatsSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
       {Array.from({ length: 6 }).map((_, index) => (
-        <div key={index} className="rounded-xl border bg-white/5 p-4">
+        <div key={index} className="level-bot-panel p-4">
           <Skeleton className="h-3 w-20 rounded-md" />
           <Skeleton className="mt-3 h-8 w-24 rounded-md" />
         </div>
@@ -254,7 +267,7 @@ function LevelsSkeleton() {
     <section className="space-y-3" aria-busy="true" aria-label="レベルを読み込み中">
       <Skeleton className="h-6 w-16 rounded-md" />
       <LevelCardSkeleton highlight />
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:grid-cols-4">
         {Array.from({ length: 4 }).map((_, index) => (
           <LevelCardSkeleton key={index} />
         ))}
@@ -265,12 +278,8 @@ function LevelsSkeleton() {
 
 function LevelCardSkeleton({ highlight = false }: { highlight?: boolean }) {
   return (
-    <div
-      className={`rounded-xl border p-4 ${
-        highlight ? "level-bot-border-amber bg-amber-400/5" : "bg-white/5"
-      }`}
-    >
-      <div className="flex items-baseline justify-between gap-2">
+    <div className={`level-bot-panel p-4 ${highlight ? "level-bot-highlight-panel" : ""}`}>
+      <div className="flex min-w-0 items-baseline justify-between gap-2">
         <Skeleton className="h-3 w-20 rounded-md" />
         <Skeleton className={highlight ? "h-8 w-16 rounded-md" : "h-6 w-14 rounded-md"} />
       </div>
@@ -285,7 +294,7 @@ function LevelCardSkeleton({ highlight = false }: { highlight?: boolean }) {
 
 function ChartSkeleton() {
   return (
-    <div className="h-72 w-full rounded-xl border bg-white/5 p-4">
+    <div className="level-bot-panel h-72 w-full p-4">
       <div className="flex h-full items-end gap-2">
         {Array.from({ length: 24 }).map((_, index) => (
           <Skeleton
@@ -306,7 +315,7 @@ function SocialGraphSkeleton() {
         <Skeleton className="h-6 w-24 rounded-md" />
         <Skeleton className="mt-2 h-4 w-20 rounded-md" />
       </div>
-      <div className="h-[360px] overflow-hidden rounded-xl border bg-black p-4 sm:h-[460px]">
+      <div className="level-bot-panel h-[360px] overflow-hidden p-4 sm:h-[460px]">
         <div className="relative h-full">
           <Skeleton className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full" />
           <Skeleton className="absolute left-[18%] top-[28%] h-11 w-11 rounded-full opacity-50" />
@@ -321,11 +330,7 @@ function SocialGraphSkeleton() {
 
 function TopChannelsSkeleton() {
   return (
-    <div
-      className="rounded-xl border bg-white/5 p-4"
-      aria-busy="true"
-      aria-label="チャンネルを読み込み中"
-    >
+    <div className="level-bot-panel p-4" aria-busy="true" aria-label="チャンネルを読み込み中">
       <div className="mb-3 flex items-center justify-between gap-4">
         <Skeleton className="h-6 w-40 rounded-md" />
         <Skeleton className="h-3 w-16 rounded-md" />
@@ -353,17 +358,17 @@ function ProfileError({ error, userId }: { error: Error; userId: string }) {
         : "プロフィールを読み込めませんでした。"
 
   return (
-    <div className="rounded-xl border bg-white/5 p-5">
-      <div className="text-xs uppercase tracking-wide text-white/50">Error</div>
+    <div className="level-bot-panel p-5">
+      <div className="text-xs uppercase tracking-wide text-[#a2806c]">Error</div>
       <h1 className="mt-2 text-2xl font-bold">{message}</h1>
-      <p className="mt-2 text-sm text-white/50">user_id: {userId}</p>
+      <p className="mt-2 text-sm text-[#8f7162]">user_id: {userId}</p>
     </div>
   )
 }
 
 function StatsGrid({ profile, days }: { profile: UserProfile; days: number }) {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
       <StatCard label="Messages" value={formatNumber(profile.total_messages)} />
       <StatCard label="Voice" value={formatSeconds(profile.total_voice_seconds)} />
       <StatCard label="リアクション (受)" value={formatNumber(profile.total_reactions_received)} />
@@ -390,10 +395,10 @@ function StatCard({
   hint?: string
 }) {
   return (
-    <div className="rounded-xl border bg-white/5 p-4">
-      <div className="text-xs uppercase tracking-wide text-white/50">{label}</div>
-      <div className="mt-1 text-2xl font-semibold">{value}</div>
-      {hint ? <div className="mt-1 text-xs text-white/40">{hint}</div> : null}
+    <div className="level-bot-panel p-4">
+      <div className="text-xs font-bold uppercase tracking-wide text-[#a2806c]">{label}</div>
+      <div className="mt-1 text-2xl font-black text-[#4e4038]">{value}</div>
+      {hint ? <div className="mt-1 text-xs text-[#8f7162]">{hint}</div> : null}
     </div>
   )
 }
@@ -401,27 +406,54 @@ function StatCard({
 function LevelsSection({ levels }: { levels: UserLevels }) {
   return (
     <section className="space-y-3">
-      <h2 className="text-lg font-semibold">レベル</h2>
-      <LevelCard label="総合" emoji="⭐" breakdown={levels.total} highlight />
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <LevelCard label="ボイス" emoji="🎙️" breakdown={levels.voice} />
-        <LevelCard label="テキスト" emoji="💬" breakdown={levels.text} />
-        <LevelCard label="リアクション (受)" emoji="💖" breakdown={levels.reactions_received} />
-        <LevelCard label="リアクション (送)" emoji="👍" breakdown={levels.reactions_given} />
+      <div className="flex items-center gap-3">
+        <img
+          src={LEVEL_KUN_ICON_URL}
+          alt=""
+          width="1254"
+          height="1254"
+          className="size-12 rounded-[18px] border-2 border-white bg-white object-cover shadow-sm"
+          aria-hidden="true"
+        />
+        <div>
+          <h2 className="text-xl font-black text-[#4e4038]">レベル</h2>
+          <p className="text-xs font-medium text-[#8f7162]">ゆるっと成長のきろく</p>
+        </div>
+      </div>
+      <LevelCard label="総合" emoji="⭐" breakdown={levels.total} tone="total" highlight />
+      <div className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 sm:grid-cols-4">
+        <LevelCard label="ボイス" emoji="🎙️" breakdown={levels.voice} tone="blue" />
+        <LevelCard label="テキスト" emoji="💬" breakdown={levels.text} tone="green" />
+        <LevelCard
+          label="リアクション (受)"
+          emoji="💖"
+          breakdown={levels.reactions_received}
+          tone="red"
+        />
+        <LevelCard
+          label="リアクション (送)"
+          emoji="👍"
+          breakdown={levels.reactions_given}
+          tone="pink"
+        />
       </div>
     </section>
   )
 }
 
+type LevelTone = "total" | "blue" | "green" | "red" | "pink"
+
 function LevelCard({
   label,
   emoji,
   breakdown,
+  tone,
   highlight
 }: {
   label: string
   emoji?: string
   breakdown: LevelBreakdown
+  tone: LevelTone
   highlight?: boolean
 }) {
   const ratio = Math.max(0, Math.min(1, breakdown.progress))
@@ -430,28 +462,28 @@ function LevelCard({
 
   return (
     <div
-      className={`rounded-xl border p-4 ${
-        highlight ? "level-bot-border-amber bg-amber-400/5" : "bg-white/5"
+      className={`level-bot-panel level-card level-card-${tone} p-4 ${
+        highlight ? "level-bot-highlight-panel sm:p-5" : ""
       }`}
     >
-      <div className="flex items-baseline justify-between gap-2">
-        <span className="text-xs text-white/60">
+      <div className="flex min-w-0 items-baseline justify-between gap-2">
+        <span className="min-w-0 truncate text-xs font-bold text-[#7b6256]">
           {emoji ? `${emoji} ` : ""}
           {label}
         </span>
         <span
-          className={`tabular-nums ${highlight ? "text-2xl font-bold" : "text-lg font-semibold"}`}
+          className={`shrink-0 tabular-nums text-[#4e4038] ${highlight ? "text-3xl font-black" : "text-lg font-black"}`}
         >
           Lv {breakdown.level}
         </span>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+      <div className="mt-3 h-3 overflow-hidden rounded-full bg-white/75 shadow-[inset_0_1px_2px_rgba(99,77,60,0.12)]">
         <div
-          className={`level-bot-progress h-full ${highlight ? "bg-amber-400" : "bg-white/50"}`}
+          className="level-bot-progress h-full rounded-full"
           style={{ width: `${ratio * 100}%` }}
         />
       </div>
-      <div className="mt-1 flex justify-between text-[10px] text-white/40 tabular-nums">
+      <div className="mt-2 flex justify-between text-[10px] font-bold text-[#9a7a69] tabular-nums">
         <span>{formatNumber(breakdown.xp)} XP</span>
         <span>{span > 0 ? `次まで ${formatNumber(remaining)}` : "MAX"}</span>
       </div>
@@ -467,35 +499,36 @@ function UserDailyChart({ points }: { points: DailyPoint[] }) {
   }))
 
   return (
-    <div className="h-72 w-full rounded-xl border bg-white/5 p-4">
+    <div className="level-bot-panel h-72 w-full p-4">
       <ResponsiveContainer>
         <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff15" />
-          <XAxis dataKey="date" tick={{ fill: "#aaa", fontSize: 12 }} />
-          <YAxis yAxisId="left" tick={{ fill: "#aaa", fontSize: 12 }} allowDecimals={false} />
-          <YAxis yAxisId="right" orientation="right" tick={{ fill: "#aaa", fontSize: 12 }} />
+          <CartesianGrid strokeDasharray="4 6" stroke="#decfc4" />
+          <XAxis dataKey="date" tick={{ fill: "#8f7162", fontSize: 12 }} />
+          <YAxis yAxisId="left" tick={{ fill: "#8f7162", fontSize: 12 }} allowDecimals={false} />
+          <YAxis yAxisId="right" orientation="right" tick={{ fill: "#8f7162", fontSize: 12 }} />
           <Tooltip
             contentStyle={{
-              background: "#1a1d24",
-              border: "1px solid #ffffff20",
-              borderRadius: 8
+              background: "#fffdf8",
+              border: "1px solid #d8c2b3",
+              borderRadius: 14,
+              color: "#4e4038"
             }}
-            labelStyle={{ color: "#fff" }}
+            labelStyle={{ color: "#4e4038", fontWeight: 700 }}
           />
-          <Legend wrapperStyle={{ color: "#ddd" }} />
+          <Legend wrapperStyle={{ color: "#6e574b", fontWeight: 700 }} />
           <Bar
             yAxisId="left"
             dataKey="messages"
             name="メッセージ"
-            fill="#5865F2"
-            radius={[4, 4, 0, 0]}
+            fill="#6aa8df"
+            radius={[12, 12, 4, 4]}
           />
           <Bar
             yAxisId="right"
             dataKey="voiceHours"
             name="ボイス (時間)"
-            fill="#57F287"
-            radius={[4, 4, 0, 0]}
+            fill="#86bf5b"
+            radius={[12, 12, 4, 4]}
           />
         </BarChart>
       </ResponsiveContainer>
@@ -515,20 +548,24 @@ function TopChannelsList({
   valueFormatter: (entry: TopChannel) => string
 }) {
   return (
-    <div className="rounded-xl border bg-white/5 p-4">
+    <div className="level-bot-panel p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <span className="text-xs text-white/40">{valueLabel}</span>
+        <h2 className="text-lg font-black text-[#4e4038]">{title}</h2>
+        <span className="text-xs font-bold text-[#a2806c]">{valueLabel}</span>
       </div>
       {entries.length === 0 ? (
-        <p className="text-sm text-white/50">データがありません。</p>
+        <p className="text-sm text-[#8f7162]">データがありません。</p>
       ) : (
         <ol className="space-y-2">
           {entries.map((entry, index) => (
             <li key={entry.channel_id} className="flex items-center gap-3">
-              <span className="w-6 text-right text-sm text-white/40">#{index + 1}</span>
-              <span className="flex-1 truncate text-sm">#{entry.name}</span>
-              <span className="text-sm font-medium tabular-nums">{valueFormatter(entry)}</span>
+              <span className="w-6 text-right text-sm font-bold text-[#a2806c]">#{index + 1}</span>
+              <span className="flex-1 truncate text-sm font-medium text-[#5e493f]">
+                #{entry.name}
+              </span>
+              <span className="text-sm font-bold text-[#4e4038] tabular-nums">
+                {valueFormatter(entry)}
+              </span>
             </li>
           ))}
         </ol>
