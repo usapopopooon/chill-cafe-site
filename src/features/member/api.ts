@@ -2,7 +2,7 @@ import type { SocialGraph, UserLevels, UserProfile } from "@/features/member/typ
 
 export const CHILL_CAFE_GUILD_ID = "1168847276291137586"
 
-const DEFAULT_API_ORIGIN = "https://api-production-1623.up.railway.app"
+const DEFAULT_API_ORIGIN = "https://level-bot-api.chill-cafe.site"
 const apiOrigin = (import.meta.env.VITE_LEVEL_BOT_API_ORIGIN || DEFAULT_API_ORIGIN).replace(
   /\/$/,
   ""
