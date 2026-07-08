@@ -48,8 +48,8 @@ const categories = [
 
 export function App() {
   return (
-    <main className="top-page min-h-screen min-w-[390px] overflow-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
-      <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#fff5fa]">
+    <main className="top-page min-h-screen overflow-x-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
+      <section className="relative isolate overflow-hidden bg-[#fff5fa] md:min-h-[100svh]">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-[linear-gradient(180deg,#fff8fb_0%,#ffe9f3_100%)]">
           <img
             src={SERVER_BANNER_URL}
