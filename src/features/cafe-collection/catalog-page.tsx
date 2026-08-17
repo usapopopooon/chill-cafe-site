@@ -26,16 +26,18 @@ type KindFilter = "all" | "drink" | "food"
 const sitePath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`
 
 export function CafeCollectionPage() {
-  usePageMeta({
-    title: "カフェ・コレクション図鑑 | CHILLカフェ",
-    description:
-      "CHILLカフェで集められる全132種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。",
-    canonicalPath: "cafe-collection"
-  })
   const catalogQuery = useQuery({
     queryKey: ["cafe-collection", "catalog"],
     queryFn: getCafeCatalog,
     staleTime: 60 * 60 * 1000
+  })
+  const catalogDescription = catalogQuery.data
+    ? `CHILLカフェで集められる全${catalogQuery.data.total_cards}種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。`
+    : "CHILLカフェで集められるカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
+  usePageMeta({
+    title: "カフェ・コレクション図鑑 | CHILLカフェ",
+    description: catalogDescription,
+    canonicalPath: "cafe-collection"
   })
   const [query, setQuery] = useState("")
   const [rarity, setRarity] = useState<CafeRarity | "all">("all")

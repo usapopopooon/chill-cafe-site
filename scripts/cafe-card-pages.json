@@ -658,5 +658,115 @@
     "key": "emperors-rich-cup",
     "name": "皇帝の濃厚カップ",
     "description": "王冠は飴細工らしい。誰が皇帝なのかは教えてもらえなかった。"
+  },
+  {
+    "key": "shrinkflation-sandwich",
+    "name": "実質据え置きサンド",
+    "description": "パンの厚さは据え置き。具材だけが、ひと足先にスリムになった。"
+  },
+  {
+    "key": "payday-eve-blend",
+    "name": "給料日前ブレンド",
+    "description": "豆は三粒、ビスケットは半分。給料日はまだ湯気の向こう。"
+  },
+  {
+    "key": "self-help-soup",
+    "name": "自助努力スープ",
+    "description": "具材はそろえました。あとはお客様の自助努力で完成です。"
+  },
+  {
+    "key": "meeting-cooled-coffee",
+    "name": "会議で冷めた珈琲",
+    "description": "結論は出なかったが、珈琲だけはしっかり冷めた。"
+  },
+  {
+    "key": "ad-supported-water",
+    "name": "広告つき天然水",
+    "description": "無料の一杯。味わう前に、卓上広告を何枚かご覧ください。"
+  },
+  {
+    "key": "pending-breakfast",
+    "name": "検討中のモーニング",
+    "description": "パンと卵の是非を慎重に検討中。珈琲だけ先に冷めていく。"
+  },
+  {
+    "key": "downsized-cream-puff",
+    "name": "中身を見直したシュークリーム",
+    "description": "おいしさはそのまま。中身だけ、見直しました。"
+  },
+  {
+    "key": "sentiment-boost-latte",
+    "name": "お気持ち増量ラテ",
+    "description": "増えたのは泡ひとさじと、たいへん丁寧なお気持ち。"
+  },
+  {
+    "key": "uncancellable-tea",
+    "name": "解約ページの見つからない紅茶",
+    "description": "一杯で始められるが、飲み終えるには長い手続きがいるらしい。"
+  },
+  {
+    "key": "subscription-sugar-cube",
+    "name": "定額制角砂糖",
+    "description": "今月分は角砂糖一個。追加分は次回更新までお待ちください。"
+  },
+  {
+    "key": "ai-manager-blend",
+    "name": "AI店長のおすすめブレンド",
+    "description": "三案を分析した結果、どれも同じ味に最適化された。"
+  },
+  {
+    "key": "five-star-hot-water",
+    "name": "口コミ星五つの白湯",
+    "description": "星は五つ、味は白湯。評価欄だけがよく温まっている。"
+  },
+  {
+    "key": "mindful-instant-potage",
+    "name": "丁寧な暮らしの即席ポタージュ",
+    "description": "粉末一袋を、花と銀皿と深呼吸で丁寧に仕上げた。"
+  },
+  {
+    "key": "compliance-cookie",
+    "name": "コンプライアンス・クッキー",
+    "description": "角を落とし、長さを測り、誰にも引っかからない味になった。"
+  },
+  {
+    "key": "hollowed-out-mille-feuille",
+    "name": "中抜きミルフィーユ",
+    "description": "外周は立派。切ってみると、中央だけ効率よく抜かれている。"
+  },
+  {
+    "key": "trickle-down-coffee",
+    "name": "トリクルダウン・コーヒー",
+    "description": "上のポットは満杯。下のカップには、いつか一滴が届く予定。"
+  },
+  {
+    "key": "invisible-hand-kneaded-bread",
+    "name": "見えざる手ごねパン",
+    "description": "店主は触っていないと言う。粉の手形も、そう言っている。"
+  },
+  {
+    "key": "rating-economy-latte",
+    "name": "評価経済ラテ",
+    "description": "星を五つ浮かべれば、味の説明は短くて済む。"
+  },
+  {
+    "key": "outrage-roast-coffee",
+    "name": "炎上焙煎珈琲",
+    "description": "少し焦げた話題を、いちばん熱いうちにどうぞ。"
+  },
+  {
+    "key": "endless-growth-pancakes",
+    "name": "無限成長パンケーキ",
+    "description": "前の皿より高く積めば、成長していることになるらしい。"
+  },
+  {
+    "key": "authority-approved-hot-water",
+    "name": "世界的権威監修の白湯",
+    "description": "三人の権威が監修した、たいへん根拠のあるお湯。"
+  },
+  {
+    "key": "premium-ordinary-water",
+    "name": "プレミアム普通水",
+    "description": "箱とリボンと証明書を外すと、よく冷えた普通の水。"
   }
 ]

@@ -9,8 +9,9 @@ const indexPath = resolve(distDir, "index.html")
 const fallbackPath = resolve(distDir, "404.html")
 const cardManifestPath = resolve(process.cwd(), "scripts/cafe-card-pages.json")
 
-// API未デプロイ時も再現可能なビルドにするため、カードの公開用メタ情報は
-// level-botの固定カタログと同期したチェックイン済みmanifestを使う。
+// API未デプロイ時も再現可能なビルドにするため、既知のカードの公開用メタ情報は
+// チェックイン済みmanifestを使う。新しいカードはSPAの404フォールバックから
+// level-bot APIを読み込めるため、manifestの件数はサイト表示を制限しない。
 
 if (!existsSync(indexPath)) {
   throw new Error("dist/index.html was not found. Run vite build before preparing Pages output.")
@@ -19,8 +20,8 @@ if (!existsSync(indexPath)) {
 const baseHtml = readFileSync(indexPath, "utf8")
 const cards = JSON.parse(readFileSync(cardManifestPath, "utf8"))
 
-if (!Array.isArray(cards) || cards.length !== 132) {
-  throw new Error("scripts/cafe-card-pages.json must contain all 132 cafe cards.")
+if (!Array.isArray(cards) || cards.length === 0) {
+  throw new Error("scripts/cafe-card-pages.json must contain at least one cafe card.")
 }
 
 const seenCardKeys = new Set()
@@ -44,7 +45,7 @@ const pageDefinitions = [
     path: "cafe-collection",
     title: "カフェ・コレクション図鑑 | CHILLカフェ",
     description:
-      "CHILLカフェで集められる全132種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
+      "CHILLカフェで集められるカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
   },
   {
     path: "cafe-collection/rankings",

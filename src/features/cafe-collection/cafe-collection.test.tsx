@@ -81,7 +81,7 @@ const categoryKeys: CafeLeaderboardCategoryKey[] = ["collection", "mastery", "se
 
 const rankings: CafeLeaderboards = {
   guild_id: "1168847276291137586",
-  total_cards: 132,
+  total_cards: 154,
   total_sets: 11,
   participant_count: 12,
   total_draws: 5217,
@@ -169,6 +169,10 @@ describe("CafeCollectionPage", () => {
     expect(screen.getByText("基準 2.60%")).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "出がらし" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "スコーン" })).toBeInTheDocument()
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      "content",
+      "CHILLカフェで集められる全3種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
+    )
     expect(
       [...document.querySelectorAll(".cafe-hero-title-line")].map((line) => line.textContent)
     ).toEqual(["一杯とひと皿の、", "ちいさな博物館。"])
@@ -223,6 +227,31 @@ describe("CafeCardDetailPage", () => {
     expect(document.querySelector('meta[name="robots"]')).toHaveAttribute(
       "content",
       "noindex, nofollow, noarchive, nosnippet, noimageindex"
+    )
+  })
+
+  it("shows a card supplied only by the current level-bot catalog", async () => {
+    const apiAddedCard = {
+      ...catalog.cards[0],
+      key: "api-added-card",
+      name: "APIから届いた新メニュー",
+      description: "サイトの固定台帳にはない、追加されたばかりの一皿。",
+      image_url: "/api/v1/public/cafe-collection/cards/api-added-card/image"
+    }
+    mockJson({
+      ...catalog,
+      total_cards: catalog.total_cards + 1,
+      cards: [...catalog.cards, apiAddedCard]
+    })
+
+    renderWithQuery(<CafeCardDetailPage cardKey="api-added-card" />)
+
+    expect(
+      await screen.findByRole("heading", { name: "APIから届いた新メニュー" })
+    ).toBeInTheDocument()
+    expect(document.querySelector('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      "https://chill-cafe.site/cafe-collection/cards/api-added-card/"
     )
   })
 })

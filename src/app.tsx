@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query"
 import { BookOpen, ChevronDown, ExternalLink, Globe2, Hash, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { getCafeCatalog } from "@/features/cafe-collection/api"
 import "./app.css"
 
 const DISCORD_SERVER_URL = "https://discord.com/invite/chill-cafe"
@@ -47,6 +49,14 @@ const categories = [
 ]
 
 export function App() {
+  const cafeCatalogQuery = useQuery({
+    queryKey: ["cafe-collection", "catalog"],
+    queryFn: getCafeCatalog,
+    staleTime: 60 * 60 * 1000
+  })
+  const cafeCardCount = cafeCatalogQuery.data?.total_cards
+  const cafeSetCount = cafeCatalogQuery.data?.sets.length
+
   return (
     <main className="top-page min-h-screen overflow-x-hidden bg-[#fff5fa] font-['M_PLUS_Rounded_1c'] text-[#4a3342]">
       <section className="relative isolate overflow-hidden bg-[#fff5fa] md:min-h-[100svh]">
@@ -168,7 +178,7 @@ export function App() {
             <h2 className="mt-4 text-3xl font-black leading-tight tracking-normal md:text-5xl">
               出がらしから幻の茶葉まで、
               <br />
-              132種のカフェ図鑑。
+              {cafeCardCount ? `${cafeCardCount}種のカフェ図鑑。` : "増え続けるカフェ図鑑。"}
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#75675b]">
               Discordで集められるカフェ・コレクションを、いつでも眺められる常設ページにしました。
@@ -193,9 +203,9 @@ export function App() {
           </div>
           <div className="grid grid-cols-2 gap-3" aria-label="カフェ・コレクションの内容">
             {[
-              ["132", "常設カード"],
+              [cafeCardCount?.toLocaleString("ja-JP") ?? "API連動", "常設カード"],
               ["5", "レアリティ"],
-              ["11", "セットメニュー"],
+              [cafeSetCount?.toLocaleString("ja-JP") ?? "API連動", "セットメニュー"],
               ["5", "ランキング部門"]
             ].map(([value, label]) => (
               <div
