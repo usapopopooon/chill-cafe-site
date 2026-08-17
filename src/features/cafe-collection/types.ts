@@ -6,6 +6,7 @@ export interface CafeCard {
   rarity: CafeRarity
   description: string
   image_url: string
+  base_draw_rate_percent?: number
   draw_reward_xp: number
   exchange_xp: number
   is_food: boolean
@@ -24,6 +25,19 @@ export interface CafeMasteryTier {
   emoji: string
 }
 
+export interface CafeCatalogRules {
+  free_draws_per_day: number
+  free_draw_reset_timezone: string
+  paid_draw_cost_xp: number
+  hourly_draw_limit: number
+  daily_draw_limit: number | null
+  unowned_weight_multiplier: number
+  endgame_pity_min_collected: number
+  endgame_pity_duplicate_draws: number
+  first_copy_protected: boolean
+  draw_results_public: boolean
+}
+
 export interface CafeCatalog {
   total_cards: number
   food_cards: number
@@ -32,6 +46,7 @@ export interface CafeCatalog {
   cards: CafeCard[]
   sets: CafeSet[]
   mastery_tiers: CafeMasteryTier[]
+  rules?: CafeCatalogRules
 }
 
 export type CafeLeaderboardCategoryKey = "collection" | "mastery" | "sets" | "rare" | "joke"

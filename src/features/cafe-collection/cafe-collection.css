@@ -21,6 +21,11 @@
   box-sizing: border-box;
 }
 
+.cafe-collection-page :focus-visible {
+  outline: 3px solid rgb(162 105 69 / 58%);
+  outline-offset: 3px;
+}
+
 .cafe-site-header {
   position: sticky;
   z-index: 50;
@@ -140,6 +145,7 @@
 }
 
 .cafe-hero-copy,
+.cafe-hero-showcase,
 .cafe-hero-ledger {
   position: relative;
   z-index: 1;
@@ -209,6 +215,82 @@
   height: 17px;
 }
 
+.cafe-hero-showcase {
+  position: relative;
+  min-height: 500px;
+}
+
+.cafe-hero-card-fan {
+  position: absolute;
+  inset: 20px 0 auto;
+  height: 330px;
+}
+
+.cafe-hero-card-fan a {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(68%, 245px);
+  overflow: hidden;
+  border: 5px solid #fffaf0;
+  border-radius: 24px;
+  background: #fffaf0;
+  box-shadow: 0 22px 55px rgb(57 37 24 / 24%);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.cafe-hero-card-fan a:nth-child(1) {
+  z-index: 1;
+  transform: translateX(-86%) rotate(-11deg);
+}
+
+.cafe-hero-card-fan a:nth-child(2) {
+  z-index: 3;
+  transform: translateX(-50%) translateY(-12px) rotate(1deg);
+}
+
+.cafe-hero-card-fan a:nth-child(3) {
+  z-index: 2;
+  transform: translateX(-14%) rotate(11deg);
+}
+
+.cafe-hero-card-fan a:hover {
+  z-index: 5;
+  box-shadow: 0 28px 70px rgb(57 37 24 / 32%);
+}
+
+.cafe-hero-card-fan a:nth-child(1):hover {
+  transform: translateX(-86%) translateY(-8px) rotate(-8deg);
+}
+
+.cafe-hero-card-fan a:nth-child(2):hover {
+  transform: translateX(-50%) translateY(-22px) rotate(0deg);
+}
+
+.cafe-hero-card-fan a:nth-child(3):hover {
+  transform: translateX(-14%) translateY(-8px) rotate(8deg);
+}
+
+.cafe-hero-card-fan img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.cafe-hero-card-fan span {
+  display: block;
+  overflow: hidden;
+  padding: 9px 8px 7px;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .cafe-hero-ledger {
   padding: 54px 36px 34px;
   border: 1px solid rgb(103 71 49 / 20%);
@@ -220,6 +302,25 @@
     18px 22px 0 #dfceb5,
     0 28px 65px rgb(67 42 27 / 15%);
   transform: rotate(1.5deg);
+}
+
+.cafe-hero-showcase .cafe-hero-ledger {
+  position: absolute;
+  z-index: 7;
+  right: -14px;
+  bottom: 0;
+  width: 245px;
+  padding: 35px 22px 23px;
+  transform: rotate(2deg);
+}
+
+.cafe-hero-showcase .cafe-hero-ledger > strong {
+  font-size: 62px;
+}
+
+.cafe-hero-showcase .cafe-hero-ledger dl {
+  margin-top: 22px;
+  gap: 7px;
 }
 
 .cafe-ledger-clip {
@@ -343,10 +444,220 @@
 }
 
 .cafe-catalog-section,
+.cafe-guide-section,
+.cafe-set-section,
 .cafe-detail-main,
 .cafe-ranking-main {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
+}
+
+.cafe-guide-section,
+.cafe-set-section {
+  padding-top: 96px;
+  scroll-margin-top: 90px;
+}
+
+.cafe-guide-grid {
+  display: grid;
+  margin-top: 34px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.cafe-guide-grid article {
+  display: flex;
+  gap: 18px;
+  padding: 25px;
+  border: 1px solid var(--cafe-border);
+  border-radius: 22px;
+  background: rgb(255 250 240 / 68%);
+  box-shadow: 0 13px 32px rgb(63 41 27 / 6%);
+}
+
+.cafe-guide-grid article > svg {
+  width: 27px;
+  min-width: 27px;
+  color: #8b5b3e;
+}
+
+.cafe-guide-grid h3,
+.cafe-guide-grid p {
+  margin: 0;
+}
+
+.cafe-guide-grid h3 {
+  font-size: 16px;
+}
+
+.cafe-guide-grid p {
+  margin-top: 8px;
+  color: var(--cafe-muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.cafe-guide-grid strong {
+  margin: 0 3px;
+  color: #60412f;
+}
+
+.cafe-mastery-path {
+  display: grid;
+  margin-top: 18px;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2.2fr);
+  align-items: center;
+  gap: 20px;
+  padding: 22px 25px;
+  border: 1px solid var(--cafe-border);
+  border-radius: 22px;
+  background: rgb(73 108 91 / 8%);
+}
+
+.cafe-mastery-path > span {
+  color: #486555;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.cafe-mastery-path ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+}
+
+.cafe-mastery-path li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1px 7px;
+  padding: 4px 12px;
+  border-left: 1px solid var(--cafe-border);
+}
+
+.cafe-mastery-path li b {
+  grid-row: 1 / span 2;
+  font-size: 20px;
+}
+
+.cafe-mastery-path li strong {
+  font-size: 12px;
+}
+
+.cafe-mastery-path li small {
+  color: var(--cafe-muted);
+  font-size: 9px;
+}
+
+.cafe-personal-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0 0;
+  color: var(--cafe-muted);
+  font-size: 11px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.cafe-personal-note svg {
+  width: 16px;
+  min-width: 16px;
+  color: var(--cafe-green);
+}
+
+.cafe-set-grid {
+  display: grid;
+  margin-top: 34px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cafe-set-card {
+  padding: 24px;
+  overflow: hidden;
+  border: 1px solid var(--cafe-border);
+  border-radius: 24px;
+  background: rgb(255 250 240 / 72%);
+  box-shadow: 0 13px 32px rgb(63 41 27 / 6%);
+}
+
+.cafe-set-card > div {
+  display: flex;
+  gap: 14px;
+}
+
+.cafe-set-card > div > span {
+  font-size: 30px;
+}
+
+.cafe-set-card h3,
+.cafe-set-card p {
+  margin: 0;
+}
+
+.cafe-set-card h3 {
+  font-family: "Fraunces", "Kiwi Maru", serif;
+  font-size: 21px;
+}
+
+.cafe-set-card p {
+  margin-top: 7px;
+  color: var(--cafe-muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.cafe-set-card ul {
+  display: grid;
+  margin: 20px 0 0;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  gap: 9px;
+  list-style: none;
+}
+
+.cafe-set-card li {
+  min-width: 0;
+}
+
+.cafe-set-card li a {
+  display: block;
+  min-width: 0;
+  padding: 5px;
+  border: 1px solid var(--cafe-border);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 48%);
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.cafe-set-card li a:hover {
+  background: white;
+  transform: translateY(-3px);
+}
+
+.cafe-set-card li img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cafe-set-card li span {
+  display: block;
+  overflow: hidden;
+  padding: 7px 3px 4px;
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cafe-catalog-section {
@@ -545,6 +856,22 @@
   -webkit-line-clamp: 2;
 }
 
+.cafe-card-quick-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 13px;
+}
+
+.cafe-card-quick-facts small {
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #685547;
+  background: rgb(117 74 49 / 7%);
+  font-size: 9px;
+  font-weight: 800;
+}
+
 .cafe-card-copy > span {
   display: inline-flex;
   align-items: center;
@@ -651,10 +978,39 @@
   background: #d5c4ae;
 }
 
+.cafe-detail-image a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
 .cafe-detail-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.cafe-detail-image a > span {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 13px;
+  border: 1px solid rgb(255 255 255 / 36%);
+  border-radius: 999px;
+  background: rgb(44 33 26 / 68%);
+  font-size: 11px;
+  font-weight: 800;
+  backdrop-filter: blur(12px);
+}
+
+.cafe-detail-image a > span svg {
+  width: 15px;
 }
 
 .cafe-detail-copy {
@@ -769,15 +1125,18 @@
 }
 
 .cafe-related-sets article {
-  display: flex;
-  gap: 16px;
   padding: 22px;
   border: 1px solid var(--cafe-border);
   border-radius: 20px;
   background: rgb(255 250 240 / 64%);
 }
 
-.cafe-related-sets article > span {
+.cafe-related-sets article > div {
+  display: flex;
+  gap: 16px;
+}
+
+.cafe-related-sets article > div > span {
   font-size: 28px;
 }
 
@@ -791,6 +1150,106 @@
   color: var(--cafe-muted);
   font-size: 12px;
   line-height: 1.7;
+}
+
+.cafe-related-sets ul {
+  display: grid;
+  margin: 18px 0 0;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  gap: 9px;
+  list-style: none;
+}
+
+.cafe-related-sets li {
+  min-width: 0;
+}
+
+.cafe-related-sets li a {
+  display: block;
+  padding: 5px;
+  border: 1px solid var(--cafe-border);
+  border-radius: 13px;
+  background: rgb(255 255 255 / 46%);
+  transition: transform 160ms ease;
+}
+
+.cafe-related-sets li a:hover {
+  transform: translateY(-3px);
+}
+
+.cafe-related-sets li img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+.cafe-related-sets li span {
+  display: block;
+  overflow: hidden;
+  padding: 6px 2px 2px;
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cafe-related-cards {
+  padding: 70px 0 10px;
+}
+
+.cafe-related-cards > div:last-child {
+  display: grid;
+  margin-top: 25px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cafe-related-card {
+  position: relative;
+  min-width: 0;
+  padding: 6px 6px 12px;
+  overflow: hidden;
+  border: 1px solid var(--cafe-border);
+  border-radius: 17px;
+  background: rgb(255 250 240 / 70%);
+  box-shadow: 0 10px 24px rgb(63 41 27 / 7%);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.cafe-related-card:hover {
+  box-shadow: 0 16px 32px rgb(63 41 27 / 13%);
+  transform: translateY(-4px);
+}
+
+.cafe-related-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.cafe-related-card > span {
+  display: block;
+  margin: 9px 7px 0;
+  color: #a26945;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.cafe-related-card > strong {
+  display: block;
+  overflow: hidden;
+  margin: 2px 7px 0;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cafe-related-sets small {
@@ -827,6 +1286,13 @@
 .cafe-card-pagination svg {
   width: 18px;
   min-width: 18px;
+}
+
+.cafe-card-pagination img {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .cafe-card-pagination small {
@@ -1169,7 +1635,7 @@
 
 @media (max-width: 760px) {
   .cafe-site-header-inner {
-    width: min(100% - 28px, 1180px);
+    width: min(1180px, calc(100% - 28px));
   }
 
   .cafe-brand span {
@@ -1198,7 +1664,7 @@
   }
 
   .cafe-hero {
-    width: min(100% - 28px, 1180px);
+    width: min(1180px, calc(100% - 28px));
     min-height: 0;
     grid-template-columns: 1fr;
     padding: 62px 0 72px;
@@ -1213,11 +1679,27 @@
     justify-self: center;
   }
 
+  .cafe-hero-showcase {
+    width: min(100%, 440px);
+    min-height: 500px;
+    justify-self: center;
+  }
+
+  .cafe-hero-card-fan {
+    inset: 35px 12px auto;
+  }
+
+  .cafe-hero-showcase .cafe-hero-ledger {
+    right: 12px;
+  }
+
   .cafe-rarity-strip,
   .cafe-catalog-section,
+  .cafe-guide-section,
+  .cafe-set-section,
   .cafe-detail-main,
   .cafe-ranking-main {
-    width: min(100% - 28px, 1180px);
+    width: min(1180px, calc(100% - 28px));
   }
 
   .cafe-rarity-strip {
@@ -1238,6 +1720,27 @@
   .cafe-section-heading {
     align-items: start;
     flex-direction: column;
+  }
+
+  .cafe-guide-grid,
+  .cafe-set-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cafe-mastery-path {
+    grid-template-columns: 1fr;
+  }
+
+  .cafe-mastery-path ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cafe-mastery-path li:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .cafe-mastery-path li:nth-child(n + 3) {
+    margin-top: 12px;
   }
 
   .cafe-card-grid {
@@ -1271,9 +1774,16 @@
     padding: 30px 24px 34px;
   }
 
-  .cafe-card-facts,
   .cafe-related-sets > div {
     grid-template-columns: 1fr;
+  }
+
+  .cafe-card-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cafe-related-cards > div:last-child {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .cafe-card-pagination {
@@ -1346,6 +1856,11 @@
   .cafe-card-grid {
     grid-template-columns: 1fr;
   }
+
+  .cafe-card-facts,
+  .cafe-related-cards > div:last-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1354,9 +1869,13 @@
   }
 
   .cafe-catalog-card,
+  .cafe-hero-card-fan a,
   .cafe-card-image-wrap img,
+  .cafe-related-card,
+  .cafe-related-sets li a,
   .cafe-primary-link,
-  .cafe-secondary-link {
+  .cafe-secondary-link,
+  .cafe-set-card li a {
     transition: none;
   }
 }

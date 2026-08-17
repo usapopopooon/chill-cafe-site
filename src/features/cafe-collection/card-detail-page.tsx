@@ -1,8 +1,18 @@
 import { useQuery } from "@tanstack/react-query"
-import { ArrowLeft, ArrowRight, Gift, Layers3, Sparkles } from "lucide-react"
+import {
+  ArrowLeft,
+  ArrowRight,
+  Gift,
+  Images,
+  Layers3,
+  Maximize2,
+  Percent,
+  Sparkles
+} from "lucide-react"
 import { getCafeCardImageUrl, getCafeCatalog } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
-import { RARITY_DETAILS } from "@/features/cafe-collection/presentation"
+import { DEFAULT_CAFE_RULES, RARITY_DETAILS } from "@/features/cafe-collection/presentation"
+import type { CafeCard } from "@/features/cafe-collection/types"
 import { usePageMeta } from "@/features/cafe-collection/use-page-meta"
 
 const sitePath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`
@@ -58,6 +68,24 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
   const relatedSets = catalogQuery.data.sets.filter((item) =>
     item.required_card_keys.includes(card.key)
   )
+  const cardsByKey = new Map(catalogQuery.data.cards.map((item) => [item.key, item]))
+  const setRelatedCards = relatedSets.flatMap((set) =>
+    set.required_card_keys
+      .map((key) => cardsByKey.get(key))
+      .filter((item): item is CafeCard => Boolean(item))
+  )
+  const relatedCards = [
+    ...setRelatedCards,
+    ...catalogQuery.data.cards.filter((item) => item.rarity === card.rarity)
+  ]
+    .filter(
+      (item, index, items) =>
+        item.key !== card.key &&
+        items.findIndex((candidate) => candidate.key === item.key) === index
+    )
+    .slice(0, 6)
+  const imageUrl = getCafeCardImageUrl(card.image_url)
+  const rules = catalogQuery.data.rules ?? DEFAULT_CAFE_RULES
 
   return (
     <CafeShell>
@@ -69,12 +97,13 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
 
         <article className="cafe-card-detail">
           <div className="cafe-detail-image">
-            <img
-              src={getCafeCardImageUrl(card.image_url)}
-              alt={card.name}
-              width="768"
-              height="768"
-            />
+            <a href={imageUrl} target="_blank" rel="noreferrer">
+              <img src={imageUrl} alt={card.name} width="768" height="768" />
+              <span>
+                <Maximize2 aria-hidden="true" />
+                カード画像を大きく見る
+              </span>
+            </a>
           </div>
           <div className="cafe-detail-copy">
             <div className="cafe-detail-labels">
@@ -95,6 +124,20 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
             <dl className="cafe-card-facts">
               <div>
                 <dt>
+                  <Percent aria-hidden="true" />
+                  カード別基準確率
+                </dt>
+                <dd>{formatPercent(card.base_draw_rate_percent)}</dd>
+              </div>
+              <div>
+                <dt>
+                  <Sparkles aria-hidden="true" />
+                  {card.rarity}全体の確率
+                </dt>
+                <dd>{formatPercent(catalogQuery.data.rarity_rates_percent[card.rarity])}</dd>
+              </div>
+              <div>
+                <dt>
                   <Gift aria-hidden="true" />
                   獲得XP
                 </dt>
@@ -112,9 +155,9 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
             <div className="cafe-probability-note">
               <Sparkles aria-hidden="true" />
               <p>
-                {card.rarity}の基本排出率は
-                <strong>{catalogQuery.data.rarity_rates_percent[card.rarity]}%</strong>です。
-                未収集カードの優遇により、同じレアリティ内のカード別確率は人によって変わります。
+                カード別基準確率は通常時の目安です。未収集カードは同じレアリティ内で
+                <strong>{rules.unowned_weight_multiplier}倍</strong>
+                優遇されるため、実際のカード別確率は所持状況によって変わります。
               </p>
             </div>
           </div>
@@ -127,13 +170,69 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
             <div>
               {relatedSets.map((item) => (
                 <article key={item.key}>
-                  <span aria-hidden="true">🍽️</span>
                   <div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <small>{item.required_card_keys.length}枚で完成</small>
+                    <span aria-hidden="true">🍽️</span>
+                    <div>
+                      <h3>{item.name}</h3>
+                      <p>{item.description}</p>
+                      <small>{item.required_card_keys.length}枚で完成</small>
+                    </div>
                   </div>
+                  <ul>
+                    {item.required_card_keys.map((requiredKey) => {
+                      const requiredCard = cardsByKey.get(requiredKey)
+                      if (!requiredCard) return null
+                      return (
+                        <li key={requiredCard.key}>
+                          <a href={sitePath(`cafe-collection/cards/${requiredCard.key}/`)}>
+                            <img
+                              src={getCafeCardImageUrl(requiredCard.image_url)}
+                              alt=""
+                              width="768"
+                              height="768"
+                              loading="lazy"
+                            />
+                            <span>{requiredCard.name}</span>
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
                 </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {relatedCards.length > 0 && (
+          <section className="cafe-related-cards">
+            <div className="cafe-section-heading">
+              <div>
+                <p className="cafe-kicker">More from the archive</p>
+                <h2>あわせて眺めたいカード</h2>
+              </div>
+              <p>
+                <Images aria-hidden="true" />
+                同じセット・レアリティから
+              </p>
+            </div>
+            <div>
+              {relatedCards.map((item) => (
+                <a
+                  href={sitePath(`cafe-collection/cards/${item.key}/`)}
+                  key={item.key}
+                  className="cafe-related-card"
+                >
+                  <img
+                    src={getCafeCardImageUrl(item.image_url)}
+                    alt=""
+                    width="768"
+                    height="768"
+                    loading="lazy"
+                  />
+                  <span>{item.rarity}</span>
+                  <strong>{item.name}</strong>
+                </a>
               ))}
             </div>
           </section>
@@ -142,6 +241,13 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
         <nav className="cafe-card-pagination" aria-label="前後のカード">
           {previous ? (
             <a href={sitePath(`cafe-collection/cards/${previous.key}/`)}>
+              <img
+                src={getCafeCardImageUrl(previous.image_url)}
+                alt=""
+                width="768"
+                height="768"
+                loading="lazy"
+              />
               <ArrowLeft aria-hidden="true" />
               <span>
                 <small>前のカード</small>
@@ -158,6 +264,13 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
                 {next.name}
               </span>
               <ArrowRight aria-hidden="true" />
+              <img
+                src={getCafeCardImageUrl(next.image_url)}
+                alt=""
+                width="768"
+                height="768"
+                loading="lazy"
+              />
             </a>
           ) : (
             <span />
@@ -166,4 +279,8 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
       </main>
     </CafeShell>
   )
+}
+
+function formatPercent(value: number | undefined) {
+  return typeof value === "number" ? `${value.toFixed(2)}%` : "準備中"
 }

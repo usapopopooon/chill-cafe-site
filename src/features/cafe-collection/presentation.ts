@@ -1,8 +1,22 @@
 import type {
+  CafeCatalogRules,
   CafeLeaderboardCategoryKey,
   CafeLeaderboardEntry,
   CafeRarity
 } from "@/features/cafe-collection/types"
+
+export const DEFAULT_CAFE_RULES: CafeCatalogRules = {
+  free_draws_per_day: 1,
+  free_draw_reset_timezone: "Asia/Tokyo",
+  paid_draw_cost_xp: 20,
+  hourly_draw_limit: 10,
+  daily_draw_limit: null,
+  unowned_weight_multiplier: 2,
+  endgame_pity_min_collected: 108,
+  endgame_pity_duplicate_draws: 100,
+  first_copy_protected: true,
+  draw_results_public: true
+}
 
 export const RARITIES: CafeRarity[] = ["N", "HN", "R", "SR", "SSR"]
 

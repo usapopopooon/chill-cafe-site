@@ -104,6 +104,7 @@ export function CafeRankingsPage() {
 
         <div className="cafe-ranking-note">
           ランキングは最大5分間キャッシュされます。退会済み・表示除外ユーザーは掲載されません。
+          自分の順位とタップできるDiscordプロフィールは、Discordのランキングパネルから確認できます。
         </div>
         <a
           href={sitePath("cafe-collection/")}
