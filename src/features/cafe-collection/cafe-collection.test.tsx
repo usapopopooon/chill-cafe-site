@@ -148,6 +148,9 @@ describe("CafeCollectionPage", () => {
     expect(screen.getByText("基準 2.60%")).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "出がらし" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "スコーン" })).toBeInTheDocument()
+    expect(
+      [...document.querySelectorAll(".cafe-hero-title-line")].map((line) => line.textContent)
+    ).toEqual(["一杯とひと皿の、", "ちいさな博物館。"])
 
     await user.click(screen.getByRole("button", { name: "食べ物" }))
 

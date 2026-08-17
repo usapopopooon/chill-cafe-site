@@ -87,9 +87,8 @@ export function CafeCollectionPage() {
           <div className="cafe-hero-copy">
             <p className="cafe-kicker">The permanent cafe archive</p>
             <h1>
-              一杯とひと皿の、
-              <br />
-              ちいさな博物館。
+              <span className="cafe-hero-title-line">一杯とひと皿の、</span>
+              <span className="cafe-hero-title-line">ちいさな博物館。</span>
             </h1>
             <p className="cafe-hero-lead">
               出がらしから幻の茶葉まで。Discordのカフェカウンターで出会える品々を、
