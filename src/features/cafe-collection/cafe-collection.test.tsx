@@ -5,9 +5,11 @@ import type { ReactElement } from "react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { CafeCardDetailPage } from "@/features/cafe-collection/card-detail-page"
 import { CafeCollectionPage } from "@/features/cafe-collection/catalog-page"
+import { CafeProfilePage } from "@/features/cafe-collection/profile-page"
 import { CafeRankingsPage } from "@/features/cafe-collection/rankings-page"
 import type {
   CafeCatalog,
+  CafeCollectionProfile,
   CafeLeaderboardCategoryKey,
   CafeLeaderboards
 } from "@/features/cafe-collection/types"
@@ -89,6 +91,7 @@ const rankings: CafeLeaderboards = {
     entries: [
       {
         rank: 1,
+        profile_id: "0123456789abcdef01234567",
         display_name: "うさぽ",
         avatar_url: "https://cdn.example/avatar.png",
         collection_count: 100,
@@ -109,6 +112,24 @@ const rankings: CafeLeaderboards = {
       }
     ]
   }))
+}
+
+const profile: CafeCollectionProfile = {
+  profile_id: "0123456789abcdef01234567",
+  display_name: "うさぽ",
+  avatar_url: "https://cdn.example/avatar.png",
+  total_cards: 3,
+  total_sets: 1,
+  collection_count: 2,
+  total_draws: 3,
+  mastery_score: 2,
+  completed_set_keys: [],
+  ranks: { collection: 1, mastery: 2, sets: 3, rare: 4, joke: 5 },
+  cards: [
+    { card_key: "spent-tea", count: 1, lifetime_count: 2 },
+    { card_key: "scone", count: 1, lifetime_count: 1 }
+  ],
+  captured_at: "2026-08-17T09:30:00Z"
 }
 
 afterEach(() => {
@@ -222,9 +243,48 @@ describe("CafeRankingsPage", () => {
     const avatars = screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })
     expect(avatars).toHaveLength(5)
     expect(avatars[0]).toHaveAttribute("src", "https://cdn.example/avatar.png")
+    expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(5)
+    expect(
+      screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })[0]
+    ).toHaveAttribute("href", "/cafe-collection/profile/?id=0123456789abcdef01234567")
 
     fireEvent.error(avatars[0])
     expect(screen.getByText("う")).toBeInTheDocument()
     expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(4)
+  })
+})
+
+describe("CafeProfilePage", () => {
+  it("shows a ranked member's cards, set progress, and missing-card filter", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation((input: RequestInfo | URL) => {
+        const body = String(input).endsWith("/catalog") ? catalog : profile
+        return Promise.resolve(
+          new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+          })
+        )
+      })
+    )
+    const user = userEvent.setup()
+
+    renderWithQuery(<CafeProfilePage profileId={profile.profile_id} />)
+
+    expect(await screen.findByRole("heading", { name: "うさぽさんの棚" })).toBeInTheDocument()
+    expect(screen.getByText("2/3種")).toBeInTheDocument()
+    expect(screen.getByText("3枚")).toBeInTheDocument()
+    expect(screen.getByText("1/2")).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "出がらし" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "スコーン" })).toBeInTheDocument()
+    expect(screen.getByText(/所持1 \/ 累計2枚/)).toBeInTheDocument()
+    expect(screen.queryByRole("heading", { name: "店主の特製ブレンド" })).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole("button", { name: "未発見" }))
+
+    expect(screen.getByRole("heading", { name: "店主の特製ブレンド" })).toBeInTheDocument()
+    expect(screen.queryByRole("heading", { name: "出がらし" })).not.toBeInTheDocument()
+    expect(fetch).toHaveBeenCalledTimes(2)
   })
 })

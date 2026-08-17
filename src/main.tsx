@@ -13,6 +13,7 @@ import { App } from "@/app"
 import {
   CafeCardRoutePage,
   CafeCollectionRoutePage,
+  CafeProfileRoutePage,
   CafeRankingsRoutePage
 } from "@/features/cafe-collection/lazy-routes"
 import { MemberRoutePage } from "@/features/member/lazy-route"
@@ -64,6 +65,18 @@ const cafeRankingsRoute = createRoute({
   component: CafeRankingsRoutePage
 })
 
+const cafeProfileRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/cafe-collection/profile",
+  validateSearch: (search) => ({
+    id: typeof search.id === "string" ? search.id : ""
+  }),
+  component: () => {
+    const { id } = cafeProfileRoute.useSearch()
+    return <CafeProfileRoutePage profileId={id} />
+  }
+})
+
 const cafeCardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/cafe-collection/cards/$cardKey",
@@ -78,6 +91,7 @@ const routeTree = rootRoute.addChildren([
   memberRoute,
   cafeCollectionRoute,
   cafeRankingsRoute,
+  cafeProfileRoute,
   cafeCardRoute
 ])
 const routerBasepath =

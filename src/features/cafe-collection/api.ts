@@ -1,4 +1,8 @@
-import type { CafeCatalog, CafeLeaderboards } from "@/features/cafe-collection/types"
+import type {
+  CafeCatalog,
+  CafeCollectionProfile,
+  CafeLeaderboards
+} from "@/features/cafe-collection/types"
 
 export const CHILL_CAFE_GUILD_ID = "1168847276291137586"
 
@@ -39,6 +43,12 @@ export function getCafeCatalog() {
 export function getCafeLeaderboards() {
   return fetchPublicCafeApi<CafeLeaderboards>(
     `/guilds/${encodeURIComponent(CHILL_CAFE_GUILD_ID)}/leaderboards`
+  )
+}
+
+export function getCafeCollectionProfile(profileId: string) {
+  return fetchPublicCafeApi<CafeCollectionProfile>(
+    `/guilds/${encodeURIComponent(CHILL_CAFE_GUILD_ID)}/profiles/${encodeURIComponent(profileId)}`
   )
 }
 

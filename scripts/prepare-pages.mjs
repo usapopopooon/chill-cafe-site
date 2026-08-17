@@ -51,6 +51,11 @@ const pageDefinitions = [
     title: "カフェ・コレクションランキング | CHILLカフェ",
     description: "図鑑・熟練度・セットメニュー・レア棚・ネタ棚の全ランキングを公開しています。"
   },
+  {
+    path: "cafe-collection/profile",
+    title: "個人コレクション | CHILLカフェ",
+    description: "ランキング参加者のカフェ・コレクションと熟練度を確認できます。"
+  },
   ...cards.map((card) => ({
     path: `cafe-collection/cards/${card.key}`,
     title: `${card.name} | カフェ・コレクション`,

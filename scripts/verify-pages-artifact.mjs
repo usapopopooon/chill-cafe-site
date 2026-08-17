@@ -9,6 +9,7 @@ const cards = JSON.parse(
 const directRoutes = [
   "cafe-collection",
   "cafe-collection/rankings",
+  "cafe-collection/profile",
   ...cards.map((card) => `cafe-collection/cards/${card.key}`)
 ]
 const requiredFiles = [

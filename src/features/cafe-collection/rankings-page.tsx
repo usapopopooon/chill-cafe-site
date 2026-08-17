@@ -105,7 +105,7 @@ export function CafeRankingsPage() {
 
         <div className="cafe-ranking-note">
           ランキングは最大5分間キャッシュされます。退会済み・表示除外ユーザーは掲載されません。
-          自分の順位とタップできるDiscordプロフィールは、Discordのランキングパネルから確認できます。
+          名前またはアイコンから、その人のコレクションを確認できます。
         </div>
         <a
           href={sitePath("cafe-collection/")}
@@ -144,7 +144,7 @@ function RankingSection({
         <ol>
           {category.entries.map((entry, index) => (
             <RankingRow
-              key={`${entry.rank}-${entry.display_name}-${index}`}
+              key={`${entry.profile_id ?? entry.display_name}-${entry.rank}-${index}`}
               entry={entry}
               category={category}
               totalCards={totalCards}
@@ -170,14 +170,30 @@ function RankingRow({
   totalCards: number
   totalSets: number
 }) {
-  return (
-    <li className={entry.rank <= 3 ? `cafe-rank-${entry.rank}` : undefined}>
-      <span className="cafe-rank-mark">{rankMark(entry.rank)}</span>
+  const profileContent = (
+    <>
       <RankingAvatar entry={entry} />
       <div className="cafe-rank-person">
         <strong>{entry.display_name}</strong>
         <small>{leaderboardDetail(category.key, entry)}</small>
       </div>
+    </>
+  )
+
+  return (
+    <li className={entry.rank <= 3 ? `cafe-rank-${entry.rank}` : undefined}>
+      <span className="cafe-rank-mark">{rankMark(entry.rank)}</span>
+      {entry.profile_id ? (
+        <a
+          className="cafe-rank-profile-link"
+          href={sitePath(`cafe-collection/profile/?id=${encodeURIComponent(entry.profile_id)}`)}
+          aria-label={`${entry.display_name}さんのコレクションを見る`}
+        >
+          {profileContent}
+        </a>
+      ) : (
+        <div className="cafe-rank-profile-link">{profileContent}</div>
+      )}
       <b>{leaderboardValue(category.key, entry, totalCards, totalSets)}</b>
     </li>
   )

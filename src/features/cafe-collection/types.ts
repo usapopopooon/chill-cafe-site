@@ -53,6 +53,7 @@ export type CafeLeaderboardCategoryKey = "collection" | "mastery" | "sets" | "ra
 
 export interface CafeLeaderboardEntry {
   rank: number
+  profile_id?: string
   display_name: string
   avatar_url?: string | null
   collection_count: number
@@ -85,4 +86,25 @@ export interface CafeLeaderboards {
   total_draws: number
   captured_at: string
   categories: CafeLeaderboardCategory[]
+}
+
+export interface CafeCollectionProfileCard {
+  card_key: string
+  count: number
+  lifetime_count: number
+}
+
+export interface CafeCollectionProfile {
+  profile_id: string
+  display_name: string
+  avatar_url?: string | null
+  total_cards: number
+  total_sets: number
+  collection_count: number
+  total_draws: number
+  mastery_score: number
+  completed_set_keys: string[]
+  ranks: Record<CafeLeaderboardCategoryKey, number>
+  cards: CafeCollectionProfileCard[]
+  captured_at: string
 }

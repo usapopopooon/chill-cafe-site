@@ -12,6 +12,10 @@ const CafeCardDetailPage = lazy(async () => {
   const page = await import("@/features/cafe-collection/card-detail-page")
   return { default: page.CafeCardDetailPage }
 })
+const CafeProfilePage = lazy(async () => {
+  const page = await import("@/features/cafe-collection/profile-page")
+  return { default: page.CafeProfilePage }
+})
 
 function CafeRouteFallback() {
   return (
@@ -46,6 +50,14 @@ export function CafeCardRoutePage({ cardKey }: { cardKey: string }) {
   return (
     <Suspense fallback={<CafeRouteFallback />}>
       <CafeCardDetailPage cardKey={cardKey} />
+    </Suspense>
+  )
+}
+
+export function CafeProfileRoutePage({ profileId }: { profileId: string }) {
+  return (
+    <Suspense fallback={<CafeRouteFallback />}>
+      <CafeProfilePage profileId={profileId} />
     </Suspense>
   )
 }
