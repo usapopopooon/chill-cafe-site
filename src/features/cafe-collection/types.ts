@@ -54,6 +54,7 @@ export type CafeLeaderboardCategoryKey = "collection" | "mastery" | "sets" | "ra
 export interface CafeLeaderboardEntry {
   rank: number
   display_name: string
+  avatar_url?: string | null
   collection_count: number
   total_draws: number
   mastery_score: number

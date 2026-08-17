@@ -1518,6 +1518,7 @@
   text-align: center;
 }
 
+.cafe-rank-avatar,
 .cafe-avatar-fallback {
   width: 42px;
   height: 42px;
@@ -1525,6 +1526,11 @@
   border-radius: 14px;
   object-fit: cover;
   box-shadow: 0 5px 12px rgb(65 42 27 / 13%);
+}
+
+.cafe-rank-avatar {
+  display: block;
+  background: #e7dccb;
 }
 
 .cafe-avatar-fallback {

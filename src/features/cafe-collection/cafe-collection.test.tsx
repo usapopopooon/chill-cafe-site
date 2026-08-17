@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import type { ReactElement } from "react"
 import { afterEach, describe, expect, it, vi } from "vitest"
@@ -90,6 +90,7 @@ const rankings: CafeLeaderboards = {
       {
         rank: 1,
         display_name: "うさぽ",
+        avatar_url: "https://cdn.example/avatar.png",
         collection_count: 100,
         total_draws: 800,
         mastery_score: 300,
@@ -215,5 +216,12 @@ describe("CafeRankingsPage", () => {
     expect(screen.getByRole("heading", { name: "レア棚ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "ネタ棚ランキング" })).toBeInTheDocument()
     expect(screen.getAllByText("うさぽ")).toHaveLength(5)
+    const avatars = screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })
+    expect(avatars).toHaveLength(5)
+    expect(avatars[0]).toHaveAttribute("src", "https://cdn.example/avatar.png")
+
+    fireEvent.error(avatars[0])
+    expect(screen.getByText("う")).toBeInTheDocument()
+    expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(4)
   })
 })

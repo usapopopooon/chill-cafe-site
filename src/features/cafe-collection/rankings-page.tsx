@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { BookOpen, Clock3, Trophy, Users } from "lucide-react"
+import { useState } from "react"
 import { getCafeLeaderboards } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
 import {
@@ -172,15 +173,38 @@ function RankingRow({
   return (
     <li className={entry.rank <= 3 ? `cafe-rank-${entry.rank}` : undefined}>
       <span className="cafe-rank-mark">{rankMark(entry.rank)}</span>
-      <span className="cafe-avatar-fallback" aria-hidden="true">
-        {entry.display_name.slice(0, 1)}
-      </span>
+      <RankingAvatar entry={entry} />
       <div className="cafe-rank-person">
         <strong>{entry.display_name}</strong>
         <small>{leaderboardDetail(category.key, entry)}</small>
       </div>
       <b>{leaderboardValue(category.key, entry, totalCards, totalSets)}</b>
     </li>
+  )
+}
+
+function RankingAvatar({ entry }: { entry: CafeLeaderboardEntry }) {
+  const [imageFailed, setImageFailed] = useState(false)
+
+  if (!entry.avatar_url || imageFailed) {
+    return (
+      <span className="cafe-avatar-fallback" aria-hidden="true">
+        {entry.display_name.slice(0, 1)}
+      </span>
+    )
+  }
+
+  return (
+    <img
+      className="cafe-rank-avatar"
+      src={entry.avatar_url}
+      alt={`${entry.display_name}のDiscordアイコン`}
+      width="42"
+      height="42"
+      loading="lazy"
+      referrerPolicy="no-referrer"
+      onError={() => setImageFailed(true)}
+    />
   )
 }
 
