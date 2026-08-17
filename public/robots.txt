@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /cafe-collection
 
 Sitemap: https://chill-cafe.site/sitemap.xml

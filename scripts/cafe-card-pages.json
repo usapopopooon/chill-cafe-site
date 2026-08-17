@@ -1,0 +1,602 @@
+[
+  {
+    "key": "spent-tea",
+    "name": "出がらし",
+    "description": "二煎目か三煎目かは、もう誰も数えていない。"
+  },
+  {
+    "key": "cold-black-tea",
+    "name": "すっかり冷めた紅茶",
+    "description": "温め直すほどでもないので、そのままどうぞ。"
+  },
+  {
+    "key": "k-pan",
+    "name": "Kブロート",
+    "description": "ジャガイモでかさ増し。パンだと言い張る気持ちはある。"
+  },
+  {
+    "key": "sunflower-coffee",
+    "name": "ひまわりコーヒー",
+    "description": "豆は不在。でも香ばしさは出席している。"
+  },
+  {
+    "key": "acorn-coffee",
+    "name": "どんぐりコーヒー",
+    "description": "森から届いた、コーヒーっぽい何か。"
+  },
+  {
+    "key": "100-yen-black-tea",
+    "name": "百円ショップの徳用紅茶",
+    "description": "百円でたっぷり。香りは一瞬だけ立ち寄った。"
+  },
+  {
+    "key": "sale-tea-bags",
+    "name": "賞味期限間近の特売紅茶",
+    "description": "赤い値札は、どんな茶葉より目を引く。"
+  },
+  {
+    "key": "convenience-coffee",
+    "name": "冷めかけのコンビニコーヒー",
+    "description": "ふたを開けたころには、だいたい飲みごろを過ぎている。"
+  },
+  {
+    "key": "instant-coffee",
+    "name": "目分量のインスタントコーヒー",
+    "description": "スプーン山盛り一杯。今日だけ妙に濃い。"
+  },
+  {
+    "key": "discount-roll-cake",
+    "name": "半額ロールケーキ",
+    "description": "値引きシール込みで、いちばん輝いて見える。"
+  },
+  {
+    "key": "100-yen-cookie",
+    "name": "袋の底の割れクッキー",
+    "description": "一枚分あるかは、並べてから考える。"
+  },
+  {
+    "key": "convenience-anpan",
+    "name": "少しつぶれたコンビニあんぱん",
+    "description": "味は同じ。見た目だけが通勤ラッシュを知っている。"
+  },
+  {
+    "key": "hardtack",
+    "name": "ハードタック",
+    "description": "保存性に全振り。歯の耐久試験もついてくる。"
+  },
+  {
+    "key": "national-loaf",
+    "name": "ナショナル・ローフ",
+    "description": "灰褐色でずっしり。華やかさは配給対象外。"
+  },
+  {
+    "key": "jam-toast",
+    "name": "ジャムの薄いトースト",
+    "description": "向こう側が透けそうな一層に、希望を託す。"
+  },
+  {
+    "key": "mugicha",
+    "name": "昨日の麦茶",
+    "description": "冷蔵庫の奥で、香ばしさより冷たさを磨いていた。"
+  },
+  {
+    "key": "kommissbrot",
+    "name": "コミスブロート",
+    "description": "ライ麦と小麦をぎゅっと焼成。愛想より日持ち。"
+  },
+  {
+    "key": "dandelion-coffee",
+    "name": "たんぽぽコーヒー",
+    "description": "根っこ由来の、コーヒー席の代理出席者。"
+  },
+  {
+    "key": "woolton-pie",
+    "name": "ウールトンパイ",
+    "description": "肉は欠席。野菜だけでパイの重責を担う。"
+  },
+  {
+    "key": "rooibos-tea",
+    "name": "いただきもののルイボスティー",
+    "description": "健康によいらしい。誰から来たかは覚えていない。"
+  },
+  {
+    "key": "honey-tea",
+    "name": "はちみつを入れすぎた紅茶",
+    "description": "甘さが先頭を走り、紅茶は後ろからついてくる。"
+  },
+  {
+    "key": "mint-tea",
+    "name": "庭で増えすぎたミントティー",
+    "description": "一杯いれても、庭のミントは減った気がしない。"
+  },
+  {
+    "key": "cocoa",
+    "name": "底に粉が残ったココア",
+    "description": "最後のひと口だけ、急に濃厚。"
+  },
+  {
+    "key": "sachet-chai",
+    "name": "お湯多めの粉末チャイ",
+    "description": "節約した一杯。スパイスは遠くで応援している。"
+  },
+  {
+    "key": "drink-bar-coffee",
+    "name": "閉店前のドリンクバーコーヒー",
+    "description": "煮詰まった香りに、今日一日の貫禄がある。"
+  },
+  {
+    "key": "pettuleipa",
+    "name": "ペットゥレイパ",
+    "description": "凶作時のフィンランドで、ライ麦へ松の内皮粉を混ぜた救荒パン。"
+  },
+  {
+    "key": "horsebread",
+    "name": "ホースブレッド",
+    "description": "豆やふすまを固めた中世の安価な馬用パン。困窮時には人も食べた。"
+  },
+  {
+    "key": "turnip-winter-stew",
+    "name": "蕪の冬のスープ",
+    "description": "ジャガイモも欠乏した1916〜17年のドイツを支えた蕪料理。"
+  },
+  {
+    "key": "nettle-soup",
+    "name": "イラクサのスープ",
+    "description": "畑の外で摘める若葉を煮た、農村の素朴な野草スープ。"
+  },
+  {
+    "key": "water-gruel",
+    "name": "水でのばしたグルーエル",
+    "description": "わずかな穀物を水で長く煮て量を増やした、薄い粥。"
+  },
+  {
+    "key": "chestnut-polenta",
+    "name": "栗粉のポレンタ",
+    "description": "穀物の乏しいコルシカ山地で、栗粉を主食へ変えた一皿。"
+  },
+  {
+    "key": "barley-chicory-coffee",
+    "name": "麦とチコリの代用珈琲",
+    "description": "麦の香ばしさとチコリのほろ苦さ。"
+  },
+  {
+    "key": "genmaicha",
+    "name": "玄米茶",
+    "description": "湯気の向こうに、炒り米のやさしい香り。"
+  },
+  {
+    "key": "scone",
+    "name": "スコーン",
+    "description": "狼藉を働かず、まずはクロテッドクリームを。"
+  },
+  {
+    "key": "english-breakfast",
+    "name": "イングリッシュブレックファスト",
+    "description": "ミルクにも負けない、朝の力強いブレンド。"
+  },
+  {
+    "key": "butter-toast",
+    "name": "厚切りバタートースト",
+    "description": "格子状の焼き目へ、溶けたバターがしみていく。"
+  },
+  {
+    "key": "assam-ctc",
+    "name": "アッサムCTC",
+    "description": "粒状の茶葉から濃く早く出る、ミルクティー向き。"
+  },
+  {
+    "key": "egg-salad-sandwich",
+    "name": "たまごサンド",
+    "description": "ふんわりパンと、やさしい味のたまごフィリング。"
+  },
+  {
+    "key": "coffee-jelly",
+    "name": "コーヒーゼリー",
+    "description": "ほろ苦い角切りゼリーに、白いクリームをひとまわし。"
+  },
+  {
+    "key": "jasmine-tea",
+    "name": "ジャスミン茶",
+    "description": "花香をまとった茶葉が、すっと気分をほどく。"
+  },
+  {
+    "key": "sencha",
+    "name": "煎茶",
+    "description": "青い香りとほどよい渋み、日本茶のまんなか。"
+  },
+  {
+    "key": "hojicha",
+    "name": "ほうじ茶",
+    "description": "焙じた茶葉の香りが、部屋まであたためる。"
+  },
+  {
+    "key": "custard-pudding",
+    "name": "喫茶店のプリン",
+    "description": "固めのプリンに、ほろ苦いカラメルをたっぷり。"
+  },
+  {
+    "key": "dorayaki",
+    "name": "どら焼き",
+    "description": "ふっくら焼いた皮で、粒あんをやさしく挟んだ。"
+  },
+  {
+    "key": "masala-chai",
+    "name": "マサラチャイ",
+    "description": "茶葉とミルクにスパイスを煮込んだ熱い一杯。"
+  },
+  {
+    "key": "teh-tarik",
+    "name": "テータリック",
+    "description": "高く引いて泡立てる、マレーシアの甘いミルクティー。"
+  },
+  {
+    "key": "thai-iced-tea",
+    "name": "タイアイスティー",
+    "description": "氷とミルクで仕上げる、鮮やかで甘い紅茶。"
+  },
+  {
+    "key": "hong-kong-milk-tea",
+    "name": "香港式ミルクティー",
+    "description": "濃く抽出した紅茶へミルクをたっぷり。"
+  },
+  {
+    "key": "vietnamese-iced-coffee",
+    "name": "ベトナムアイスコーヒー",
+    "description": "濃い珈琲と練乳を氷の上でゆっくり混ぜる。"
+  },
+  {
+    "key": "turkish-coffee",
+    "name": "トルココーヒー",
+    "description": "細挽き豆を煮出し、粉ごと味わう濃密な一杯。"
+  },
+  {
+    "key": "vietnamese-egg-coffee",
+    "name": "ベトナムエッグコーヒー",
+    "description": "卵のふわふわしたクリームを濃い珈琲へ。"
+  },
+  {
+    "key": "moroccan-mint-tea",
+    "name": "モロッコミントティー",
+    "description": "緑茶とミントを甘く淹れ、高い位置から注ぐ。"
+  },
+  {
+    "key": "tibetan-butter-tea",
+    "name": "チベットのバター茶",
+    "description": "茶にバターと塩を合わせた、体を支える一杯。"
+  },
+  {
+    "key": "cinnamon-roll",
+    "name": "シナモンロール",
+    "description": "渦巻く生地から、シナモンと砂糖が甘く香る。"
+  },
+  {
+    "key": "kaya-toast",
+    "name": "カヤトースト",
+    "description": "薄焼きトーストに、カヤジャムとバターを挟んだ朝食。"
+  },
+  {
+    "key": "kopi-joss",
+    "name": "コピ・ジョス",
+    "description": "熱い炭を落として仕上げる、ジョグジャカルタの珈琲。"
+  },
+  {
+    "key": "tsampa",
+    "name": "ツァンパ",
+    "description": "炒った大麦粉を茶などで練る、火を使わず食べられるチベットの携行食。"
+  },
+  {
+    "key": "mamaliga",
+    "name": "ママリガ",
+    "description": "固く練れば糸で切り分けられる、ルーマニアの農村のトウモロコシ粥。"
+  },
+  {
+    "key": "migas",
+    "name": "羊飼いのミガス",
+    "description": "固くなったパンを崩して炒め、無駄なく食べ切るイベリアの料理。"
+  },
+  {
+    "key": "portable-soup",
+    "name": "ポータブル・スープ",
+    "description": "肉の煮汁を板状に乾かした、18世紀英国海軍の携帯スープ。"
+  },
+  {
+    "key": "posca",
+    "name": "ポスカ",
+    "description": "酢になった葡萄酒を水で割った、古代ローマ兵にも馴染み深い飲み物。"
+  },
+  {
+    "key": "earl-grey",
+    "name": "アールグレイ",
+    "description": "ベルガモットが華やぐ午後の定番。"
+  },
+  {
+    "key": "hojicha-latte",
+    "name": "ほうじ茶ラテ",
+    "description": "焙じ香とミルクがほどける夜の一杯。"
+  },
+  {
+    "key": "house-blend",
+    "name": "店主の特製ブレンド",
+    "description": "配合は秘密。今日の気分だけが隠し味。"
+  },
+  {
+    "key": "brazil-santos-no2",
+    "name": "ブラジル サントスNo.2",
+    "description": "穏やかな苦みとナッツ感を備えた定番銘柄。"
+  },
+  {
+    "key": "brazil-yellow-bourbon",
+    "name": "ブラジル イエローブルボン",
+    "description": "丸い甘みと香ばしさを楽しむ黄色い実の珈琲。"
+  },
+  {
+    "key": "colombia-supremo",
+    "name": "コロンビア スプレモ",
+    "description": "大粒豆らしい豊かな香りと均整の取れた酸味。"
+  },
+  {
+    "key": "guatemala-antigua",
+    "name": "グアテマラ アンティグア",
+    "description": "火山性土壌が育む、香ばしく厚みのある味。"
+  },
+  {
+    "key": "canele",
+    "name": "カヌレ",
+    "description": "香ばしい殻の中に、ラム香るもっちり生地。"
+  },
+  {
+    "key": "costa-rica-tarrazu",
+    "name": "コスタリカ タラス",
+    "description": "澄んだ酸味と甘い香りがきれいに重なる。"
+  },
+  {
+    "key": "basque-cheesecake",
+    "name": "バスクチーズケーキ",
+    "description": "焦げた表面の奥に、濃厚でなめらかなチーズ生地。"
+  },
+  {
+    "key": "mont-blanc",
+    "name": "モンブラン",
+    "description": "栗のクリームを細く重ねた、秋色のケーキ。"
+  },
+  {
+    "key": "ethiopia-yirgacheffe-g1",
+    "name": "エチオピア イルガチェフェG1",
+    "description": "花や柑橘を思わせる、透明感のある香り。"
+  },
+  {
+    "key": "ethiopia-sidamo-g1",
+    "name": "エチオピア シダモG1",
+    "description": "果実の甘酸っぱさと華やかな余韻。"
+  },
+  {
+    "key": "ethiopia-harrar",
+    "name": "エチオピア ハラー",
+    "description": "乾いた果実やスパイスを思わせる野性味。"
+  },
+  {
+    "key": "kenya-aa",
+    "name": "ケニアAA",
+    "description": "大粒豆がもたらす、鮮やかな酸味と力強いこく。"
+  },
+  {
+    "key": "tanzania-kilimanjaro-aa",
+    "name": "タンザニア キリマンジャロAA",
+    "description": "高地の明るい酸味と、すっきりした後味。"
+  },
+  {
+    "key": "lemon-drizzle-cake",
+    "name": "レモンドリズルケーキ",
+    "description": "レモンシロップがしみた、きゅっと爽やかな焼き菓子。"
+  },
+  {
+    "key": "sumatra-mandheling-g1",
+    "name": "スマトラ マンデリンG1",
+    "description": "重厚なこくとハーブを思わせる個性的な香り。"
+  },
+  {
+    "key": "sulawesi-toraja",
+    "name": "スラウェシ トラジャ",
+    "description": "深いこくと穏やかな苦みが長く続く。"
+  },
+  {
+    "key": "fruit-tart",
+    "name": "季節のフルーツタルト",
+    "description": "さくさくの台へ、色とりどりの果物をきれいに並べて。"
+  },
+  {
+    "key": "tea-sandwiches",
+    "name": "ティーサンドイッチ",
+    "description": "きゅうりや卵を薄いパンで挟んだ、小さな軽食。"
+  },
+  {
+    "key": "monsooned-malabar",
+    "name": "モンスーン・マラバール",
+    "description": "季節風にさらして生まれる、低い酸味と独特の熟成香。"
+  },
+  {
+    "key": "goishicha",
+    "name": "碁石茶",
+    "description": "二段階発酵で仕上げる、高知に伝わる酸味のある茶。"
+  },
+  {
+    "key": "awabancha",
+    "name": "阿波晩茶",
+    "description": "桶で乳酸発酵させる、徳島生まれのすっきりした茶。"
+  },
+  {
+    "key": "batabatacha",
+    "name": "バタバタ茶",
+    "description": "発酵茶を茶筅で泡立てて味わう富山の習わし。"
+  },
+  {
+    "key": "qishr",
+    "name": "キシル",
+    "description": "乾燥させたコーヒーチェリーの果皮を生姜と煮出すイエメンの飲み物。"
+  },
+  {
+    "key": "mazagran",
+    "name": "マザグラン",
+    "description": "19世紀のアルジェリアからフランスへ広がった、背高グラスの冷たい珈琲。"
+  },
+  {
+    "key": "cafe-de-olla",
+    "name": "カフェ・デ・オジャ",
+    "description": "土鍋で黒糖やシナモンと煮出す、メキシコの香り高い珈琲。"
+  },
+  {
+    "key": "bicerin",
+    "name": "ビチェリン",
+    "description": "珈琲・チョコレート・クリームを層にした、トリノの歴史的な一杯。"
+  },
+  {
+    "key": "blooming-tea",
+    "name": "工芸茶",
+    "description": "ポットの中で花ひらく、小さな茶会。"
+  },
+  {
+    "key": "afternoon-tea-set",
+    "name": "アフタヌーンティーセット",
+    "description": "三段重ねに甘味と会話を盛りつけて。"
+  },
+  {
+    "key": "jamaica-blue-mountain-no1",
+    "name": "ジャマイカ ブルーマウンテンNo.1",
+    "description": "香り・酸味・こくが端正に調和する名高い珈琲。"
+  },
+  {
+    "key": "hawaii-kona-extra-fancy",
+    "name": "ハワイ コナ エクストラファンシー",
+    "description": "大粒で整った豆が生む、明るく上品な味わい。"
+  },
+  {
+    "key": "yemen-mocha-matari",
+    "name": "イエメン モカマタリ",
+    "description": "乾いた果実と香辛料を思わせる古典的なモカ。"
+  },
+  {
+    "key": "panama-geisha",
+    "name": "パナマ ゲイシャ",
+    "description": "ジャスミンや柑橘を思わせる、際立って華やかな珈琲。"
+  },
+  {
+    "key": "kenya-sl28",
+    "name": "ケニア SL28",
+    "description": "カシスを思わせる鮮烈な果実味で知られる品種。"
+  },
+  {
+    "key": "wagashi-assortment",
+    "name": "上生菓子の盛り合わせ",
+    "description": "季節の景色を、小さな練り切りに映したひと皿。"
+  },
+  {
+    "key": "darjeeling-first-flush",
+    "name": "ダージリン ファーストフラッシュ",
+    "description": "春摘みらしい若葉の香りと軽やかな渋み。"
+  },
+  {
+    "key": "darjeeling-second-flush",
+    "name": "ダージリン セカンドフラッシュ",
+    "description": "夏摘みの熟した香りとマスカテルの余韻。"
+  },
+  {
+    "key": "sachertorte",
+    "name": "ザッハトルテ",
+    "description": "艶やかなチョコレートと杏ジャムを重ねた濃厚な一切れ。"
+  },
+  {
+    "key": "ceylon-uva",
+    "name": "セイロン ウバ",
+    "description": "涼風の季節に際立つ、爽快な香気ときりっとした渋み。"
+  },
+  {
+    "key": "opera-cake",
+    "name": "オペラ",
+    "description": "珈琲とチョコレートの層を端正に重ねたフランス菓子。"
+  },
+  {
+    "key": "keemun",
+    "name": "祁門紅茶",
+    "description": "蜜や花を思わせる香りを持つ、中国を代表する紅茶。"
+  },
+  {
+    "key": "lapsang-souchong",
+    "name": "正山小種",
+    "description": "松煙香が深く残る、個性豊かな中国紅茶。"
+  },
+  {
+    "key": "longjing",
+    "name": "西湖龍井",
+    "description": "扁平な茶葉から栗を思わせる香りが立つ名緑茶。"
+  },
+  {
+    "key": "mille-feuille",
+    "name": "ミルフィーユ",
+    "description": "薄いパイとカスタードを、崩れそうなほど繊細に重ねて。"
+  },
+  {
+    "key": "kouign-amann",
+    "name": "クイニーアマン",
+    "description": "幾層ものバター生地を、砂糖でぱりっとキャラメリゼ。"
+  },
+  {
+    "key": "tieguanyin",
+    "name": "安渓鉄観音",
+    "description": "蘭を思わせる香りと厚みある甘さの烏龍茶。"
+  },
+  {
+    "key": "da-hong-pao",
+    "name": "大紅袍",
+    "description": "岩肌の茶園が育む、焙煎香と長い余韻の岩茶。"
+  },
+  {
+    "key": "hon-gyokuro",
+    "name": "本玉露",
+    "description": "覆い香と濃いうま味を一滴ずつ味わう日本茶。"
+  },
+  {
+    "key": "east-frisian-tea",
+    "name": "東フリースラントの茶席",
+    "description": "氷砂糖とクリームの雲を混ぜずに味わう、約300年続く北海沿岸の茶文化。"
+  },
+  {
+    "key": "einspanner",
+    "name": "アインシュペナー",
+    "description": "一頭立て馬車の御者に名を取る、クリームを厚く載せたウィーン珈琲。"
+  },
+  {
+    "key": "wiener-melange",
+    "name": "ウィンナー・メランジェ",
+    "description": "珈琲と泡立てたミルクを合わせる、新聞の似合うウィーンの定番。"
+  },
+  {
+    "key": "cafe-touba",
+    "name": "カフェ・トゥーバ",
+    "description": "ギニアペッパーの香りを重ねる、セネガルで親しまれる香辛料珈琲。"
+  },
+  {
+    "key": "legendary-tea-leaves",
+    "name": "幻の茶葉",
+    "description": "店主でさえ滅多に封を切らない秘蔵品。"
+  },
+  {
+    "key": "golden-tea-set",
+    "name": "黄金のティーセット",
+    "description": "茶会そのものが伝説になる眩い一式。"
+  },
+  {
+    "key": "wild-kopi-luwak",
+    "name": "野生由来のコピ・ルアク",
+    "description": "森で採取された豆だけを選ぶ、希少なシベットコーヒー。"
+  },
+  {
+    "key": "elephant-coffee",
+    "name": "象が選んだ発酵コーヒー",
+    "description": "象の消化過程を経た豆を丁寧に精製する珍しい珈琲。"
+  },
+  {
+    "key": "st-helena-bourbon",
+    "name": "セントヘレナ・グリーンチップ・バーボン",
+    "description": "18世紀にイエメンから孤島へ渡り、隔絶した環境で守られた希少な珈琲。"
+  }
+]

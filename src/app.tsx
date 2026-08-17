@@ -1,4 +1,4 @@
-import { ChevronDown, ExternalLink, Globe2, Hash } from "lucide-react"
+import { BookOpen, ChevronDown, ExternalLink, Globe2, Hash, Trophy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import "./app.css"
 
@@ -153,6 +153,57 @@ export function App() {
                   {item.emojiName}
                 </span>
                 <p className="text-xl font-bold leading-8 text-[#5d4053]">{item.reason}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#fff8ee] text-[#49392f]">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 md:grid-cols-[1.15fr_0.85fr] md:items-center md:px-8 md:py-24">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#a26945]">
+              Cafe collection
+            </p>
+            <h2 className="mt-4 text-3xl font-black leading-tight tracking-normal md:text-5xl">
+              出がらしから幻の茶葉まで、
+              <br />
+              120種のカフェ図鑑。
+            </h2>
+            <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#75675b]">
+              Discordで集められるカフェ・コレクションを、いつでも眺められる常設ページにしました。
+              歴史的な飲み物や食べ物の小話と、全5部門のランキングを楽しめます。
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={assetUrl("cafe-collection/")}
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#754a31] px-7 text-sm font-bold text-white shadow-[0_14px_30px_rgba(88,52,31,0.2)] transition hover:-translate-y-0.5"
+              >
+                <BookOpen className="size-4" />
+                全カード図鑑
+              </a>
+              <a
+                href={assetUrl("cafe-collection/rankings/")}
+                className="inline-flex h-12 items-center gap-2 rounded-full border border-[#dcc9b5] bg-white/70 px-7 text-sm font-bold text-[#5b4435] transition hover:bg-white"
+              >
+                <Trophy className="size-4" />
+                ランキング
+              </a>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3" aria-label="カフェ・コレクションの内容">
+            {[
+              ["120", "常設カード"],
+              ["5", "レアリティ"],
+              ["11", "セットメニュー"],
+              ["5", "ランキング部門"]
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="rounded-[22px] border border-[#dfcdb9] bg-white/64 p-5 shadow-[0_14px_35px_rgba(91,61,43,0.07)]"
+              >
+                <strong className="block font-serif text-4xl text-[#49392f]">{value}</strong>
+                <span className="mt-2 block text-xs font-bold text-[#806d5e]">{label}</span>
               </div>
             ))}
           </div>

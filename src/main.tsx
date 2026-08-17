@@ -10,7 +10,12 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { registerSW } from "virtual:pwa-register"
 import { App } from "@/app"
-import { MemberPage } from "@/features/member/member-page"
+import {
+  CafeCardRoutePage,
+  CafeCollectionRoutePage,
+  CafeRankingsRoutePage
+} from "@/features/cafe-collection/lazy-routes"
+import { MemberRoutePage } from "@/features/member/lazy-route"
 import "./index.css"
 
 const normalizeDays = (value: unknown) => {
@@ -43,11 +48,38 @@ const memberRoute = createRoute({
     const { userId } = memberRoute.useParams()
     const { days } = memberRoute.useSearch()
 
-    return <MemberPage userId={userId} days={days} />
+    return <MemberRoutePage userId={userId} days={days} />
   }
 })
 
-const routeTree = rootRoute.addChildren([indexRoute, memberRoute])
+const cafeCollectionRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/cafe-collection",
+  component: CafeCollectionRoutePage
+})
+
+const cafeRankingsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/cafe-collection/rankings",
+  component: CafeRankingsRoutePage
+})
+
+const cafeCardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/cafe-collection/cards/$cardKey",
+  component: () => {
+    const { cardKey } = cafeCardRoute.useParams()
+    return <CafeCardRoutePage cardKey={cardKey} />
+  }
+})
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  memberRoute,
+  cafeCollectionRoute,
+  cafeRankingsRoute,
+  cafeCardRoute
+])
 const routerBasepath =
   import.meta.env.BASE_URL === "/" ? "/" : import.meta.env.BASE_URL.replace(/\/$/, "")
 const router = createRouter({ routeTree, basepath: routerBasepath })
