@@ -8,6 +8,9 @@
   --cafe-border: rgb(96 70 49 / 18%);
   --cafe-coffee: #754a31;
   --cafe-green: #496c5b;
+  width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
   color-scheme: light;
   color: var(--cafe-ink);
   background:
