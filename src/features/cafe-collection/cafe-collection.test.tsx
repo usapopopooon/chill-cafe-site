@@ -163,7 +163,7 @@ describe("CafeCollectionPage", () => {
     renderWithQuery(<CafeCollectionPage />)
 
     expect(await screen.findByRole("heading", { name: "全カード図鑑" })).toBeInTheDocument()
-    expect(screen.getByRole("heading", { name: "遊び方と大事なルール" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "遊び方とルール" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "セットメニュー図鑑" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "最初の1枚は必ず残る" })).toBeInTheDocument()
     expect(screen.getByText("基準 2.60%")).toBeInTheDocument()

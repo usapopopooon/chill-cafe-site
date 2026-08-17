@@ -164,7 +164,7 @@ export function CafeCollectionPage() {
           <div className="cafe-section-heading">
             <div>
               <p className="cafe-kicker">How to collect</p>
-              <h2>遊び方と大事なルール</h2>
+              <h2>遊び方とルール</h2>
             </div>
             <p>Discordのカフェカウンターから参加できます</p>
           </div>
