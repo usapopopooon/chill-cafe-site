@@ -598,5 +598,65 @@
     "key": "st-helena-bourbon",
     "name": "セントヘレナ・グリーンチップ・バーボン",
     "description": "18世紀にイエメンから孤島へ渡り、隔絶した環境で守られた希少な珈琲。"
+  },
+  {
+    "key": "morning-tea",
+    "name": "午前の紅茶",
+    "description": "午後まで待てなかった。時計だけが、ずっと午前を指している。"
+  },
+  {
+    "key": "moss-cola",
+    "name": "苔コーラ",
+    "description": "底の丸いものは、まりもではないらしい。"
+  },
+  {
+    "key": "red-cow-energy",
+    "name": "赤べこエナジー",
+    "description": "飲むと首だけが小刻みに元気になる。"
+  },
+  {
+    "key": "shimeji-hill",
+    "name": "しめじの丘",
+    "description": "焼き菓子だと説明された。土に見える部分も食べられるらしい。"
+  },
+  {
+    "key": "chikuwa-village",
+    "name": "竹輪の里",
+    "description": "たけのこを用意できなかった村の苦肉の策。"
+  },
+  {
+    "key": "unbroken-biscuit-sticks",
+    "name": "ポキッとしなかった棒菓子",
+    "description": "湿気に負けたが、心までは折れていない。"
+  },
+  {
+    "key": "capybara-break",
+    "name": "カピバラの休憩",
+    "description": "行進する気配がまったくない、くつろぎすぎた焼き菓子。"
+  },
+  {
+    "key": "mistaken-donuts",
+    "name": "ミスしたドーナツ",
+    "description": "穴の位置も形も自由。店主は全部ドーナツだと言っている。"
+  },
+  {
+    "key": "sure-to-break-wafer",
+    "name": "きっと割れるウエハース",
+    "description": "願望ではなく、持ち運び上の注意である。"
+  },
+  {
+    "key": "first-love-soda",
+    "name": "白い初恋ソーダ",
+    "description": "添えられた手紙に差出人はいない。味だけは甘酸っぱい。"
+  },
+  {
+    "key": "stardust-cream-latte",
+    "name": "星屑クリームラテ",
+    "description": "金色の粒は食用らしい。星屑かどうかは聞かないでほしい。"
+  },
+  {
+    "key": "emperors-rich-cup",
+    "name": "皇帝の濃厚カップ",
+    "description": "王冠は飴細工らしい。誰が皇帝なのかは教えてもらえなかった。"
   }
 ]

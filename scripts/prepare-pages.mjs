@@ -19,8 +19,8 @@ if (!existsSync(indexPath)) {
 const baseHtml = readFileSync(indexPath, "utf8")
 const cards = JSON.parse(readFileSync(cardManifestPath, "utf8"))
 
-if (!Array.isArray(cards) || cards.length !== 120) {
-  throw new Error("scripts/cafe-card-pages.json must contain all 120 cafe cards.")
+if (!Array.isArray(cards) || cards.length !== 132) {
+  throw new Error("scripts/cafe-card-pages.json must contain all 132 cafe cards.")
 }
 
 const seenCardKeys = new Set()
@@ -44,7 +44,7 @@ const pageDefinitions = [
     path: "cafe-collection",
     title: "カフェ・コレクション図鑑 | CHILLカフェ",
     description:
-      "CHILLカフェで集められる全120種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
+      "CHILLカフェで集められる全132種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。"
   },
   {
     path: "cafe-collection/rankings",

@@ -81,7 +81,7 @@ const categoryKeys: CafeLeaderboardCategoryKey[] = ["collection", "mastery", "se
 
 const rankings: CafeLeaderboards = {
   guild_id: "1168847276291137586",
-  total_cards: 120,
+  total_cards: 132,
   total_sets: 11,
   participant_count: 12,
   total_draws: 5217,

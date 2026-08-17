@@ -29,7 +29,7 @@ export function CafeCollectionPage() {
   usePageMeta({
     title: "カフェ・コレクション図鑑 | CHILLカフェ",
     description:
-      "CHILLカフェで集められる全120種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。",
+      "CHILLカフェで集められる全132種のカード図鑑。歴史的な飲み物や食べ物、喫茶店の名品を紹介します。",
     canonicalPath: "cafe-collection"
   })
   const catalogQuery = useQuery({

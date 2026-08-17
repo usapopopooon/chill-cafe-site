@@ -168,7 +168,7 @@ export function App() {
             <h2 className="mt-4 text-3xl font-black leading-tight tracking-normal md:text-5xl">
               出がらしから幻の茶葉まで、
               <br />
-              120種のカフェ図鑑。
+              132種のカフェ図鑑。
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#75675b]">
               Discordで集められるカフェ・コレクションを、いつでも眺められる常設ページにしました。
@@ -193,7 +193,7 @@ export function App() {
           </div>
           <div className="grid grid-cols-2 gap-3" aria-label="カフェ・コレクションの内容">
             {[
-              ["120", "常設カード"],
+              ["132", "常設カード"],
               ["5", "レアリティ"],
               ["11", "セットメニュー"],
               ["5", "ランキング部門"]
