@@ -21,7 +21,7 @@ export function CafeRankingsPage() {
   usePageMeta({
     title: "カフェ・コレクションランキング | CHILLカフェ",
     description:
-      "図鑑・熟練度・専門棚など、カフェ・コレクション全9部門のランキングを公開しています。",
+      "図鑑・熟練度・秘宝棚・専門棚など、カフェ・コレクション全10部門のランキングを公開しています。",
     canonicalPath: "cafe-collection/rankings"
   })
   const rankingQuery = useQuery({
@@ -154,7 +154,11 @@ function RankingSection({
           ))}
         </ol>
       ) : (
-        <p className="cafe-ranking-empty">まだ抽選記録がありません。</p>
+        <p className="cafe-ranking-empty">
+          {category.key === "treasure"
+            ? "UR・幻の収集記録はまだありません。"
+            : "まだ抽選記録がありません。"}
+        </p>
       )}
     </section>
   )

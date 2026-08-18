@@ -1,4 +1,4 @@
-export type CafeRarity = "N" | "HN" | "R" | "SR" | "SSR"
+export type CafeRarity = "N" | "HN" | "R" | "SR" | "SSR" | "UR" | "幻"
 export type CafeCardTag = "coffee" | "tea" | "sweets" | "culture"
 
 export interface CafeCard {
@@ -56,6 +56,7 @@ export type CafeLeaderboardCategoryKey =
   | "mastery"
   | "sets"
   | "rare"
+  | "treasure"
   | "joke"
   | "coffee"
   | "tea"
@@ -79,6 +80,9 @@ export interface CafeLeaderboardEntry {
   rare_r_count: number
   rare_sr_count: number
   rare_ssr_count: number
+  rare_ur_count: number
+  rare_mythic_count: number
+  treasure_collection_count: number
   n_collection_count: number
   n_mastery_score: number
   n_signature_cards: number

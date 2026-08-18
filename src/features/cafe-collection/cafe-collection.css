@@ -396,7 +396,7 @@
   display: grid;
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   overflow: hidden;
   border: 1px solid var(--cafe-border);
   border-radius: 22px;
@@ -2075,8 +2075,8 @@ a.cafe-rank-profile-link:hover .cafe-rank-person strong {
   }
 
   .cafe-rarity-strip {
-    grid-template-columns: repeat(5, minmax(64px, 1fr));
-    overflow-x: auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
   }
 
   .cafe-rarity-strip > div {

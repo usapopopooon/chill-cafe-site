@@ -149,7 +149,7 @@ export function CafeProfilePage({ profileId }: { profileId: string }) {
           <div className="cafe-section-heading">
             <div>
               <p className="cafe-kicker">Leaderboard positions</p>
-              <h2 id="profile-ranks-title">9部門の順位</h2>
+              <h2 id="profile-ranks-title">10部門の順位</h2>
             </div>
           </div>
           <div>

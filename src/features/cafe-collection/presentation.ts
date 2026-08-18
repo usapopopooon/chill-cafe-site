@@ -12,19 +12,20 @@ export const DEFAULT_CAFE_RULES: CafeCatalogRules = {
   hourly_draw_limit: 10,
   daily_draw_limit: null,
   unowned_weight_multiplier: 2,
-  endgame_pity_min_collected: 108,
+  endgame_pity_min_collected: 166,
   endgame_pity_duplicate_draws: 100,
   first_copy_protected: true,
   draw_results_public: true
 }
 
-export const RARITIES: CafeRarity[] = ["N", "HN", "R", "SR", "SSR"]
+export const RARITIES: CafeRarity[] = ["N", "HN", "R", "SR", "SSR", "UR", "幻"]
 
 export const LEADERBOARD_KEYS: CafeLeaderboardCategoryKey[] = [
   "collection",
   "mastery",
   "sets",
   "rare",
+  "treasure",
   "joke",
   "coffee",
   "tea",
@@ -40,7 +41,9 @@ export const RARITY_DETAILS: Record<
   HN: { label: "定番", shortLabel: "HN", color: "#60815b" },
   R: { label: "こだわり", shortLabel: "R", color: "#367f91" },
   SR: { label: "名品", shortLabel: "SR", color: "#7655a6" },
-  SSR: { label: "伝説", shortLabel: "SSR", color: "#ad6a22" }
+  SSR: { label: "伝説", shortLabel: "SSR", color: "#ad6a22" },
+  UR: { label: "歴史の逸話", shortLabel: "UR", color: "#a8325a" },
+  幻: { label: "現存する秘宝", shortLabel: "幻", color: "#62469b" }
 }
 
 export const LEADERBOARD_DETAILS: Record<
@@ -65,7 +68,12 @@ export const LEADERBOARD_DETAILS: Record<
   rare: {
     title: "レア棚ランキング",
     emoji: "💎",
-    description: "R・SR・SSRの異なるカード種類数を競います。"
+    description: "R・SR・SSR・UR・幻の異なるカード種類数を競います。"
+  },
+  treasure: {
+    title: "秘宝棚ランキング",
+    emoji: "🏛️",
+    description: "UR・幻だけの異なるカード種類数を競います。"
   },
   joke: {
     title: "ネタ棚ランキング",
@@ -109,6 +117,8 @@ export function leaderboardValue(
       return `${entry.completed_sets}/${totalSets}セット`
     case "rare":
       return `${entry.rare_collection_count}種`
+    case "treasure":
+      return `${entry.treasure_collection_count}種`
     case "joke":
       return `${entry.n_mastery_score.toLocaleString("ja-JP")} pt`
     case "coffee":
@@ -131,7 +141,9 @@ export function leaderboardDetail(key: CafeLeaderboardCategoryKey, entry: CafeLe
     case "sets":
       return `図鑑 ${entry.collection_count}種 · 熟練 ${entry.mastery_score.toLocaleString("ja-JP")} pt`
     case "rare":
-      return `R ${entry.rare_r_count} · SR ${entry.rare_sr_count} · SSR ${entry.rare_ssr_count}`
+      return `R ${entry.rare_r_count} · SR ${entry.rare_sr_count} · SSR ${entry.rare_ssr_count} · UR ${entry.rare_ur_count} · 幻 ${entry.rare_mythic_count}`
+    case "treasure":
+      return `UR ${entry.rare_ur_count} · 幻 ${entry.rare_mythic_count}`
     case "joke":
       return `N ${entry.n_collection_count}種 · 看板 ${entry.n_signature_cards}`
     case "coffee":

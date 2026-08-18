@@ -17,8 +17,8 @@ import type {
 const catalog: CafeCatalog = {
   total_cards: 3,
   food_cards: 1,
-  rarity_counts: { N: 1, HN: 1, R: 1, SR: 0, SSR: 0 },
-  rarity_rates_percent: { N: 65, HN: 24, R: 8, SR: 2.5, SSR: 0.5 },
+  rarity_counts: { N: 1, HN: 1, R: 1, SR: 0, SSR: 0, UR: 0, 幻: 0 },
+  rarity_rates_percent: { N: 65, HN: 24, R: 8, SR: 2.5, SSR: 0.4, UR: 0.08, 幻: 0.02 },
   cards: [
     {
       key: "spent-tea",
@@ -82,6 +82,7 @@ const categoryKeys: CafeLeaderboardCategoryKey[] = [
   "mastery",
   "sets",
   "rare",
+  "treasure",
   "joke",
   "coffee",
   "tea",
@@ -92,7 +93,7 @@ const categoryKeys: CafeLeaderboardCategoryKey[] = [
 const rankings: CafeLeaderboards = {
   guild_id: "1168847276291137586",
   total_cards: 154,
-  total_sets: 11,
+  total_sets: 15,
   participant_count: 12,
   total_draws: 5217,
   captured_at: "2026-08-17T09:30:00Z",
@@ -116,6 +117,9 @@ const rankings: CafeLeaderboards = {
         rare_r_count: 20,
         rare_sr_count: 8,
         rare_ssr_count: 2,
+        rare_ur_count: 1,
+        rare_mythic_count: 1,
+        treasure_collection_count: 2,
         n_collection_count: 28,
         n_mastery_score: 120,
         n_signature_cards: 3,
@@ -151,11 +155,12 @@ const profile: CafeCollectionProfile = {
     mastery: 2,
     sets: 3,
     rare: 4,
-    joke: 5,
-    coffee: 6,
-    tea: 7,
-    sweets: 8,
-    culture: 9
+    treasure: 5,
+    joke: 6,
+    coffee: 7,
+    tea: 8,
+    sweets: 9,
+    culture: 10
   },
   cards: [
     { card_key: "spent-tea", count: 1, lifetime_count: 2 },
@@ -289,7 +294,7 @@ describe("CafeCardDetailPage", () => {
 })
 
 describe("CafeRankingsPage", () => {
-  it("renders all nine ranking categories without selecting a tab", async () => {
+  it("renders all ten ranking categories without selecting a tab", async () => {
     mockJson(rankings)
     renderWithQuery(<CafeRankingsPage />)
 
@@ -299,23 +304,36 @@ describe("CafeRankingsPage", () => {
     expect(screen.getByRole("heading", { name: "熟練度ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "セットメニューランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "レア棚ランキング" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "秘宝棚ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "ネタ棚ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "珈琲通ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "茶の達人ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "甘味通ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "食文化探訪ランキング" })).toBeInTheDocument()
-    expect(screen.getAllByText("うさぽ")).toHaveLength(9)
+    expect(screen.getAllByText("うさぽ")).toHaveLength(10)
     const avatars = screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })
-    expect(avatars).toHaveLength(9)
+    expect(avatars).toHaveLength(10)
     expect(avatars[0]).toHaveAttribute("src", "https://cdn.example/avatar.png")
-    expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(9)
+    expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(10)
     expect(
       screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })[0]
     ).toHaveAttribute("href", "/cafe-collection/profile/?id=0123456789abcdef01234567")
 
     fireEvent.error(avatars[0])
     expect(screen.getByText("う")).toBeInTheDocument()
-    expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(8)
+    expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(9)
+  })
+
+  it("秘宝未所持者を秘宝棚の順位に表示しない", async () => {
+    mockJson({
+      ...rankings,
+      categories: rankings.categories.map((category) =>
+        category.key === "treasure" ? { ...category, entries: [] } : category
+      )
+    })
+    renderWithQuery(<CafeRankingsPage />)
+
+    expect(await screen.findByText("UR・幻の収集記録はまだありません。")).toBeInTheDocument()
   })
 })
 
@@ -341,7 +359,7 @@ describe("CafeProfilePage", () => {
     expect(screen.getByText("2/3種")).toBeInTheDocument()
     expect(screen.getByText("3枚")).toBeInTheDocument()
     expect(screen.getByText("1/2")).toBeInTheDocument()
-    expect(screen.getByRole("heading", { name: "9部門の順位" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "10部門の順位" })).toBeInTheDocument()
     expect(screen.getByText("9位")).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "出がらし" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "スコーン" })).toBeInTheDocument()
