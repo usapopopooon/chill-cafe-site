@@ -77,7 +77,17 @@ const catalog: CafeCatalog = {
   }
 }
 
-const categoryKeys: CafeLeaderboardCategoryKey[] = ["collection", "mastery", "sets", "rare", "joke"]
+const categoryKeys: CafeLeaderboardCategoryKey[] = [
+  "collection",
+  "mastery",
+  "sets",
+  "rare",
+  "joke",
+  "coffee",
+  "tea",
+  "sweets",
+  "culture"
+]
 
 const rankings: CafeLeaderboards = {
   guild_id: "1168847276291137586",
@@ -108,7 +118,19 @@ const rankings: CafeLeaderboards = {
         rare_ssr_count: 2,
         n_collection_count: 28,
         n_mastery_score: 120,
-        n_signature_cards: 3
+        n_signature_cards: 3,
+        coffee_collection_count: 24,
+        coffee_mastery_score: 80,
+        coffee_signature_cards: 2,
+        tea_collection_count: 20,
+        tea_mastery_score: 70,
+        tea_signature_cards: 1,
+        sweets_collection_count: 15,
+        sweets_mastery_score: 50,
+        sweets_signature_cards: 1,
+        culture_collection_count: 32,
+        culture_mastery_score: 100,
+        culture_signature_cards: 3
       }
     ]
   }))
@@ -124,7 +146,17 @@ const profile: CafeCollectionProfile = {
   total_draws: 3,
   mastery_score: 2,
   completed_set_keys: [],
-  ranks: { collection: 1, mastery: 2, sets: 3, rare: 4, joke: 5 },
+  ranks: {
+    collection: 1,
+    mastery: 2,
+    sets: 3,
+    rare: 4,
+    joke: 5,
+    coffee: 6,
+    tea: 7,
+    sweets: 8,
+    culture: 9
+  },
   cards: [
     { card_key: "spent-tea", count: 1, lifetime_count: 2 },
     { card_key: "scone", count: 1, lifetime_count: 1 }
@@ -257,7 +289,7 @@ describe("CafeCardDetailPage", () => {
 })
 
 describe("CafeRankingsPage", () => {
-  it("renders all five ranking categories without selecting a tab", async () => {
+  it("renders all nine ranking categories without selecting a tab", async () => {
     mockJson(rankings)
     renderWithQuery(<CafeRankingsPage />)
 
@@ -268,18 +300,22 @@ describe("CafeRankingsPage", () => {
     expect(screen.getByRole("heading", { name: "セットメニューランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "レア棚ランキング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "ネタ棚ランキング" })).toBeInTheDocument()
-    expect(screen.getAllByText("うさぽ")).toHaveLength(5)
+    expect(screen.getByRole("heading", { name: "珈琲通ランキング" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "茶の達人ランキング" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "甘味通ランキング" })).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "食文化探訪ランキング" })).toBeInTheDocument()
+    expect(screen.getAllByText("うさぽ")).toHaveLength(9)
     const avatars = screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })
-    expect(avatars).toHaveLength(5)
+    expect(avatars).toHaveLength(9)
     expect(avatars[0]).toHaveAttribute("src", "https://cdn.example/avatar.png")
-    expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(5)
+    expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(9)
     expect(
       screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })[0]
     ).toHaveAttribute("href", "/cafe-collection/profile/?id=0123456789abcdef01234567")
 
     fireEvent.error(avatars[0])
     expect(screen.getByText("う")).toBeInTheDocument()
-    expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(4)
+    expect(screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })).toHaveLength(8)
   })
 })
 
@@ -305,6 +341,8 @@ describe("CafeProfilePage", () => {
     expect(screen.getByText("2/3種")).toBeInTheDocument()
     expect(screen.getByText("3枚")).toBeInTheDocument()
     expect(screen.getByText("1/2")).toBeInTheDocument()
+    expect(screen.getByRole("heading", { name: "9部門の順位" })).toBeInTheDocument()
+    expect(screen.getByText("9位")).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "出がらし" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "スコーン" })).toBeInTheDocument()
     expect(screen.getByText(/所持1 \/ 累計2枚/)).toBeInTheDocument()

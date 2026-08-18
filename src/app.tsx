@@ -182,7 +182,7 @@ export function App() {
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#75675b]">
               Discordで集められるカフェ・コレクションを、いつでも眺められる常設ページにしました。
-              歴史的な飲み物や食べ物の小話と、全5部門のランキングを楽しめます。
+              歴史的な飲み物や食べ物の小話と、全9部門のランキングを楽しめます。
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a

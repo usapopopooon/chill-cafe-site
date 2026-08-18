@@ -8,29 +8,17 @@ import {
 } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
 import {
+  LEADERBOARD_KEYS,
   LEADERBOARD_DETAILS,
   RARITIES,
   RARITY_DETAILS
 } from "@/features/cafe-collection/presentation"
-import type {
-  CafeCatalog,
-  CafeLeaderboardCategoryKey,
-  CafeMasteryTier,
-  CafeRarity
-} from "@/features/cafe-collection/types"
+import type { CafeCatalog, CafeMasteryTier, CafeRarity } from "@/features/cafe-collection/types"
 import { usePageMeta } from "@/features/cafe-collection/use-page-meta"
 
 type OwnershipFilter = "owned" | "missing" | "all"
 
 const sitePath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`
-const leaderboardKeys: CafeLeaderboardCategoryKey[] = [
-  "collection",
-  "mastery",
-  "sets",
-  "rare",
-  "joke"
-]
-
 export function CafeProfilePage({ profileId }: { profileId: string }) {
   const profileQuery = useQuery({
     queryKey: ["cafe-collection", "profile", profileId],
@@ -161,15 +149,15 @@ export function CafeProfilePage({ profileId }: { profileId: string }) {
           <div className="cafe-section-heading">
             <div>
               <p className="cafe-kicker">Leaderboard positions</p>
-              <h2 id="profile-ranks-title">5部門の順位</h2>
+              <h2 id="profile-ranks-title">9部門の順位</h2>
             </div>
           </div>
           <div>
-            {leaderboardKeys.map((key) => (
+            {LEADERBOARD_KEYS.map((key) => (
               <a href={sitePath(`cafe-collection/rankings/#ranking-${key}`)} key={key}>
                 <span aria-hidden="true">{LEADERBOARD_DETAILS[key].emoji}</span>
                 <small>{LEADERBOARD_DETAILS[key].title.replace("ランキング", "")}</small>
-                <strong>{profile.ranks[key]}位</strong>
+                <strong>{profile.ranks[key] ? `${profile.ranks[key]}位` : "—"}</strong>
               </a>
             ))}
           </div>

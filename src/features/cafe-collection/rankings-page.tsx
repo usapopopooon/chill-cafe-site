@@ -20,7 +20,8 @@ const sitePath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 export function CafeRankingsPage() {
   usePageMeta({
     title: "カフェ・コレクションランキング | CHILLカフェ",
-    description: "図鑑・熟練度・セットメニュー・レア棚・ネタ棚の全ランキングを公開しています。",
+    description:
+      "図鑑・熟練度・専門棚など、カフェ・コレクション全9部門のランキングを公開しています。",
     canonicalPath: "cafe-collection/rankings"
   })
   const rankingQuery = useQuery({
@@ -55,8 +56,8 @@ export function CafeRankingsPage() {
             <p className="cafe-kicker">Cafe hall of fame</p>
             <h1>カフェ・コレクションランキング</h1>
             <p>
-              集め方も、楽しみ方もひとつではありません。
-              全5部門の上位20名を、いつでもまとめて確認できます。
+              集め方も、楽しみ方もひとつではありません。 全{ranking.categories.length}
+              部門の上位20名を、いつでもまとめて確認できます。
             </p>
           </div>
           <Trophy aria-hidden="true" />

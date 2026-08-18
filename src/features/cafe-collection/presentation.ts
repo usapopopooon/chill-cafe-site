@@ -20,6 +20,18 @@ export const DEFAULT_CAFE_RULES: CafeCatalogRules = {
 
 export const RARITIES: CafeRarity[] = ["N", "HN", "R", "SR", "SSR"]
 
+export const LEADERBOARD_KEYS: CafeLeaderboardCategoryKey[] = [
+  "collection",
+  "mastery",
+  "sets",
+  "rare",
+  "joke",
+  "coffee",
+  "tea",
+  "sweets",
+  "culture"
+]
+
 export const RARITY_DETAILS: Record<
   CafeRarity,
   { label: string; shortLabel: string; color: string }
@@ -59,6 +71,26 @@ export const LEADERBOARD_DETAILS: Record<
     title: "ネタ棚ランキング",
     emoji: "🥖",
     description: "Nカードだけの熟練ポイントを競います。"
+  },
+  coffee: {
+    title: "珈琲通ランキング",
+    emoji: "🫘",
+    description: "珈琲・代用珈琲・産地銘柄などの熟練ポイントを競います。"
+  },
+  tea: {
+    title: "茶の達人ランキング",
+    emoji: "🍵",
+    description: "紅茶・日本茶・中国茶・発酵茶などの熟練ポイントを競います。"
+  },
+  sweets: {
+    title: "甘味通ランキング",
+    emoji: "🍰",
+    description: "菓子・デザート系カードの熟練ポイントを競います。"
+  },
+  culture: {
+    title: "食文化探訪ランキング",
+    emoji: "🏺",
+    description: "歴史食・代用食・土地の食文化を伝えるカードの熟練ポイントを競います。"
   }
 }
 
@@ -79,6 +111,14 @@ export function leaderboardValue(
       return `${entry.rare_collection_count}種`
     case "joke":
       return `${entry.n_mastery_score.toLocaleString("ja-JP")} pt`
+    case "coffee":
+      return `${(entry.coffee_mastery_score ?? 0).toLocaleString("ja-JP")} pt`
+    case "tea":
+      return `${(entry.tea_mastery_score ?? 0).toLocaleString("ja-JP")} pt`
+    case "sweets":
+      return `${(entry.sweets_mastery_score ?? 0).toLocaleString("ja-JP")} pt`
+    case "culture":
+      return `${(entry.culture_mastery_score ?? 0).toLocaleString("ja-JP")} pt`
   }
 }
 
@@ -94,6 +134,14 @@ export function leaderboardDetail(key: CafeLeaderboardCategoryKey, entry: CafeLe
       return `R ${entry.rare_r_count} · SR ${entry.rare_sr_count} · SSR ${entry.rare_ssr_count}`
     case "joke":
       return `N ${entry.n_collection_count}種 · 看板 ${entry.n_signature_cards}`
+    case "coffee":
+      return `収集 ${entry.coffee_collection_count ?? 0}種 · 看板 ${entry.coffee_signature_cards ?? 0}`
+    case "tea":
+      return `収集 ${entry.tea_collection_count ?? 0}種 · 看板 ${entry.tea_signature_cards ?? 0}`
+    case "sweets":
+      return `収集 ${entry.sweets_collection_count ?? 0}種 · 看板 ${entry.sweets_signature_cards ?? 0}`
+    case "culture":
+      return `収集 ${entry.culture_collection_count ?? 0}種 · 看板 ${entry.culture_signature_cards ?? 0}`
   }
 }
 

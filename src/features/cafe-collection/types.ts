@@ -1,4 +1,5 @@
 export type CafeRarity = "N" | "HN" | "R" | "SR" | "SSR"
+export type CafeCardTag = "coffee" | "tea" | "sweets" | "culture"
 
 export interface CafeCard {
   key: string
@@ -10,6 +11,7 @@ export interface CafeCard {
   draw_reward_xp: number
   exchange_xp: number
   is_food: boolean
+  tags?: CafeCardTag[]
 }
 
 export interface CafeSet {
@@ -49,7 +51,16 @@ export interface CafeCatalog {
   rules?: CafeCatalogRules
 }
 
-export type CafeLeaderboardCategoryKey = "collection" | "mastery" | "sets" | "rare" | "joke"
+export type CafeLeaderboardCategoryKey =
+  | "collection"
+  | "mastery"
+  | "sets"
+  | "rare"
+  | "joke"
+  | "coffee"
+  | "tea"
+  | "sweets"
+  | "culture"
 
 export interface CafeLeaderboardEntry {
   rank: number
@@ -71,6 +82,18 @@ export interface CafeLeaderboardEntry {
   n_collection_count: number
   n_mastery_score: number
   n_signature_cards: number
+  coffee_collection_count?: number
+  coffee_mastery_score?: number
+  coffee_signature_cards?: number
+  tea_collection_count?: number
+  tea_mastery_score?: number
+  tea_signature_cards?: number
+  sweets_collection_count?: number
+  sweets_mastery_score?: number
+  sweets_signature_cards?: number
+  culture_collection_count?: number
+  culture_mastery_score?: number
+  culture_signature_cards?: number
 }
 
 export interface CafeLeaderboardCategory {
@@ -104,7 +127,7 @@ export interface CafeCollectionProfile {
   total_draws: number
   mastery_score: number
   completed_set_keys: string[]
-  ranks: Record<CafeLeaderboardCategoryKey, number>
+  ranks: Partial<Record<CafeLeaderboardCategoryKey, number>>
   cards: CafeCollectionProfileCard[]
   captured_at: string
 }

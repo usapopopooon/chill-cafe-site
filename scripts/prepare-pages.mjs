@@ -50,7 +50,8 @@ const pageDefinitions = [
   {
     path: "cafe-collection/rankings",
     title: "カフェ・コレクションランキング | CHILLカフェ",
-    description: "図鑑・熟練度・セットメニュー・レア棚・ネタ棚の全ランキングを公開しています。"
+    description:
+      "図鑑・熟練度・専門棚など、カフェ・コレクション全9部門のランキングを公開しています。"
   },
   {
     path: "cafe-collection/profile",
