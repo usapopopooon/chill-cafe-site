@@ -13,6 +13,7 @@ import {
 import { useMemo, useState } from "react"
 import { getCafeCardImageUrl, getCafeCatalog } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
+import { CafeLazyImage } from "@/features/cafe-collection/lazy-image"
 import {
   DEFAULT_CAFE_RULES,
   RARITIES,
@@ -120,6 +121,7 @@ export function CafeCollectionPage() {
                     alt={`${card.name}のカードを見る`}
                     width="768"
                     height="768"
+                    decoding="async"
                   />
                   <span>{card.name}</span>
                 </a>
@@ -263,12 +265,11 @@ export function CafeCollectionPage() {
                     return (
                       <li key={card.key}>
                         <a href={sitePath(`cafe-collection/cards/${card.key}/`)}>
-                          <img
+                          <CafeLazyImage
                             src={getCafeCardImageUrl(card.image_url)}
                             alt=""
                             width="768"
                             height="768"
-                            loading="lazy"
                           />
                           <span>{card.name}</span>
                         </a>
@@ -367,12 +368,11 @@ function CatalogCard({ card }: { card: CafeCard }) {
   return (
     <a href={sitePath(`cafe-collection/cards/${card.key}/`)} className="cafe-catalog-card">
       <div className="cafe-card-image-wrap">
-        <img
+        <CafeLazyImage
           src={getCafeCardImageUrl(card.image_url)}
           alt={card.name}
           width="768"
           height="768"
-          loading="lazy"
         />
         <span
           className="cafe-rarity-badge"

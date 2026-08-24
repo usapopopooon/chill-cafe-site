@@ -325,7 +325,8 @@ describe("CafeRankingsPage", () => {
     expect(screen.getAllByText("うさぽ")).toHaveLength(10)
     const avatars = screen.getAllByRole("img", { name: "うさぽのDiscordアイコン" })
     expect(avatars).toHaveLength(10)
-    expect(avatars[0]).toHaveAttribute("src", "https://cdn.example/avatar.png")
+    expect(avatars[0]).not.toHaveAttribute("src")
+    expect(avatars[0]).toHaveAttribute("loading", "lazy")
     expect(screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })).toHaveLength(10)
     expect(
       screen.getAllByRole("link", { name: "うさぽさんのコレクションを見る" })[0]

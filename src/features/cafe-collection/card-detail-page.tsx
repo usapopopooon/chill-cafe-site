@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import { getCafeCardImageUrl, getCafeCatalog } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
+import { CafeLazyImage } from "@/features/cafe-collection/lazy-image"
 import { DEFAULT_CAFE_RULES, RARITY_DETAILS } from "@/features/cafe-collection/presentation"
 import type { CafeCard } from "@/features/cafe-collection/types"
 import { usePageMeta } from "@/features/cafe-collection/use-page-meta"
@@ -98,7 +99,14 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
         <article className="cafe-card-detail">
           <div className="cafe-detail-image">
             <a href={imageUrl} target="_blank" rel="noreferrer">
-              <img src={imageUrl} alt={card.name} width="768" height="768" />
+              <img
+                src={imageUrl}
+                alt={card.name}
+                width="768"
+                height="768"
+                decoding="async"
+                fetchPriority="high"
+              />
               <span>
                 <Maximize2 aria-hidden="true" />
                 カード画像を大きく見る
@@ -185,12 +193,11 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
                       return (
                         <li key={requiredCard.key}>
                           <a href={sitePath(`cafe-collection/cards/${requiredCard.key}/`)}>
-                            <img
+                            <CafeLazyImage
                               src={getCafeCardImageUrl(requiredCard.image_url)}
                               alt=""
                               width="768"
                               height="768"
-                              loading="lazy"
                             />
                             <span>{requiredCard.name}</span>
                           </a>
@@ -223,12 +230,11 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
                   key={item.key}
                   className="cafe-related-card"
                 >
-                  <img
+                  <CafeLazyImage
                     src={getCafeCardImageUrl(item.image_url)}
                     alt=""
                     width="768"
                     height="768"
-                    loading="lazy"
                   />
                   <span>{item.rarity}</span>
                   <strong>{item.name}</strong>
@@ -241,12 +247,11 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
         <nav className="cafe-card-pagination" aria-label="前後のカード">
           {previous ? (
             <a href={sitePath(`cafe-collection/cards/${previous.key}/`)}>
-              <img
+              <CafeLazyImage
                 src={getCafeCardImageUrl(previous.image_url)}
                 alt=""
                 width="768"
                 height="768"
-                loading="lazy"
               />
               <ArrowLeft aria-hidden="true" />
               <span>
@@ -264,12 +269,11 @@ export function CafeCardDetailPage({ cardKey }: { cardKey: string }) {
                 {next.name}
               </span>
               <ArrowRight aria-hidden="true" />
-              <img
+              <CafeLazyImage
                 src={getCafeCardImageUrl(next.image_url)}
                 alt=""
                 width="768"
                 height="768"
-                loading="lazy"
               />
             </a>
           ) : (

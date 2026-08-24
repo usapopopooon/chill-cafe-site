@@ -7,6 +7,7 @@ import {
   getCafeCollectionProfile
 } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
+import { CafeLazyImage } from "@/features/cafe-collection/lazy-image"
 import {
   LEADERBOARD_KEYS,
   LEADERBOARD_DETAILS,
@@ -253,12 +254,11 @@ export function CafeProfilePage({ profileId }: { profileId: string }) {
                     key={card.key}
                   >
                     <div>
-                      <img
+                      <CafeLazyImage
                         src={getCafeCardImageUrl(card.image_url)}
                         alt=""
                         width="768"
                         height="768"
-                        loading="lazy"
                       />
                       <span>{card.rarity}</span>
                     </div>

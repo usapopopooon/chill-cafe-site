@@ -3,6 +3,7 @@ import { BookOpen, Clock3, Trophy, Users } from "lucide-react"
 import { useState } from "react"
 import { getCafeLeaderboards } from "@/features/cafe-collection/api"
 import { CafeError, CafeLoading, CafeShell } from "@/features/cafe-collection/cafe-shell"
+import { CafeLazyImage } from "@/features/cafe-collection/lazy-image"
 import {
   LEADERBOARD_DETAILS,
   leaderboardDetail,
@@ -216,13 +217,12 @@ function RankingAvatar({ entry }: { entry: CafeLeaderboardEntry }) {
   }
 
   return (
-    <img
+    <CafeLazyImage
       className="cafe-rank-avatar"
       src={entry.avatar_url}
       alt={`${entry.display_name}のDiscordアイコン`}
       width="42"
       height="42"
-      loading="lazy"
       referrerPolicy="no-referrer"
       onError={() => setImageFailed(true)}
     />
