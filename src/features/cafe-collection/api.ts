@@ -6,8 +6,8 @@ import type {
 
 export const CHILL_CAFE_GUILD_ID = "1168847276291137586"
 
-const DEFAULT_API_ORIGIN = "https://level-bot-api.chill-cafe.site"
-const API_ORIGIN = (import.meta.env.VITE_LEVEL_BOT_API_ORIGIN || DEFAULT_API_ORIGIN).replace(
+const DEFAULT_API_ORIGIN = "https://cafe-collection-bot.chill-cafe.site"
+const API_ORIGIN = (import.meta.env.VITE_CAFE_COLLECTION_API_ORIGIN || DEFAULT_API_ORIGIN).replace(
   /\/$/,
   ""
 )
@@ -24,8 +24,14 @@ export class PublicCafeApiError extends Error {
 }
 
 async function fetchPublicCafeApi<T>(path: string): Promise<T> {
+  const headers: Record<string, string> = { Accept: "application/json" }
+  const publicToken = import.meta.env.VITE_LEVEL_BOT_API_TOKEN?.trim()
+  if (publicToken) {
+    headers.Authorization = `Bearer ${publicToken}`
+  }
+
   const response = await fetch(`${API_ORIGIN}${PUBLIC_CAFE_PATH}${path}`, {
-    headers: { Accept: "application/json" },
+    headers,
     credentials: "omit"
   })
 

@@ -172,6 +172,7 @@ const profile: CafeCollectionProfile = {
 afterEach(() => {
   cleanup()
   vi.unstubAllGlobals()
+  vi.unstubAllEnvs()
 })
 
 function renderWithQuery(ui: ReactElement) {
@@ -195,6 +196,7 @@ function mockJson(body: unknown) {
 
 describe("CafeCollectionPage", () => {
   it("shows the catalog and filters cards without another request", async () => {
+    vi.stubEnv("VITE_LEVEL_BOT_API_TOKEN", "shared-public-jwt")
     mockJson(catalog)
     const user = userEvent.setup()
     renderWithQuery(<CafeCollectionPage />)
@@ -213,6 +215,16 @@ describe("CafeCollectionPage", () => {
     expect(
       [...document.querySelectorAll(".cafe-hero-title-line")].map((line) => line.textContent)
     ).toEqual(["一杯とひと皿の、", "ちいさな博物館。"])
+    expect(fetch).toHaveBeenCalledWith(
+      "https://cafe-collection-bot.chill-cafe.site/api/v1/public/cafe-collection/catalog",
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer shared-public-jwt"
+        },
+        credentials: "omit"
+      }
+    )
 
     await user.click(screen.getByRole("button", { name: "食べ物" }))
 
@@ -249,7 +261,7 @@ describe("CafeCardDetailPage", () => {
     expect(screen.getByText("0.29%", { exact: true })).toBeInTheDocument()
     expect(screen.getByRole("link", { name: /カード画像を大きく見る/ })).toHaveAttribute(
       "href",
-      "https://level-bot-api.chill-cafe.site/api/v1/public/cafe-collection/cards/house-blend/image"
+      "https://cafe-collection-bot.chill-cafe.site/api/v1/public/cafe-collection/cards/house-blend/image"
     )
     expect(screen.getByRole("heading", { name: "王道の喫茶店モーニング" })).toBeInTheDocument()
     expect(screen.getByRole("heading", { name: "あわせて眺めたいカード" })).toBeInTheDocument()

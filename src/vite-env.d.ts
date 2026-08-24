@@ -3,6 +3,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_LEVEL_BOT_API_ORIGIN?: string
+  readonly VITE_CAFE_COLLECTION_API_ORIGIN?: string
   readonly VITE_LEVEL_BOT_API_TOKEN?: string
 }
 

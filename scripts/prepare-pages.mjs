@@ -2,7 +2,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileS
 import { dirname, resolve } from "node:path"
 
 const SITE_ORIGIN = "https://chill-cafe.site"
-const API_ORIGIN = "https://level-bot-api.chill-cafe.site"
+const API_ORIGIN = "https://cafe-collection-bot.chill-cafe.site"
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`
 const distDir = resolve(process.cwd(), "dist")
 const indexPath = resolve(distDir, "index.html")
@@ -11,7 +11,7 @@ const cardManifestPath = resolve(process.cwd(), "scripts/cafe-card-pages.json")
 
 // API未デプロイ時も再現可能なビルドにするため、既知のカードの公開用メタ情報は
 // チェックイン済みmanifestを使う。新しいカードはSPAの404フォールバックから
-// level-bot APIを読み込めるため、manifestの件数はサイト表示を制限しない。
+// 新Bot APIを読み込めるため、manifestの件数はサイト表示を制限しない。
 
 if (!existsSync(indexPath)) {
   throw new Error("dist/index.html was not found. Run vite build before preparing Pages output.")
