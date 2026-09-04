@@ -175,10 +175,12 @@ export function App() {
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#a26945]">
               Cafe collection
             </p>
-            <h2 className="mt-4 text-3xl font-black leading-tight tracking-normal md:text-5xl">
-              出がらしから幻の茶葉まで、
+            <h2 className="mt-4 text-3xl font-black leading-tight tracking-normal md:text-[clamp(1.75rem,3.5vw,2.75rem)]">
+              <span className="md:whitespace-nowrap">出がらしから幻の茶葉まで、</span>
               <br />
-              {cafeCardCount ? `${cafeCardCount}種のカフェ図鑑。` : "増え続けるカフェ図鑑。"}
+              <span className="md:whitespace-nowrap">
+                {cafeCardCount ? `${cafeCardCount}種のカフェ図鑑。` : "増え続けるカフェ図鑑。"}
+              </span>
             </h2>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#75675b]">
               Discordで集められるカフェ・コレクションを、いつでも眺められる常設ページにしました。
@@ -212,7 +214,9 @@ export function App() {
                 key={label}
                 className="rounded-[22px] border border-[#dfcdb9] bg-white/64 p-5 shadow-[0_14px_35px_rgba(91,61,43,0.07)]"
               >
-                <strong className="block font-serif text-4xl text-[#49392f]">{value}</strong>
+                <strong className="block font-serif text-4xl lining-nums tabular-nums text-[#49392f]">
+                  {value}
+                </strong>
                 <span className="mt-2 block text-xs font-bold text-[#806d5e]">{label}</span>
               </div>
             ))}

@@ -82,4 +82,32 @@ describe("App", () => {
 
     expect(screen.getByRole("link", { name: "全カード図鑑" })).toHaveClass("!text-white")
   })
+
+  it("uses aligned numerals for the cafe collection metrics", () => {
+    mockCatalog(538, 55)
+    renderApp()
+
+    const metrics = screen.getByLabelText("カフェ・コレクションの内容").querySelectorAll("strong")
+
+    expect(metrics).toHaveLength(4)
+    metrics.forEach((metric) => {
+      expect(metric).toHaveClass("lining-nums", "tabular-nums")
+    })
+  })
+
+  it("keeps the cafe collection heading on its two intended desktop lines", async () => {
+    mockCatalog(538)
+    renderApp()
+
+    const heading = await screen.findByRole("heading", {
+      name: "出がらしから幻の茶葉まで、538種のカフェ図鑑。"
+    })
+    const lines = heading.querySelectorAll("span")
+
+    expect(heading).toHaveClass("md:text-[clamp(1.75rem,3.5vw,2.75rem)]")
+    expect(lines).toHaveLength(2)
+    lines.forEach((line) => {
+      expect(line).toHaveClass("md:whitespace-nowrap")
+    })
+  })
 })
