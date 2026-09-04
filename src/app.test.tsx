@@ -75,4 +75,11 @@ describe("App", () => {
     expect(screen.getByText("17")).toBeInTheDocument()
     expect(screen.getByText("セットメニュー")).toBeInTheDocument()
   })
+
+  it("keeps the primary cafe catalog call-to-action readable", () => {
+    mockCatalog(211)
+    renderApp()
+
+    expect(screen.getByRole("link", { name: "全カード図鑑" })).toHaveClass("!text-white")
+  })
 })

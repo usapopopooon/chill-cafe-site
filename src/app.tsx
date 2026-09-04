@@ -187,7 +187,7 @@ export function App() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={assetUrl("cafe-collection/")}
-                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#754a31] px-7 text-sm font-bold text-white shadow-[0_14px_30px_rgba(88,52,31,0.2)] transition hover:-translate-y-0.5"
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#754a31] px-7 text-sm font-bold !text-white shadow-[0_14px_30px_rgba(88,52,31,0.2)] transition hover:-translate-y-0.5"
               >
                 <BookOpen className="size-4" />
                 全カード図鑑
