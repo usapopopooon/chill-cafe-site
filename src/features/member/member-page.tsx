@@ -192,22 +192,38 @@ function getTopVoiceChannels(profile: UserProfile) {
     .slice(0, 5)
 }
 
-function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }) {
+export function ProfileHeader({ profile, days }: { profile: UserProfile; days: number }) {
   return (
-    <header className="level-bot-panel flex items-center gap-4 p-4 sm:p-5">
-      {profile.avatar_url ? (
-        <img
-          src={profile.avatar_url}
-          alt=""
-          className="size-16 rounded-[24px] border-4 border-white bg-white object-cover shadow-sm"
-        />
-      ) : (
-        <div className="size-16 rounded-[24px] border-4 border-white bg-[#f1e7de] shadow-sm" />
-      )}
-      <div>
-        <h1 className="text-2xl font-black text-[#4e4038]">{profile.display_name}</h1>
-        <p className="mt-1 text-sm font-medium text-[#8f7162]">直近 {days} 日のきろく</p>
+    <header className="level-bot-panel flex flex-col gap-4 p-4 min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between sm:p-5">
+      <div className="flex items-center gap-4">
+        {profile.avatar_url ? (
+          <img
+            src={profile.avatar_url}
+            alt=""
+            className="size-16 rounded-[24px] border-4 border-white bg-white object-cover shadow-sm"
+          />
+        ) : (
+          <div className="size-16 rounded-[24px] border-4 border-white bg-[#f1e7de] shadow-sm" />
+        )}
+        <div>
+          <h1 className="text-2xl font-black text-[#4e4038]">{profile.display_name}</h1>
+          <p className="mt-1 text-sm font-medium text-[#8f7162]">直近 {days} 日のきろく</p>
+        </div>
       </div>
+
+      {profile.cafe_collection_profile_id ? (
+        <a
+          href={`${import.meta.env.BASE_URL}cafe-collection/profile/?id=${encodeURIComponent(profile.cafe_collection_profile_id)}`}
+          aria-label={`${profile.display_name}さんのカフェ棚を見る`}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#dcc5b7] bg-[#fff8ef] px-4 py-3 text-sm font-black text-[#6f5141] shadow-sm transition hover:-translate-y-0.5 hover:border-[#c9aa98] hover:bg-white hover:shadow-md min-[480px]:w-auto"
+        >
+          <span aria-hidden="true">☕</span>
+          カフェ棚を見る
+          <span aria-hidden="true" className="text-[#b48e78]">
+            →
+          </span>
+        </a>
+      ) : null}
     </header>
   )
 }
