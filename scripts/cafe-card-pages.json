@@ -768,5 +768,105 @@
     "key": "premium-ordinary-water",
     "name": "プレミアム普通水",
     "description": "箱とリボンと証明書を外すと、よく冷えた普通の水。"
+  },
+  {
+    "key": "sakura-white-chocolate-latte",
+    "name": "桜とホワイトチョコのラテ",
+    "description": "桜色のミルクに白いチョコを溶かして。カップの中だけ、ひと足早く春が来た。"
+  },
+  {
+    "key": "burnt-caramel-latte",
+    "name": "焦がしキャラメルラテ",
+    "description": "ほろ苦いキャラメルを、ふわりとしたミルクへ。甘い香りのあとから、焦げ目が少し顔を出す。"
+  },
+  {
+    "key": "roasted-sweet-potato-brulee-latte",
+    "name": "焼き芋ブリュレラテ",
+    "description": "焼き芋のミルクに、ぱりっと薄い飴の蓋。ひと口目だけは、スプーンで秋を割ってから。"
+  },
+  {
+    "key": "black-sesame-kinako-latte",
+    "name": "黒ごまきなこラテ",
+    "description": "黒ごまときなこをミルクでまろやかに。香ばしさが二人分、同じカップに腰を下ろした。"
+  },
+  {
+    "key": "peach-earl-grey-tea-soda",
+    "name": "桃とアールグレイのティーソーダ",
+    "description": "桃の甘さとベルガモットの香りが、炭酸の泡に乗ってくる。紅茶にも、少し浮かれたい日がある。"
+  },
+  {
+    "key": "honey-lemon-espresso-tonic",
+    "name": "はちみつレモンのエスプレッソトニック",
+    "description": "蜂蜜レモンの炭酸へ、エスプレッソをそっと重ねる。甘さと苦さの境目を、泡が行ったり来たり。"
+  },
+  {
+    "key": "pistachio-cream-latte",
+    "name": "ピスタチオクリームラテ",
+    "description": "香ばしい珈琲に、淡い緑のピスタチオクリーム。砕いた実まで、今日は少し贅沢に。"
+  },
+  {
+    "key": "blue-sky-cream-soda",
+    "name": "青空クリームソーダ",
+    "description": "透き通る青いソーダに、バニラの雲をひとつ。ストローを差すと、小さな空がしゅわっと鳴った。"
+  },
+  {
+    "key": "mostly-ice-coffee",
+    "name": "ほぼ氷のアイスコーヒー",
+    "description": "氷はたっぷり、珈琲は隙間に少々。飲み終わっても、グラスの混雑は解消しない。"
+  },
+  {
+    "key": "milk-lost-coffee",
+    "name": "追いミルクで行方不明になった珈琲",
+    "description": "もう少し、もう少しと足していたら、珈琲が見当たらなくなった。香りだけが最後の目撃者。"
+  },
+  {
+    "key": "bottom-sweet-latte",
+    "name": "底だけ甘いカフェラテ",
+    "description": "上はいつものラテ、底はシロップの貯蔵庫。最後のひと口だけ、急に距離を詰めてくる。"
+  },
+  {
+    "key": "lid-stuck-whipped-cream",
+    "name": "蓋の裏に全部ついたホイップ",
+    "description": "ラテの上は、すっかり更地。ふたを裏返すと、注文した景色がそこにあった。"
+  },
+  {
+    "key": "less-sweet-sugar-water",
+    "name": "「甘さ控えめ」で注文した砂糖水",
+    "description": "控えたそうです。何と比べたのかは、店長しか知りません。"
+  },
+  {
+    "key": "same-as-yesterday-blend",
+    "name": "昨日と同じ気まぐれブレンド",
+    "description": "今日も昨日も、その前も同じ香り。店長の気まぐれは、どうやら一途らしい。"
+  },
+  {
+    "key": "grand-cup-instant-coffee",
+    "name": "カップだけ異常に立派なインスタント",
+    "description": "金縁のカップに、スプーン一杯のいつもの粉。格式は器がすべて引き受けている。"
+  },
+  {
+    "key": "hot-coffee-ordered-iced",
+    "name": "アイスで頼んだホットコーヒー",
+    "description": "しっかり湯気が立っている。伝票の向こうで、夏が冬に変わったらしい。"
+  },
+  {
+    "key": "warm-apple-pie-vanilla-ice-cream",
+    "name": "焼きたてアップルパイのバニラアイス添え",
+    "description": "熱い林檎と冷たいバニラが、皿の上で待ち合わせ。溶ける前に、さくりとどうぞ。"
+  },
+  {
+    "key": "honey-cheese-thick-toast",
+    "name": "はちみつチーズの厚切りトースト",
+    "description": "厚切りパンに、とろけるチーズと蜂蜜をたっぷり。甘いか塩っぱいかは、ひと口では決められない。"
+  },
+  {
+    "key": "fork-repelling-tart",
+    "name": "フォークを跳ね返すタルト",
+    "description": "見た目はさくさく、手応えは城壁。先に折れそうなのは、こちらの気持ち。"
+  },
+  {
+    "key": "reheated-cinnamon-roll-cluster",
+    "name": "温めたら全員くっついたシナモンロール",
+    "description": "ひとつずつ並べたはずが、温め直したら団結した。どこからが一人前か、話し合いが必要。"
   }
 ]
