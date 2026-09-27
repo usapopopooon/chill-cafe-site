@@ -868,5 +868,35 @@
     "key": "reheated-cinnamon-roll-cluster",
     "name": "温めたら全員くっついたシナモンロール",
     "description": "ひとつずつ並べたはずが、温め直したら団結した。どこからが一人前か、話し合いが必要。"
+  },
+  {
+    "key": "gulf-cardamom-gahwa",
+    "name": "湾岸のカルダモン・ガフワ",
+    "description": "淡く煎った豆とカルダモンをダッラで淹れ、小さなフィンジャーンへ注ぐもてなしの一杯。"
+  },
+  {
+    "key": "roadside-karak-chai",
+    "name": "路肩のカラックチャイ",
+    "description": "濃い紅茶をミルクと砂糖、カルダモンで煮た、湾岸の道端で親しまれる甘い一杯。"
+  },
+  {
+    "key": "pine-nut-jallab",
+    "name": "松の実のジャッラーブ",
+    "description": "果実の濃いシロップを冷水で割り、松の実を浮かべた花香るレヴァントの一杯。"
+  },
+  {
+    "key": "zaatar-manakish",
+    "name": "ザアタルのマナキーシュ",
+    "description": "平焼きパンへザアタルとオリーブ油を広げ、香ばしく焼いた街角の朝食。"
+  },
+  {
+    "key": "wood-mold-maamoul",
+    "name": "木型のマアムール",
+    "description": "デーツや木の実を包み、木型の細かな模様を押して焼くほろほろの菓子。"
+  },
+  {
+    "key": "hot-knafeh",
+    "name": "焼きたてクナーファ",
+    "description": "チーズと細い生地を熱く焼き、香るシロップを含ませたレヴァントの甘味。"
   }
 ]
